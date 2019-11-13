@@ -5,18 +5,37 @@ import { NavLink, Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { useTranslation } from "react-i18next";
 
+const useStyles = makeStyles(() => ({
+  menuItem: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "180px",
+    height: "100%",
+    float: "right",
+    "&:hover": {
+      background: "#C9CEEA",
+      color: "#3F51B5",
+      cursor: "pointer"
+    }
+  }
+}));
+
 const LanguageComponent: React.FC = () => {
   const { t, i18n } = useTranslation();
-  const [language, setLanguage] = useState(i18n.language);
+  const classes = useStyles();
 
-  const changeLanguage = (language:string) => {
+  const changeLanguage = (language: string) => {
     i18n.changeLanguage(language);
   };
 
   return (
-    <button onClick={() => changeLanguage(i18n.language === "eng" ? "est" : "eng")}>
+    <div
+      onClick={() => changeLanguage(i18n.language === "eng" ? "est" : "eng")}
+      className={classes.menuItem}
+    >
       {t("menu.languageLabel")}
-    </button>
+    </div>
   );
 };
 

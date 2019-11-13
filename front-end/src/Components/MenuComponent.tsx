@@ -14,16 +14,18 @@ const useStyles = makeStyles(() => ({
   },
   leftMenuBlock: {
     display: "flex",
-    float: "left"
+    width: "50%"
   },
   rightMenuBlock: {
-    float: "right"
+    width: "50%"
   },
   menuItem: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: "140px"
+    width: "140px",
+    textDecoration: "none",
+    color: "white"
   },
   activeNavlink: {
     color: "#3f51b5 !important",
@@ -51,8 +53,8 @@ const MenuComponent: React.FC = () => {
           </NavLink>
         </div>
         <div className={classes.rightMenuBlock}>
-          <LanguageComponent />
           <LogoutComponent />
+          <LanguageComponent />
         </div>
       </Toolbar>
     </AppBar>

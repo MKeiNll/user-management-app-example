@@ -5,8 +5,25 @@ import { NavLink, Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { useTranslation } from "react-i18next";
 
+const useStyles = makeStyles(() => ({
+  logoutButton: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "120px",
+    height: "100%",
+    float: "right",
+    "&:hover": {
+      background: "#C9CEEA",
+      color: "#3F51B5",
+      cursor: "pointer"
+    }
+  }
+}));
+
 const LogoutComponent: React.FC = () => {
   const { t } = useTranslation();
+  const classes = useStyles();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(
     sessionStorage.getItem("userLoggedIn")
   );
@@ -31,9 +48,9 @@ const LogoutComponent: React.FC = () => {
   };
 
   return isUserLoggedIn ? (
-    <button onClick={logoutUser}>
+    <div onClick={logoutUser} className={classes.logoutButton}>
       {t("menu.logoutLabel")}
-    </button>
+    </div>
   ) : (
     <Redirect to="/login" />
   );
