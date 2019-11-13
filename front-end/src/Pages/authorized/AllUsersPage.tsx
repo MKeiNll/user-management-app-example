@@ -13,6 +13,7 @@ import classes from "*.module.css";
 import { makeStyles } from "@material-ui/styles";
 import { jsxElement } from "@babel/types";
 import DeleteUserModalView from "./DeleteUserModalView";
+import AddUserModalView from "./AddUserModalView";
 
 const useStyles = makeStyles({
   table: {
@@ -59,7 +60,7 @@ const UsersPage: React.FC = () => {
   return (
     <>
       <MenuComponent />
-      <button id="add-user-btn">Add user </button>
+      <AddUserModalView />
       <div>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -79,7 +80,7 @@ const UsersPage: React.FC = () => {
                     <button>User details</button>
                   </TableCell>
                   <TableCell align="right">
-                    <DeleteUserModalView/>
+                    <DeleteUserModalView />
                   </TableCell>
                 </TableRow>
               ))}

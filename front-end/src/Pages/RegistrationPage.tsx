@@ -21,7 +21,7 @@ const RegisterPage: React.FC = () => {
           <input id="pwd-input" type="password" />
         </div>
         <div className="login-input">
-          Password again:
+          Repeat password:
           <br />
           <input id="pwd-input" type="password" />
         </div>

@@ -43,15 +43,7 @@ const MenuComponent: React.FC = () => {
             className={classes.menuItem}
             activeClassName={classes.activeNavlink}
           >
-            Users
-          </NavLink>
-          <NavLink
-            exact
-            to="/users/add"
-            className={classes.menuItem}
-            activeClassName={classes.activeNavlink}
-          >
-            Add User
+            Manage users
           </NavLink>
         </div>
         <div className={classes.rightMenuBlock}>
