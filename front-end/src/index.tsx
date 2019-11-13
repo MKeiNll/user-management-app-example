@@ -7,7 +7,7 @@ import LoginPage from "./Pages/LoginPage";
 import AllUsersPage from "./Pages/authorized/AllUsersPage";
 import UserDetailsPage from "./Pages/authorized/UserDetailsPage";
 import AddUserPage from "./Pages/authorized/AddUserPage";
-import RegisterPage from "./Pages/RegisterPage";
+import RegisterPage from "./Pages/RegistrationPage";
 import RecoverPasswordPage from "./Pages/RecoverPasswordPage";
 import { BrowserRouter } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";

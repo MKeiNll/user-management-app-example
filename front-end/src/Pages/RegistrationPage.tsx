@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import MenuComponent from "../../Components/MenuComponent";
+import MenuComponent from "../Components/MenuComponent";
 
-const UserDetailsPage: React.FC = () => {
+const RegisterPage: React.FC = () => {
   return (
     <>
       <MenuComponent />
@@ -27,11 +27,11 @@ const UserDetailsPage: React.FC = () => {
         </div>
 
         <div>
-          <button id="login-btn">Add new user</button>
+          <button id="login-btn">Register</button>
         </div>
       </div>
     </>
   );
 };
 
-export default UserDetailsPage;
+export default RegisterPage;

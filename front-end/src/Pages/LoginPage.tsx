@@ -36,10 +36,8 @@ const LoginPage: React.FC = () => {
     <>
       <MenuComponent />
       <div className="login-block">
-        <div className="login-header">Login</div>
-
         <div className="login-input">
-          Username:
+          Email:
           <br />
           <input
             id="email-input"
