@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import { Modal, TextField } from "@material-ui/core";
+import { Modal, TextField, Button } from "@material-ui/core";
 import classes from "*.module.css";
 import { makeStyles } from "@material-ui/styles";
 import { useTranslation } from "react-i18next";
@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   paper: {
     position: "absolute",
     width: 350,
-    height: 600,
+    height: 500,
     backgroundColor: "white",
     border: "2px solid #000",
     padding: "20px",
@@ -18,6 +18,12 @@ const useStyles = makeStyles(theme => ({
     top: "0",
     bottom: "0",
     margin: "auto"
+  },
+  openModalButton: {
+    marginBottom: 25
+  },
+  inputField: {
+    marginBottom: 25
   }
 }));
 
@@ -36,48 +42,55 @@ const AddUserModalView: React.FC = () => {
 
   return (
     <>
-      <button onClick={handleOpen}>{t("usersPage.newUserButtonLabel")}</button>
-      <Modal
-        open={open}
-        onClose={handleClose}
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleOpen}
+        className={classes.openModalButton}
       >
+        {t("usersPage.newUserButtonLabel")}
+      </Button>
+      <Modal open={open} onClose={handleClose}>
         <div className={classes.paper}>
           <div className="login-header">
-            {t("usersPage.newUserModal.title")}
+            <h3>{t("usersPage.newUserModal.title")}</h3>
           </div>
-          <div>{t("usersPage.newUserModal.emailLabel")}</div>
+          <div>
+            <b> {t("usersPage.newUserModal.emailLabel")}</b>
+          </div>
           <TextField
             error
-            id="filled-error-helper-text"
             label={t("input.errorLabel")}
             defaultValue="Hello World"
             helperText={t("input.emailTakenMessage")}
             margin="normal"
-            variant="filled"
+            className={classes.inputField}
           />
-          <div>{t("usersPage.newUserModal.password1Label")}</div>
+          <div>
+            <b> {t("usersPage.newUserModal.password1Label")}</b>
+          </div>
           <TextField
-            id="filled-error-helper-text"
             defaultValue="Hello World"
             margin="normal"
-            variant="filled"
             type="password"
+            className={classes.inputField}
           />
-          <div>{t("usersPage.newUserModal.password2Label")}</div>
+          <div>
+            <b> {t("usersPage.newUserModal.password2Label")}</b>
+          </div>
           <TextField
             error
-            id="filled-error-helper-text"
             label={t("input.errorLabel")}
             defaultValue="Hello World"
             helperText={t("input.passwordsDoNotMatchMessage")}
             margin="normal"
-            variant="filled"
             type="password"
+            className={classes.inputField}
           />
           <div>
-            <button id="login-btn">
+            <Button variant="contained" color="primary">
               {t("usersPage.newUserModal.createButtonLabel")}
-            </button>
+            </Button>
           </div>
         </div>
       </Modal>

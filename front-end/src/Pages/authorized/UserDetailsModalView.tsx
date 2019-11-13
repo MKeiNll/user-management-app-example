@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import { Modal } from "@material-ui/core";
+import { Modal, Button } from "@material-ui/core";
 import classes from "*.module.css";
 import { makeStyles } from "@material-ui/styles";
 import { useTranslation } from "react-i18next";
@@ -36,18 +36,14 @@ const UserDetailsModalView: React.FC = () => {
 
   return (
     <>
-      <button onClick={handleOpen}>
+      <Button variant="contained" onClick={handleOpen}>
         {t("usersPage.userDetailsButtonLabel")}
-      </button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-      >
+      </Button>
+      <Modal open={open} onClose={handleClose}>
         <div className={classes.paper}>
-          {t("usersPage.userDetailsModal.emailLabel")}
-          <br />
-          {t("usersPage.userDetailsModal.loginsLabel")}
-          <br />
+          <b>{t("usersPage.userDetailsModal.emailLabel")}</b>
+          <br /> <br />
+          <b>{t("usersPage.userDetailsModal.loginsLabel")}</b>
         </div>
       </Modal>
     </>

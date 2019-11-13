@@ -20,6 +20,10 @@ import { useTranslation } from "react-i18next";
 const useStyles = makeStyles({
   table: {
     width: 800
+  },
+  tableContainer: {
+    marginLeft: 200,
+    marginTop: 50
   }
 });
 
@@ -63,59 +67,61 @@ const UsersPage: React.FC = () => {
   return (
     <>
       <MenuComponent />
-      <AddUserModalView />
-      <div>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <TableCell>{t("usersPage.tableEmailLabel")}</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row, index) => (
-                <TableRow key={index}>
-                  <TableCell component="th" scope="row">
-                    {row.email}
-                  </TableCell>
-                  <TableCell align="right">
-                    <UserDetailsModalView />
-                  </TableCell>
-                  <TableCell align="right">
-                    <DeleteUserModalView />
-                  </TableCell>
-                </TableRow>
-              ))}
-            {emptyRows > 0 && (
-              <TableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={6} />
+      <div className={classes.tableContainer}>
+        <AddUserModalView />
+        <div>
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell><b>{t("usersPage.tableEmailLabel")}</b></TableCell>
               </TableRow>
-            )}
-          </TableBody>
-        </Table>
-        <TablePagination
-          className={classes.table}
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-          labelRowsPerPage={t("table.rowsPerPageLabel")}
-          labelDisplayedRows={({ from, to, count }) => {
-            return (
-              t("table.displayedRowsLabel1") +
-              from +
-              t("table.displayedRowsLabel2") +
-              to +
-              t("table.displayedRowsLabel3") +
-              count +
-              t("table.displayedRowsLabel4")
-            );
-          }}
-        />
+            </TableHead>
+            <TableBody>
+              {rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, index) => (
+                  <TableRow key={index}>
+                    <TableCell component="th" scope="row">
+                      {row.email}
+                    </TableCell>
+                    <TableCell align="right">
+                      <UserDetailsModalView />
+                    </TableCell>
+                    <TableCell align="right">
+                      <DeleteUserModalView />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 53 * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+          <TablePagination
+            className={classes.table}
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+            labelRowsPerPage={t("table.rowsPerPageLabel")}
+            labelDisplayedRows={({ from, to, count }) => {
+              return (
+                t("table.displayedRowsLabel1") +
+                from +
+                t("table.displayedRowsLabel2") +
+                to +
+                t("table.displayedRowsLabel3") +
+                count +
+                t("table.displayedRowsLabel4")
+              );
+            }}
+          />
+        </div>
       </div>
     </>
   );

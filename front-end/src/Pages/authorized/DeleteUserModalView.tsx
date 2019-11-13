@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import { Modal } from "@material-ui/core";
+import { Modal, Button } from "@material-ui/core";
 import classes from "*.module.css";
 import { makeStyles } from "@material-ui/styles";
 import { useTranslation } from "react-i18next";
@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   paper: {
     position: "absolute",
     width: 350,
-    height: 200,
+    height: 100,
     backgroundColor: "white",
     border: "2px solid #000",
     padding: "20px",
@@ -18,6 +18,9 @@ const useStyles = makeStyles(theme => ({
     top: "0",
     bottom: "0",
     margin: "auto"
+  },
+  deleteButton: {
+    marginTop: 25
   }
 }));
 
@@ -36,16 +39,20 @@ const DeleteUserModalView: React.FC = () => {
 
   return (
     <>
-      <button onClick={handleOpen}>
+      <Button variant="contained" onClick={handleOpen}>
         {t("usersPage.deleteUserButtonLabel")}
-      </button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-      >
+      </Button>
+      <Modal open={open} onClose={handleClose}>
         <div className={classes.paper}>
           {t("usersPage.deleteUserModal.confirmationMessage")}
-          <button>{t("usersPage.deleteUserModal.deleteButton")}</button>
+          <Button
+            variant="contained"
+            onClick={handleOpen}
+            color="primary"
+            className={classes.deleteButton}
+          >
+            {t("usersPage.deleteUserModal.deleteButton")}
+          </Button>
         </div>
       </Modal>
     </>
