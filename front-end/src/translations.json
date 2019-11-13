@@ -1,0 +1,16 @@
+{
+  "eng": {
+    "translations": {
+      "loginPage": {
+        "emailLabel": "Email:"
+      }
+    }
+  },
+  "est": {
+    "translations": {
+      "loginPage": {
+        "emailLabel": "Email:"
+      }
+    }
+  }
+}

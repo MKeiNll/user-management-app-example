@@ -3,8 +3,10 @@ import { Redirect, Link } from "react-router-dom";
 import MenuComponent from "../Components/MenuComponent";
 import PasswordRecoveryModalView from "./PasswordRecoveryModalView";
 import { TextField } from "@material-ui/core";
+import { Trans, useTranslation } from "react-i18next";
 
 const LoginPage: React.FC = () => {
+  const { t } = useTranslation();
   const [usernameValue, setUsernameValue] = useState<string>("");
   const [passwordValue, setPasswordValue] = useState<string>("");
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(
@@ -37,7 +39,7 @@ const LoginPage: React.FC = () => {
   ) : (
     <>
       <MenuComponent />
-      <div>Email:</div>
+      <div>{t("loginPage.emailLabel")}</div>
       <TextField
         error
         id="filled-error-helper-text"
