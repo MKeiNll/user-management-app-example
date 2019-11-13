@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect, Link } from "react-router-dom";
 import MenuComponent from "../Components/MenuComponent";
 
 const LoginPage: React.FC = () => {
   const [usernameValue, setUsernameValue] = useState<string>("");
   const [passwordValue, setPasswordValue] = useState<string>("");
-  const [loginStatus, setLoginStatus] = useState<boolean>(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(
+    sessionStorage.getItem("userLoggedIn")
+  );
+
+  useEffect(() => {
+    sessionStorage.setItem("userLoggedIn", isUserLoggedIn as string);
+  }, [isUserLoggedIn]);
 
   const loginUser = () => {
     fetch("/api/auth/login", {
@@ -17,13 +23,12 @@ const LoginPage: React.FC = () => {
       })
     }).then(res => {
       if (res.status === 200) {
-        setLoginStatus(true);
-        sessionStorage.setItem("userLoggedIn", "yes");
+        setIsUserLoggedIn("true");
       }
     });
   };
 
-  return loginStatus ? (
+  return isUserLoggedIn ? (
     <Redirect to="/users" />
   ) : (
     <>
