@@ -14,9 +14,9 @@ const RegisterPage: React.FC = () => {
       <TextField
         error
         id="filled-error-helper-text"
-        label="Error"
+        label={t("input.errorLabel")}
         defaultValue="Hello World"
-        helperText="Email taken."
+        helperText={t("input.emailTakenMessage")}
         margin="normal"
         variant="filled"
       />
@@ -24,9 +24,7 @@ const RegisterPage: React.FC = () => {
       <div>{t("registrationPage.password1Label")}</div>
       <TextField
         id="filled-error-helper-text"
-        label="Error"
         defaultValue="Hello World"
-        helperText="Email taken."
         margin="normal"
         variant="filled"
         type="password"
@@ -35,16 +33,18 @@ const RegisterPage: React.FC = () => {
       <TextField
         error
         id="filled-error-helper-text"
-        label="Error"
+        label={t("input.errorLabel")}
         defaultValue="Hello World"
-        helperText="Passwords do not match."
+        helperText={t("input.passwordsDoNotMatchMessage")}
         margin="normal"
         variant="filled"
         type="password"
       />
 
       <div>
-        <button id="login-btn">{t("registrationPage.registrationButton")}</button>
+        <button id="login-btn">
+          {t("registrationPage.registrationButton")}
+        </button>
       </div>
     </>
   );

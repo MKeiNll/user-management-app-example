@@ -44,6 +44,13 @@
         "userDetailsButtonLabel": "User details",
         "passwordRecoveryButton": "Forgot password?",
         "tableEmailLabel": "User email"
+      },
+      "input": {
+        "errorLabel": "Error",
+        "emailTakenMessage": "This email is already taken.",
+        "passwordsDoNotMatchMessage": "Passwords do not match.",
+        "wrongEmailMessage": "Wrong email.",
+        "wrongPasswordMessage": "Wrong password."
       }
     }
   },
@@ -92,6 +99,13 @@
         "userDetailsButtonLabel": "Kasutaja dertailvaade",
         "passwordRecoveryButton": "Unustasid parooli?",
         "tableEmailLabel": "Kasutaja e-post"
+      },
+      "input": {
+        "errorLabel": "Viga",
+        "emailTakenMessage": "See e-mail on juba võetud.",
+        "passwordsDoNotMatchMessage": "Paroolid ei kattu.",
+        "wrongEmailMessage": "Vale e-post.",
+        "wrongPasswordMessage": "Vale parool."
       }
     }
   }

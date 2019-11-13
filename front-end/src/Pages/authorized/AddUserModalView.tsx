@@ -51,16 +51,15 @@ const AddUserModalView: React.FC = () => {
           <TextField
             error
             id="filled-error-helper-text"
-            label="Error"
+            label={t("input.errorLabel")}
             defaultValue="Hello World"
-            helperText="Email taken."
+            helperText={t("input.emailTakenMessage")}
             margin="normal"
             variant="filled"
           />
           <div>{t("usersPage.newUserModal.password1Label")}</div>
           <TextField
             id="filled-error-helper-text"
-            label="Error"
             defaultValue="Hello World"
             margin="normal"
             variant="filled"
@@ -70,9 +69,9 @@ const AddUserModalView: React.FC = () => {
           <TextField
             error
             id="filled-error-helper-text"
-            label="Error"
+            label={t("input.errorLabel")}
             defaultValue="Hello World"
-            helperText="Passwords do not match."
+            helperText={t("input.passwordsDoNotMatchMessage")}
             margin="normal"
             variant="filled"
             type="password"
