@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import MenuComponent from "../Components/MenuComponent";
 import { TextField } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
 
 const RegisterPage: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <>
       <MenuComponent />
 
-      <div>Email:</div>
+      <div>{t("registrationPage.emailLabel")}</div>
       <TextField
         error
         id="filled-error-helper-text"
@@ -19,7 +21,7 @@ const RegisterPage: React.FC = () => {
         variant="filled"
       />
 
-      <div>Password:</div>
+      <div>{t("registrationPage.password1Label")}</div>
       <TextField
         id="filled-error-helper-text"
         label="Error"
@@ -29,7 +31,7 @@ const RegisterPage: React.FC = () => {
         variant="filled"
         type="password"
       />
-      <div>Repeat password:</div>
+      <div>{t("registrationPage.password2Label")}</div>
       <TextField
         error
         id="filled-error-helper-text"
@@ -42,7 +44,7 @@ const RegisterPage: React.FC = () => {
       />
 
       <div>
-        <button id="login-btn">Register</button>
+        <button id="login-btn">{t("registrationPage.registrationButton")}</button>
       </div>
     </>
   );

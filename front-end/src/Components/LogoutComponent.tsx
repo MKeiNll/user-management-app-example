@@ -3,8 +3,10 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { NavLink, Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import { useTranslation } from "react-i18next";
 
 const LogoutComponent: React.FC = () => {
+  const { t } = useTranslation();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(
     sessionStorage.getItem("userLoggedIn")
   );
@@ -29,7 +31,9 @@ const LogoutComponent: React.FC = () => {
   };
 
   return isUserLoggedIn ? (
-    <button onClick={logoutUser}>Logout</button>
+    <button onClick={logoutUser}>
+      {t("menu.logoutLabel")}
+    </button>
   ) : (
     <Redirect to="/login" />
   );

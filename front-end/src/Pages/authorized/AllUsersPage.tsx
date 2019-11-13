@@ -15,6 +15,7 @@ import { jsxElement } from "@babel/types";
 import DeleteUserModalView from "./DeleteUserModalView";
 import AddUserModalView from "./AddUserModalView";
 import UserDetailsModalView from "./UserDetailsModalView";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles({
   table: {
@@ -42,6 +43,7 @@ const rows = [
 ];
 
 const UsersPage: React.FC = () => {
+  const { t } = useTranslation();
   const classes = useStyles();
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [page, setPage] = React.useState(0);
@@ -66,7 +68,7 @@ const UsersPage: React.FC = () => {
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>User email</TableCell>
+              <TableCell>{t("usersPage.tableEmailLabel")}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

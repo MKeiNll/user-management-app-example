@@ -1,8 +1,48 @@
 {
   "eng": {
     "translations": {
+      "menu": {
+        "logoutLabel": "Logout",
+        "manageUsersLabel": "Manage users",
+        "loginLabel": "Login",
+        "registerLabel": "Register"
+      },
       "loginPage": {
-        "emailLabel": "Email:"
+        "emailLabel": "Email:",
+        "passwordLabel": "Password:",
+        "loginButtonLabel": "Login"
+      },
+      "registrationPage": {
+        "emailLabel": "Email:",
+        "password1Label": "Password:",
+        "password2Label": "Repeat  password:",
+        "registrationButton": "Create account"
+      },
+      "usersPage": {
+        "newUserModal": {
+          "title": "New user creation",
+          "emailLabel": "Email:",
+          "password1Label": "Password:",
+          "password2Label": "Repeat  password:",
+          "createButtonLabel": "Create user"
+        },
+        "deleteUserModal": {
+          "confirmationMessage": "Are you sure you want to delete this user?",
+          "deleteButton": "Delete user"
+        },
+        "userDetailsModal": {
+          "emailLabel": "Email:",
+          "loginsLabel": "This user has logged in at:"
+        },
+        "passwordRecoveryModal": {
+          "enterEmailMessage": "Please enter your email. A link with new password will be sent to it.",
+          "sendPasswordButton": "Send new password"
+        },
+        "newUserButtonLabel": "Add new user",
+        "deleteUserButtonLabel": "Delete user",
+        "userDetailsButtonLabel": "User details",
+        "passwordRecoveryButton": "Forgot password?",
+        "tableEmailLabel": "User email"
       }
     }
   },

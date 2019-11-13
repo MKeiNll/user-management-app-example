@@ -4,6 +4,7 @@ import MenuComponent from "../Components/MenuComponent";
 import { Modal } from "@material-ui/core";
 import classes from "*.module.css";
 import { makeStyles } from "@material-ui/styles";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -22,6 +23,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const PasswordRecoveryModalView: React.FC = () => {
+  const { t } = useTranslation();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -35,7 +37,9 @@ const PasswordRecoveryModalView: React.FC = () => {
 
   return (
     <>
-      <button onClick={handleOpen}>Forgot password?</button>
+      <button onClick={handleOpen}>
+        {t("usersPage.passwordRecoveryButton")}
+      </button>
       <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
@@ -43,10 +47,12 @@ const PasswordRecoveryModalView: React.FC = () => {
         onClose={handleClose}
       >
         <div className={classes.paper}>
-          Please enter your email:
+          {t("usersPage.passwordRecoveryModal.enterEmailMessage")}
           <br />
           <input id="email-input" type="text" />
-          <button id="login-btn">Send new password</button>
+          <button id="login-btn">
+            {t("usersPage.passwordRecoveryModal.sendPasswordButton")}
+          </button>
         </div>
       </Modal>
     </>

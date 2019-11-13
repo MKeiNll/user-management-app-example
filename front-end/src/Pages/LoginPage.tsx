@@ -51,7 +51,7 @@ const LoginPage: React.FC = () => {
         onChange={e => setUsernameValue((e.target as HTMLInputElement).value)}
       />
 
-      <div>Password:</div>
+      <div>{t("loginPage.passwordLabel")}</div>
       <TextField
         error
         id="filled-error-helper-text"
@@ -65,16 +65,11 @@ const LoginPage: React.FC = () => {
       />
       <div>
         <button id="login-btn" onClick={loginUser}>
-          Login
+          {t("loginPage.loginButtonLabel")}
         </button>
       </div>
 
       <PasswordRecoveryModalView />
-
-      <div className="default-login-user">
-        // Default admin user (Email: "sean.maxwell@gmail.com", Password:
-        "Password@1")
-      </div>
     </>
   );
 };

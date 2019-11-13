@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import { Modal, TextField } from "@material-ui/core";
 import classes from "*.module.css";
 import { makeStyles } from "@material-ui/styles";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -21,6 +22,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AddUserModalView: React.FC = () => {
+  const { t } = useTranslation();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -34,7 +36,7 @@ const AddUserModalView: React.FC = () => {
 
   return (
     <>
-      <button onClick={handleOpen}>Add new user</button>
+      <button onClick={handleOpen}>{t("usersPage.newUserButtonLabel")}</button>
       <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
@@ -42,8 +44,10 @@ const AddUserModalView: React.FC = () => {
         onClose={handleClose}
       >
         <div className={classes.paper}>
-          <div className="login-header">Add new user</div>
-          <div>Email:</div>
+          <div className="login-header">
+            {t("usersPage.newUserModal.title")}
+          </div>
+          <div>{t("usersPage.newUserModal.emailLabel")}</div>
           <TextField
             error
             id="filled-error-helper-text"
@@ -53,7 +57,7 @@ const AddUserModalView: React.FC = () => {
             margin="normal"
             variant="filled"
           />
-          <div>Password:</div>
+          <div>{t("usersPage.newUserModal.password1Label")}</div>
           <TextField
             id="filled-error-helper-text"
             label="Error"
@@ -62,7 +66,7 @@ const AddUserModalView: React.FC = () => {
             variant="filled"
             type="password"
           />
-          <div>Repeat password:</div>
+          <div>{t("usersPage.newUserModal.password2Label")}</div>
           <TextField
             error
             id="filled-error-helper-text"
@@ -74,7 +78,9 @@ const AddUserModalView: React.FC = () => {
             type="password"
           />
           <div>
-            <button id="login-btn">Add new user</button>
+            <button id="login-btn">
+              {t("usersPage.newUserModal.createButtonLabel")}
+            </button>
           </div>
         </div>
       </Modal>

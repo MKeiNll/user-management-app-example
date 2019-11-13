@@ -4,6 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import { NavLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import LogoutComponent from "./LogoutComponent";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(() => ({
   toolbar: {
@@ -30,6 +31,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const MenuComponent: React.FC = () => {
+  const { t } = useTranslation();
   const classes = useStyles();
 
   const [isUserLoggedIn] = useState(sessionStorage.getItem("userLoggedIn"));
@@ -43,7 +45,7 @@ const MenuComponent: React.FC = () => {
             className={classes.menuItem}
             activeClassName={classes.activeNavlink}
           >
-            Manage users
+            {t("menu.manageUsersLabel")}
           </NavLink>
         </div>
         <div className={classes.rightMenuBlock}>
@@ -60,7 +62,7 @@ const MenuComponent: React.FC = () => {
             className={classes.menuItem}
             activeClassName={classes.activeNavlink}
           >
-            Login
+            {t("menu.loginLabel")}
           </NavLink>
           <NavLink
             exact
@@ -68,7 +70,7 @@ const MenuComponent: React.FC = () => {
             className={classes.menuItem}
             activeClassName={classes.activeNavlink}
           >
-            Register
+            {t("menu.registerLabel")}
           </NavLink>
         </div>
       </Toolbar>

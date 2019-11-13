@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import { Modal } from "@material-ui/core";
 import classes from "*.module.css";
 import { makeStyles } from "@material-ui/styles";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -21,6 +22,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const DeleteUserModalView: React.FC = () => {
+  const { t } = useTranslation();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -34,7 +36,9 @@ const DeleteUserModalView: React.FC = () => {
 
   return (
     <>
-      <button onClick={handleOpen}>Delete user</button>
+      <button onClick={handleOpen}>
+        {t("usersPage.deleteUserButtonLabel")}
+      </button>
       <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
@@ -42,8 +46,8 @@ const DeleteUserModalView: React.FC = () => {
         onClose={handleClose}
       >
         <div className={classes.paper}>
-          Are you sure to delete the user?
-          <button>Yes, delete</button>
+          {t("usersPage.deleteUserModal.confirmationMessage")}
+          <button>{t("usersPage.deleteUserModal.deleteButton")}</button>
         </div>
       </Modal>
     </>

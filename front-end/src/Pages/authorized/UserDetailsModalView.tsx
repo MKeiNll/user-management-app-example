@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import { Modal } from "@material-ui/core";
 import classes from "*.module.css";
 import { makeStyles } from "@material-ui/styles";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -21,6 +22,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const UserDetailsModalView: React.FC = () => {
+  const { t } = useTranslation();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -34,7 +36,9 @@ const UserDetailsModalView: React.FC = () => {
 
   return (
     <>
-      <button onClick={handleOpen}>User details</button>
+      <button onClick={handleOpen}>
+        {t("usersPage.userDetailsButtonLabel")}
+      </button>
       <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
@@ -42,15 +46,9 @@ const UserDetailsModalView: React.FC = () => {
         onClose={handleClose}
       >
         <div className={classes.paper}>
-          Email: asfd@johnatan.co.uk
+          {t("usersPage.userDetailsModal.emailLabel")}
           <br />
-          User logins:
-          <br />
-          <div>15.11.2015</div>
-          <br />
-          <div>15.11.2016</div>
-          <br />
-          <div>15.11.2017</div>
+          {t("usersPage.userDetailsModal.loginsLabel")}
           <br />
         </div>
       </Modal>
