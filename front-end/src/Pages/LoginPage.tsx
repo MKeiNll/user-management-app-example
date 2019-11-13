@@ -4,9 +4,21 @@ import MenuComponent from "../Components/MenuComponent";
 import PasswordRecoveryModalView from "./PasswordRecoveryModalView";
 import { TextField } from "@material-ui/core";
 import { Trans, useTranslation } from "react-i18next";
+import { makeStyles } from "@material-ui/styles";
+
+const useStyles = makeStyles(() => ({
+  inputContainer: {
+    marginLeft: 200,
+    marginTop: 50
+  },
+  inputField: {
+    marginBottom: 25
+  }
+}));
 
 const LoginPage: React.FC = () => {
   const { t } = useTranslation();
+    const classes = useStyles();
   const [usernameValue, setUsernameValue] = useState<string>("");
   const [passwordValue, setPasswordValue] = useState<string>("");
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(
@@ -39,37 +51,41 @@ const LoginPage: React.FC = () => {
   ) : (
     <>
       <MenuComponent />
-      <div>{t("loginPage.emailLabel")}</div>
-      <TextField
-        error
-        id="filled-error-helper-text"
-        label={t("input.errorLabel")}
-        defaultValue="Hello World"
-        helperText={t("input.wrongEmailMessage")}
-        margin="normal"
-        variant="filled"
-        onChange={e => setUsernameValue((e.target as HTMLInputElement).value)}
-      />
+      <div className={classes.inputContainer}>
+        <div>
+          <b>{t("loginPage.emailLabel")}</b>
+        </div>
+        <TextField
+          error
+          label={t("input.errorLabel")}
+          defaultValue="Hello World"
+          helperText={t("input.wrongEmailMessage")}
+          margin="normal"
+          onChange={e => setUsernameValue((e.target as HTMLInputElement).value)}
+          className={classes.inputField}
+        />
 
-      <div>{t("loginPage.passwordLabel")}</div>
-      <TextField
-        error
-        id="filled-error-helper-text"
-        label={t("input.errorLabel")}
-        defaultValue="Hello World"
-        helperText={t("input.wrongPasswordMessage")}
-        margin="normal"
-        variant="filled"
-        type="password"
-        onChange={e => setPasswordValue((e.target as HTMLInputElement).value)}
-      />
-      <div>
-        <button id="login-btn" onClick={loginUser}>
-          {t("loginPage.loginButtonLabel")}
-        </button>
+        <div>
+          <b>{t("loginPage.passwordLabel")}</b>
+        </div>
+        <TextField
+          error
+          label={t("input.errorLabel")}
+          defaultValue="Hello World"
+          helperText={t("input.wrongPasswordMessage")}
+          margin="normal"
+          type="password"
+          onChange={e => setPasswordValue((e.target as HTMLInputElement).value)}
+          className={classes.inputField}
+        />
+        <div>
+          <button id="login-btn" onClick={loginUser}>
+            {t("loginPage.loginButtonLabel")}
+          </button>
+        </div>
+
+        <PasswordRecoveryModalView />
       </div>
-
-      <PasswordRecoveryModalView />
     </>
   );
 };
