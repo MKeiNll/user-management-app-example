@@ -47,7 +47,7 @@ const MenuComponent: React.FC = () => {
           </NavLink>
           <NavLink
             exact
-            to="/add"
+            to="/users/add"
             className={classes.menuItem}
             activeClassName={classes.activeNavlink}
           >

@@ -1,8 +1,8 @@
 import React, { Component, FunctionComponent } from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, withRouter } from "react-router-dom";
 
 type PrivateRouteProps = {
-  exact: boolean;
+  exact?: boolean;
   path: string;
   component: FunctionComponent<{}>;
 };

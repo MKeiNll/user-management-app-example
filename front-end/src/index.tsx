@@ -22,7 +22,7 @@ ReactDOM.render(
     <Route exact path="/register" component={RegisterPage} />
     <PrivateRoute exact path="/users" component={AllUsersPage} />
     <PrivateRoute exact path="/users/details" component={UserDetailsPage} />
-    <PrivateRoute exact path="/add" component={AddUserPage} />
+    <PrivateRoute exact path="/users/add" component={AddUserPage} />
   </BrowserRouter>,
   document.getElementById("root")
 );
