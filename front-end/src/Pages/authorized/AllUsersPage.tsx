@@ -24,6 +24,9 @@ const useStyles = makeStyles({
   tableContainer: {
     marginLeft: 200,
     marginTop: 50
+  },
+  tableRow: {
+    height: 75
   }
 });
 
@@ -73,14 +76,16 @@ const UsersPage: React.FC = () => {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <TableCell><b>{t("usersPage.tableEmailLabel")}</b></TableCell>
+                <TableCell>
+                  <b>{t("usersPage.tableEmailLabel")}</b>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => (
-                  <TableRow key={index}>
+                  <TableRow key={index} className={classes.tableRow}>
                     <TableCell component="th" scope="row">
                       {row.email}
                     </TableCell>
@@ -93,7 +98,7 @@ const UsersPage: React.FC = () => {
                   </TableRow>
                 ))}
               {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
+                <TableRow style={{ height: 75 * emptyRows }}>
                   <TableCell colSpan={6} />
                 </TableRow>
               )}
