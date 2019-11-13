@@ -49,7 +49,7 @@
         "errorLabel": "Error",
         "emailTakenMessage": "This email is already taken.",
         "passwordsDoNotMatchMessage": "Passwords do not match.",
-        "wrongEmailMessage": "Wrong email.",
+        "wrongEmailMessage": "Email is not registered.",
         "wrongPasswordMessage": "Wrong password."
       },
       "table": {
@@ -111,7 +111,7 @@
         "errorLabel": "Viga",
         "emailTakenMessage": "See e-mail on juba võetud.",
         "passwordsDoNotMatchMessage": "Paroolid ei kattu.",
-        "wrongEmailMessage": "Vale e-post.",
+        "wrongEmailMessage": "E-post ei ole registreeritud.",
         "wrongPasswordMessage": "Vale parool."
       },
       "table": {

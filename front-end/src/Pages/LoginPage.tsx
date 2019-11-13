@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Redirect, Link } from "react-router-dom";
 import MenuComponent from "../Components/MenuComponent";
 import PasswordRecoveryModalView from "./PasswordRecoveryModalView";
-import { TextField } from "@material-ui/core";
+import { TextField, Button } from "@material-ui/core";
 import { Trans, useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/styles";
 
@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
 
 const LoginPage: React.FC = () => {
   const { t } = useTranslation();
-    const classes = useStyles();
+  const classes = useStyles();
   const [usernameValue, setUsernameValue] = useState<string>("");
   const [passwordValue, setPasswordValue] = useState<string>("");
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(
@@ -79,11 +79,11 @@ const LoginPage: React.FC = () => {
           className={classes.inputField}
         />
         <div>
-          <button id="login-btn" onClick={loginUser}>
+          <Button variant="contained" color="primary" onClick={loginUser}>
             {t("loginPage.loginButtonLabel")}
-          </button>
+          </Button>
         </div>
-
+        <br/>
         <PasswordRecoveryModalView />
       </div>
     </>

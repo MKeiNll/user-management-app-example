@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import MenuComponent from "../Components/MenuComponent";
-import { Modal } from "@material-ui/core";
+import { Modal, Button, TextField } from "@material-ui/core";
 import classes from "*.module.css";
 import { makeStyles } from "@material-ui/styles";
 import { useTranslation } from "react-i18next";
@@ -19,6 +19,9 @@ const useStyles = makeStyles(theme => ({
     top: "0",
     bottom: "0",
     margin: "auto"
+  },
+  inputField: {
+    marginBottom: 25
   }
 }));
 
@@ -37,20 +40,26 @@ const PasswordRecoveryModalView: React.FC = () => {
 
   return (
     <>
-      <button onClick={handleOpen}>
+      <Button variant="contained" color="primary" onClick={handleOpen}>
         {t("usersPage.passwordRecoveryButton")}
-      </button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-      >
+      </Button>
+
+      <Modal open={open} onClose={handleClose}>
         <div className={classes.paper}>
           {t("usersPage.passwordRecoveryModal.enterEmailMessage")}
           <br />
-          <input id="email-input" type="text" />
-          <button id="login-btn">
+          <TextField
+            error
+            label={t("input.errorLabel")}
+            defaultValue="Hello World"
+            helperText={t("input.wrongEmailMessage")}
+            margin="normal"
+            type="password"
+            className={classes.inputField}
+          />
+          <Button variant="contained" color="primary">
             {t("usersPage.passwordRecoveryModal.sendPasswordButton")}
-          </button>
+          </Button>
         </div>
       </Modal>
     </>

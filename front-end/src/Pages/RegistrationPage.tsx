@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import MenuComponent from "../Components/MenuComponent";
-import { TextField } from "@material-ui/core";
+import { TextField, Button } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/styles";
 
@@ -58,9 +58,9 @@ const RegisterPage: React.FC = () => {
         />
 
         <div>
-          <button id="login-btn">
+          <Button variant="contained" color="primary">
             {t("registrationPage.registrationButton")}
-          </button>
+          </Button>
         </div>
       </div>
     </>
