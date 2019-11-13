@@ -40,8 +40,6 @@ const DeleteUserModalView: React.FC = () => {
         {t("usersPage.deleteUserButtonLabel")}
       </button>
       <Modal
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
         open={open}
         onClose={handleClose}
       >

@@ -40,8 +40,6 @@ const UserDetailsModalView: React.FC = () => {
         {t("usersPage.userDetailsButtonLabel")}
       </button>
       <Modal
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
         open={open}
         onClose={handleClose}
       >

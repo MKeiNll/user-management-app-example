@@ -51,6 +51,13 @@
         "passwordsDoNotMatchMessage": "Passwords do not match.",
         "wrongEmailMessage": "Wrong email.",
         "wrongPasswordMessage": "Wrong password."
+      },
+      "table": {
+        "rowsPerPageLabel": "Rows per page:",
+        "displayedRowsLabel1": "",
+        "displayedRowsLabel2": " - ",
+        "displayedRowsLabel3": " of ",
+        "displayedRowsLabel4": ""
       }
     }
   },
@@ -106,6 +113,13 @@
         "passwordsDoNotMatchMessage": "Paroolid ei kattu.",
         "wrongEmailMessage": "Vale e-post.",
         "wrongPasswordMessage": "Vale parool."
+      },
+      "table": {
+        "rowsPerPageLabel": "Ridasid lehel:",
+        "displayedRowsLabel1": "",
+        "displayedRowsLabel2": " - ",
+        "displayedRowsLabel3": " ",
+        "displayedRowsLabel4": "-st"
       }
     }
   }

@@ -65,7 +65,7 @@ const UsersPage: React.FC = () => {
       <MenuComponent />
       <AddUserModalView />
       <div>
-        <Table className={classes.table} aria-label="simple table">
+        <Table className={classes.table}>
           <TableHead>
             <TableRow>
               <TableCell>{t("usersPage.tableEmailLabel")}</TableCell>
@@ -101,14 +101,20 @@ const UsersPage: React.FC = () => {
           count={rows.length}
           rowsPerPage={rowsPerPage}
           page={page}
-          backIconButtonProps={{
-            "aria-label": "previous page"
-          }}
-          nextIconButtonProps={{
-            "aria-label": "next page"
-          }}
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
+          labelRowsPerPage={t("table.rowsPerPageLabel")}
+          labelDisplayedRows={({ from, to, count }) => {
+            return (
+              t("table.displayedRowsLabel1") +
+              from +
+              t("table.displayedRowsLabel2") +
+              to +
+              t("table.displayedRowsLabel3") +
+              count +
+              t("table.displayedRowsLabel4")
+            );
+          }}
         />
       </div>
     </>

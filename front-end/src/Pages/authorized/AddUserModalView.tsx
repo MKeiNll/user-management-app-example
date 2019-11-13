@@ -38,8 +38,6 @@ const AddUserModalView: React.FC = () => {
     <>
       <button onClick={handleOpen}>{t("usersPage.newUserButtonLabel")}</button>
       <Modal
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
         open={open}
         onClose={handleClose}
       >
