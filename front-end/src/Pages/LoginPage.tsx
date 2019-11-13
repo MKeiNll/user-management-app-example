@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Redirect, Link } from "react-router-dom";
 import MenuComponent from "../Components/MenuComponent";
+import PasswordRecoveryModalView from "./PasswordRecoveryModalView";
 
 const LoginPage: React.FC = () => {
   const [usernameValue, setUsernameValue] = useState<string>("");
@@ -29,7 +30,7 @@ const LoginPage: React.FC = () => {
       }
     });
   };
-
+  
   return isUserLoggedIn ? (
     <Redirect to="/users" />
   ) : (
@@ -66,10 +67,9 @@ const LoginPage: React.FC = () => {
           <button id="login-btn" onClick={loginUser}>
             Login
           </button>
-          <Link to="/login/recover">
-            <button>Forgot password?</button>
-          </Link>
         </div>
+
+        <PasswordRecoveryModalView />
 
         <div className="default-login-user">
           // Default admin user (Email: "sean.maxwell@gmail.com", Password:
