@@ -48,8 +48,48 @@
   },
   "est": {
     "translations": {
+      "menu": {
+        "logoutLabel": "Logi välja",
+        "manageUsersLabel": "Halda kasutajaid",
+        "loginLabel": "Logi sisse",
+        "registerLabel": "Registreeri"
+      },
       "loginPage": {
-        "emailLabel": "Email:"
+        "emailLabel": "E-post:",
+        "passwordLabel": "Parool:",
+        "loginButtonLabel": "Logi sisse"
+      },
+      "registrationPage": {
+        "emailLabel": "E-post:",
+        "password1Label": "Parool:",
+        "password2Label": "Korda parooli:",
+        "registrationButton": "Loo konto"
+      },
+      "usersPage": {
+        "newUserModal": {
+          "title": "Uue kasutaja loomine",
+          "emailLabel": "E-post:",
+          "password1Label": "Parool:",
+          "password2Label": "Korda parooli:",
+          "createButtonLabel": "Loo kasutaja"
+        },
+        "deleteUserModal": {
+          "confirmationMessage": "Kas kindlasti soovite selle kasutaja kustutada?",
+          "deleteButton": "Kustuta kasutaja"
+        },
+        "userDetailsModal": {
+          "emailLabel": "E-post:",
+          "loginsLabel": "See kasutaja oli sisse loginud:"
+        },
+        "passwordRecoveryModal": {
+          "enterEmailMessage": "Sisestage oma e-posti aadress. Sellele saadetakse link uue parooliga.",
+          "sendPasswordButton": "Saada uus parool"
+        },
+        "newUserButtonLabel": "Lisage uus kasutaja",
+        "deleteUserButtonLabel": "Kustuta kasutaja",
+        "userDetailsButtonLabel": "Kasutaja dertailvaade",
+        "passwordRecoveryButton": "Unustasid parooli?",
+        "tableEmailLabel": "Kasutaja e-post"
       }
     }
   }
