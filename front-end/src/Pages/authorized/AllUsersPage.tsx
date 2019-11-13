@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import classes from "*.module.css";
 import { makeStyles } from "@material-ui/styles";
+import { jsxElement } from "@babel/types";
 
 const useStyles = makeStyles({
   table: {
@@ -58,9 +59,6 @@ const UsersPage: React.FC = () => {
     <>
       <MenuComponent />
       <button id="add-user-btn">Add user </button>
-      <Link to="/users/details">
-        <button>User details</button>
-      </Link>
       <div>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -75,6 +73,12 @@ const UsersPage: React.FC = () => {
                 <TableRow key={index}>
                   <TableCell component="th" scope="row">
                     {row.email}
+                  </TableCell>
+                  <TableCell align="right">
+                    <button>Details</button>
+                  </TableCell>
+                  <TableCell align="right">
+                    <button>Delete</button>
                   </TableCell>
                 </TableRow>
               ))}
