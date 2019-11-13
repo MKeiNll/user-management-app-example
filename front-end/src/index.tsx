@@ -7,7 +7,6 @@ import LoginPage from "./Pages/LoginPage";
 import AllUsersPage from "./Pages/authorized/AllUsersPage";
 import RegisterPage from "./Pages/RegistrationPage";
 import { BrowserRouter } from "react-router-dom";
-import PrivateRoute from "./PrivateRoute";
 import "./i18n";
 
 ReactDOM.render(

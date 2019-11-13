@@ -54,7 +54,6 @@ const PasswordRecoveryModalView: React.FC = () => {
             defaultValue="Hello World"
             helperText={t("input.wrongEmailMessage")}
             margin="normal"
-            type="password"
             className={classes.inputField}
           />
           <Button variant="contained" color="primary">
