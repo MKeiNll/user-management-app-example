@@ -5,7 +5,8 @@
         "logoutLabel": "Logout",
         "manageUsersLabel": "Manage users",
         "loginLabel": "Login",
-        "registerLabel": "Register"
+        "registerLabel": "Register",
+        "languageLabel": "Language: English"
       },
       "loginPage": {
         "emailLabel": "Email:",
@@ -52,7 +53,8 @@
         "logoutLabel": "Logi välja",
         "manageUsersLabel": "Halda kasutajaid",
         "loginLabel": "Logi sisse",
-        "registerLabel": "Registreeri"
+        "registerLabel": "Registreeri",
+        "languageLabel": "Keel: Eesti"
       },
       "loginPage": {
         "emailLabel": "E-post:",

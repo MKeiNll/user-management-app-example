@@ -5,9 +5,11 @@ import { NavLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import LogoutComponent from "./LogoutComponent";
 import { useTranslation } from "react-i18next";
+import LanguageComponent from "./LanguageComponent";
 
 const useStyles = makeStyles(() => ({
   toolbar: {
+    display: "flex",
     alignItems: "stretch"
   },
   leftMenuBlock: {
@@ -49,6 +51,7 @@ const MenuComponent: React.FC = () => {
           </NavLink>
         </div>
         <div className={classes.rightMenuBlock}>
+          <LanguageComponent />
           <LogoutComponent />
         </div>
       </Toolbar>
@@ -72,6 +75,9 @@ const MenuComponent: React.FC = () => {
           >
             {t("menu.registerLabel")}
           </NavLink>
+        </div>
+        <div className={classes.rightMenuBlock}>
+          <LanguageComponent />
         </div>
       </Toolbar>
     </AppBar>
