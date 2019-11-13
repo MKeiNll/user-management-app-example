@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import { Modal } from "@material-ui/core";
+import { Modal, TextField } from "@material-ui/core";
 import classes from "*.module.css";
 import { makeStyles } from "@material-ui/styles";
 
@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
   paper: {
     position: "absolute",
     width: 350,
-    height: 200,
+    height: 600,
     backgroundColor: "white",
     border: "2px solid #000",
     padding: "20px",
@@ -43,24 +43,36 @@ const AddUserModalView: React.FC = () => {
       >
         <div className={classes.paper}>
           <div className="login-header">Add new user</div>
-
-          <div className="login-input">
-            Email:
-            <br />
-            <input id="email-input" type="text" />
-          </div>
-
-          <div className="login-input">
-            Password:
-            <br />
-            <input id="pwd-input" type="password" />
-          </div>
-          <div className="login-input">
-            Repeat password:
-            <br />
-            <input id="pwd-input" type="password" />
-          </div>
-
+          <div>Email:</div>
+          <TextField
+            error
+            id="filled-error-helper-text"
+            label="Error"
+            defaultValue="Hello World"
+            helperText="Email taken."
+            margin="normal"
+            variant="filled"
+          />
+          <div>Password:</div>
+          <TextField
+            id="filled-error-helper-text"
+            label="Error"
+            defaultValue="Hello World"
+            margin="normal"
+            variant="filled"
+            type="password"
+          />
+          <div>Repeat password:</div>
+          <TextField
+            error
+            id="filled-error-helper-text"
+            label="Error"
+            defaultValue="Hello World"
+            helperText="Passwords do not match."
+            margin="normal"
+            variant="filled"
+            type="password"
+          />
           <div>
             <button id="login-btn">Add new user</button>
           </div>

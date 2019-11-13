@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Redirect, Link } from "react-router-dom";
 import MenuComponent from "../Components/MenuComponent";
 import PasswordRecoveryModalView from "./PasswordRecoveryModalView";
+import { TextField } from "@material-ui/core";
 
 const LoginPage: React.FC = () => {
   const [usernameValue, setUsernameValue] = useState<string>("");
@@ -30,51 +31,47 @@ const LoginPage: React.FC = () => {
       }
     });
   };
-  
+
   return isUserLoggedIn ? (
     <Redirect to="/users" />
   ) : (
     <>
       <MenuComponent />
-      <div className="login-block">
-        <div className="login-input">
-          Email:
-          <br />
-          <input
-            id="email-input"
-            value={usernameValue}
-            onChange={e =>
-              setUsernameValue((e.target as HTMLInputElement).value)
-            }
-            type="text"
-          />
-        </div>
+      <div>Email:</div>
+      <TextField
+        error
+        id="filled-error-helper-text"
+        label="Error"
+        defaultValue="Hello World"
+        helperText="Wrong email."
+        margin="normal"
+        variant="filled"
+        onChange={e => setUsernameValue((e.target as HTMLInputElement).value)}
+      />
 
-        <div className="login-input">
-          Password:
-          <br />
-          <input
-            id="pwd-input"
-            value={passwordValue}
-            onChange={e =>
-              setPasswordValue((e.target as HTMLInputElement).value)
-            }
-            type="password"
-          />
-        </div>
+      <div>Password:</div>
+      <TextField
+        error
+        id="filled-error-helper-text"
+        label="Error"
+        defaultValue="Hello World"
+        helperText="Wrong password."
+        margin="normal"
+        variant="filled"
+        type="password"
+        onChange={e => setPasswordValue((e.target as HTMLInputElement).value)}
+      />
+      <div>
+        <button id="login-btn" onClick={loginUser}>
+          Login
+        </button>
+      </div>
 
-        <div>
-          <button id="login-btn" onClick={loginUser}>
-            Login
-          </button>
-        </div>
+      <PasswordRecoveryModalView />
 
-        <PasswordRecoveryModalView />
-
-        <div className="default-login-user">
-          // Default admin user (Email: "sean.maxwell@gmail.com", Password:
-          "Password@1")
-        </div>
+      <div className="default-login-user">
+        // Default admin user (Email: "sean.maxwell@gmail.com", Password:
+        "Password@1")
       </div>
     </>
   );

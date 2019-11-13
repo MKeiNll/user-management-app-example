@@ -1,34 +1,48 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import MenuComponent from "../Components/MenuComponent";
+import { TextField } from "@material-ui/core";
 
 const RegisterPage: React.FC = () => {
   return (
     <>
       <MenuComponent />
-      <div className="login-block">
-        <div className="login-header">Login</div>
 
-        <div className="login-input">
-          Email:
-          <br />
-          <input id="email-input" type="text" />
-        </div>
+      <div>Email:</div>
+      <TextField
+        error
+        id="filled-error-helper-text"
+        label="Error"
+        defaultValue="Hello World"
+        helperText="Email taken."
+        margin="normal"
+        variant="filled"
+      />
 
-        <div className="login-input">
-          Password:
-          <br />
-          <input id="pwd-input" type="password" />
-        </div>
-        <div className="login-input">
-          Repeat password:
-          <br />
-          <input id="pwd-input" type="password" />
-        </div>
+      <div>Password:</div>
+      <TextField
+        id="filled-error-helper-text"
+        label="Error"
+        defaultValue="Hello World"
+        helperText="Email taken."
+        margin="normal"
+        variant="filled"
+        type="password"
+      />
+      <div>Repeat password:</div>
+      <TextField
+        error
+        id="filled-error-helper-text"
+        label="Error"
+        defaultValue="Hello World"
+        helperText="Passwords do not match."
+        margin="normal"
+        variant="filled"
+        type="password"
+      />
 
-        <div>
-          <button id="login-btn">Register</button>
-        </div>
+      <div>
+        <button id="login-btn">Register</button>
       </div>
     </>
   );
