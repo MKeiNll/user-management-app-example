@@ -5,7 +5,6 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import LoginPage from "./Pages/LoginPage";
 import AllUsersPage from "./Pages/authorized/AllUsersPage";
-import UserDetailsPage from "./Pages/authorized/UserDetailsPage";
 import RegisterPage from "./Pages/RegistrationPage";
 import { BrowserRouter } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
@@ -18,7 +17,6 @@ ReactDOM.render(
     </Switch>
     <Route exact path="/register" component={RegisterPage} />
     <PrivateRoute exact path="/users" component={AllUsersPage} />
-    <PrivateRoute exact path="/users/details" component={UserDetailsPage} />
   </BrowserRouter>,
   document.getElementById("root")
 );

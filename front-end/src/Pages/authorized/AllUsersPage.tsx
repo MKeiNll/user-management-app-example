@@ -14,6 +14,7 @@ import { makeStyles } from "@material-ui/styles";
 import { jsxElement } from "@babel/types";
 import DeleteUserModalView from "./DeleteUserModalView";
 import AddUserModalView from "./AddUserModalView";
+import UserDetailsModalView from "./UserDetailsModalView";
 
 const useStyles = makeStyles({
   table: {
@@ -77,7 +78,7 @@ const UsersPage: React.FC = () => {
                     {row.email}
                   </TableCell>
                   <TableCell align="right">
-                    <button>User details</button>
+                    <UserDetailsModalView />
                   </TableCell>
                   <TableCell align="right">
                     <DeleteUserModalView />
