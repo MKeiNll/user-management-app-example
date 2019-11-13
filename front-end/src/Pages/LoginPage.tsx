@@ -10,7 +10,9 @@ const LoginPage: React.FC = () => {
   );
 
   useEffect(() => {
-    sessionStorage.setItem("userLoggedIn", isUserLoggedIn as string);
+    if (isUserLoggedIn) {
+      sessionStorage.setItem("userLoggedIn", isUserLoggedIn as string);
+    }
   }, [isUserLoggedIn]);
 
   const loginUser = () => {

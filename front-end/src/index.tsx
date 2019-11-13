@@ -10,6 +10,7 @@ import AddUserPage from "./Pages/authorized/AddUserPage";
 import RegisterPage from "./Pages/RegisterPage";
 import RecoverPasswordPage from "./Pages/RecoverPasswordPage";
 import { BrowserRouter } from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -19,9 +20,9 @@ ReactDOM.render(
     </Switch>
     <Route exact path="/login/recover" component={RecoverPasswordPage} />
     <Route exact path="/register" component={RegisterPage} />
-    <Route exact path="/users" component={AllUsersPage} />
-    <Route exact path="/users/details" component={UserDetailsPage} />
-    <Route exact path="/add" component={AddUserPage} />
+    <PrivateRoute exact path="/users" component={AllUsersPage} />
+    <PrivateRoute exact path="/users/details" component={UserDetailsPage} />
+    <PrivateRoute exact path="/add" component={AddUserPage} />
   </BrowserRouter>,
   document.getElementById("root")
 );
