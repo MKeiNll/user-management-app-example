@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Route, Switch, Redirect } from "react-router";
+import { Route, Switch, Redirect, MemoryRouter } from "react-router";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import LoginPage from "./Pages/LoginPage";
@@ -11,14 +11,12 @@ import PrivateRoute from "./PrivateRoute";
 import "./i18n";
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route exact path="/login" component={LoginPage} />
-      <Redirect exact from="/" to="/login" />
-    </Switch>
+  <MemoryRouter>
+    <Route exact path="/login" component={LoginPage} />
     <Route exact path="/register" component={RegisterPage} />
-    <PrivateRoute exact path="/users" component={AllUsersPage} />
-  </BrowserRouter>,
+    <Route exact path="/users" component={AllUsersPage} />
+    <Redirect exact from="/" to="/login" />
+  </MemoryRouter>,
   document.getElementById("root")
 );
 
