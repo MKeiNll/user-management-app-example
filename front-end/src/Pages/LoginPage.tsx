@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
 const LoginPage: React.FC = () => {
   const { t } = useTranslation();
   const classes = useStyles();
-  const [usernameValue, setUsernameValue] = useState<string>("");
+  const [emailValue, setEmailValue] = useState<string>("");
   const [passwordValue, setPasswordValue] = useState<string>("");
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(
     sessionStorage.getItem("userLoggedIn")
@@ -36,7 +36,7 @@ const LoginPage: React.FC = () => {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        email: usernameValue,
+        email: emailValue,
         password: passwordValue
       })
     }).then(res => {
@@ -61,7 +61,7 @@ const LoginPage: React.FC = () => {
           defaultValue="Hello World"
           helperText={t("input.wrongEmailMessage")}
           margin="normal"
-          onChange={e => setUsernameValue((e.target as HTMLInputElement).value)}
+          onChange={e => setEmailValue((e.target as HTMLInputElement).value)}
           className={classes.inputField}
         />
 

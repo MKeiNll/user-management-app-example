@@ -1,16 +1,1 @@
-{
-  "users": [
-    {
-      "email": "sean.maxwell@gmail.com",
-      "pwdHash": "$2b$12$1mE2OI9hMS/rgH9Mi0s85OM2V5gzm7aF3gJIWH1y0S1MqVBueyjsy"
-    },
-    {
-      "email": "gordan.freeman@halflife.com",
-      "pwdHash": "$2b$12$1mE2OI9hMS/rgH9Mi0s85OM2V5gzm7aF3gJIWH1y0S1MqVBueyjsy"
-    },
-    {
-      "email": "jsmith@yahoo.com",
-      "pwdHash": "$2b$12$1mE2OI9hMS/rgH9Mi0s85OM2V5gzm7aF3gJIWH1y0S1MqVBueyjsy"
-    }
-  ]
-}
+{"users":[{"email":"sean.maxwell@gmail.com","pwdHash":"$2b$12$1mE2OI9hMS/rgH9Mi0s85OM2V5gzm7aF3gJIWH1y0S1MqVBueyjsy"},{"email":"gordan.freeman@halflife.com","pwdHash":"$2b$12$1mE2OI9hMS/rgH9Mi0s85OM2V5gzm7aF3gJIWH1y0S1MqVBueyjsy"},{"email":"jsmith@yahoo.com","pwdHash":"$2b$12$1mE2OI9hMS/rgH9Mi0s85OM2V5gzm7aF3gJIWH1y0S1MqVBueyjsy"},{"email":"s","pwdHash":"$2b$12$jFjAkwQfX1G1./gvG6WdVezWpM106FyftfPfNcv721.7j2gFt.uHi"}]}

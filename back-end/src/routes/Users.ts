@@ -1,8 +1,9 @@
+import bcrypt from "bcrypt";
 import { Request, Response, Router } from 'express';
 import { BAD_REQUEST, CREATED, OK } from 'http-status-codes';
 import { ParamsDictionary } from 'express-serve-static-core';
 import { UserDao } from '@daos';
-import { paramMissingError, logger } from '@shared';
+import { paramMissingError, logger, pwdSaltRounds } from '@shared';
 
 // Init shared
 const router = Router();
@@ -32,17 +33,21 @@ router.get('/all', async (req: Request, res: Response) => {
 
 router.post('/add', async (req: Request, res: Response) => {
     try {
-        // Check parameters
-        const { user } = req.body;
-        if (!user) {
+          const { email, password } = req.body;
+          if (!email || !password) {
             return res.status(BAD_REQUEST).json({
-                error: paramMissingError,
+              error: paramMissingError
             });
-        }
-        // Add new user
-        await userDao.add(user);
-        return res.status(CREATED).end();
-    } catch (err) {
+          }
+
+          let user = {
+            email: email,
+            pwdHash: await bcrypt.hash(password, pwdSaltRounds)
+          };
+
+          await userDao.add(user);
+          return res.status(CREATED).end();
+        } catch (err) {
         logger.error(err.message, err);
         return res.status(BAD_REQUEST).json({
             error: err.message,

@@ -18,6 +18,29 @@ const useStyles = makeStyles(() => ({
 const RegisterPage: React.FC = () => {
   const { t } = useTranslation();
   const classes = useStyles();
+  const [emailValue, setEmailValue] = useState<string>("");
+  const [password1Value, setPassword1Value] = useState<string>("");
+    const [password2Value, setPassword2Value] = useState<string>("");
+
+  const createUser = () => {
+    if (password1Value === password2Value) {
+      fetch("/api/users/add", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: emailValue,
+          password: password1Value
+        })
+      }).then(res => {
+        if (res.status === 201) {
+          // TODO
+        }
+      });
+    } else {
+      // TOOD
+    }
+  };
+
   return (
     <>
       <MenuComponent />
@@ -33,6 +56,7 @@ const RegisterPage: React.FC = () => {
           helperText={t("input.emailTakenMessage")}
           margin="normal"
           className={classes.inputField}
+          onChange={e => setEmailValue((e.target as HTMLInputElement).value)}
         />
 
         <div>
@@ -43,6 +67,9 @@ const RegisterPage: React.FC = () => {
           margin="normal"
           type="password"
           className={classes.inputField}
+          onChange={e =>
+            setPassword1Value((e.target as HTMLInputElement).value)
+          }
         />
         <div>
           <b>{t("registrationPage.password2Label")}</b>
@@ -55,10 +82,13 @@ const RegisterPage: React.FC = () => {
           margin="normal"
           className={classes.inputField}
           type="password"
+          onChange={e =>
+            setPassword2Value((e.target as HTMLInputElement).value)
+          }
         />
 
         <div>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={createUser}>
             {t("registrationPage.registrationButton")}
           </Button>
         </div>
