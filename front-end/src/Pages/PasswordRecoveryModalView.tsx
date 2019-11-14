@@ -29,6 +29,8 @@ const PasswordRecoveryModalView: React.FC = () => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [emailValue, setEmailValue] = useState<string>("");
+  const [passwordInputError, setPasswordInputError] = useState<string>("");
 
   const handleOpen = () => {
     setOpen(true);
@@ -36,6 +38,25 @@ const PasswordRecoveryModalView: React.FC = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const recoverPassword = () => {
+    setPasswordInputError("");
+    fetch("/api/auth/recover", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: emailValue
+      })
+    }).then(res => {
+      if (res.status === 200) {
+        // TODO
+      } else if (res.status === 409) {
+        setPasswordInputError(t("input.wrongEmailMessage"));
+      } else {
+        // TODO
+      }
+    });
   };
 
   return (
@@ -49,12 +70,13 @@ const PasswordRecoveryModalView: React.FC = () => {
           {t("usersPage.passwordRecoveryModal.enterEmailMessage")}
           <br />
           <TextField
-            error
-            helperText={t("input.wrongEmailMessage")}
+            error={passwordInputError !== ""}
+            helperText={passwordInputError}
             margin="normal"
             className={classes.inputField}
+            onChange={e => setEmailValue((e.target as HTMLInputElement).value)}
           />
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={recoverPassword}>
             {t("usersPage.passwordRecoveryModal.sendPasswordButton")}
           </Button>
         </div>

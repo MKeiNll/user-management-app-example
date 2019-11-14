@@ -1,14 +1,17 @@
 import bcrypt from "bcrypt";
 import { Request, Response, Router } from "express";
-import { BAD_REQUEST, OK, UNAUTHORIZED } from "http-status-codes";
+import { BAD_REQUEST, OK, UNAUTHORIZED, CONFLICT } from "http-status-codes";
 import { UserDao } from "@daos";
 
 import {
   paramMissingError,
-  loginFailedError,
   logger,
   jwtCookieProps,
-  JwtService
+  JwtService,
+  loginWrongEmailError,
+  loginWrongPasswordError,
+  emailTakenError,
+  recoverPasswordWrongEmailError
 } from "@shared";
 
 const router = Router();
@@ -32,14 +35,14 @@ router.post("/login", async (req: Request, res: Response) => {
     const user = await userDao.getOne(email);
     if (!user) {
       return res.status(UNAUTHORIZED).json({
-        error: loginFailedError
+        error: loginWrongEmailError
       });
     }
     // Check password
     const pwdPassed = await bcrypt.compare(password, user.pwdHash);
     if (!pwdPassed) {
       return res.status(UNAUTHORIZED).json({
-        error: loginFailedError
+        error: loginWrongPasswordError
       });
     }
     // Setup Admin Cookie
@@ -50,6 +53,36 @@ router.post("/login", async (req: Request, res: Response) => {
     res.cookie(key, jwt, options);
     // Set login time
     userDao.addLoginTime(email, new Date());
+    // Return
+    return res.status(OK).end();
+  } catch (err) {
+    logger.error(err.message, err);
+    return res.status(BAD_REQUEST).json({
+      error: err.message
+    });
+  }
+});
+
+/******************************************************************************
+ *                      Recover password - "POST /api/auth/recover"
+ ******************************************************************************/
+
+router.post("/recover", async (req: Request, res: Response) => {
+  try {
+    // Check email present
+    const { email } = req.body;
+    if (!email) {
+      return res.status(BAD_REQUEST).json({
+        error: paramMissingError
+      });
+    } else if (!(await userDao.getOne(email))) {
+      return res.status(CONFLICT).json({
+        error: recoverPasswordWrongEmailError
+      });
+    }
+
+    // TODO
+
     // Return
     return res.status(OK).end();
   } catch (err) {
