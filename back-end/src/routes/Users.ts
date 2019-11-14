@@ -3,7 +3,6 @@ import { BAD_REQUEST, CREATED, OK } from 'http-status-codes';
 import { ParamsDictionary } from 'express-serve-static-core';
 import { UserDao } from '@daos';
 import { paramMissingError, logger, adminMW } from '@shared';
-import { UserRoles } from '@entities';
 
 // Init shared
 const router = Router();
@@ -41,7 +40,6 @@ router.post('/add', adminMW, async (req: Request, res: Response) => {
             });
         }
         // Add new user
-        user.role = UserRoles.Standard;
         await userDao.add(user);
         return res.status(CREATED).end();
     } catch (err) {
