@@ -16,6 +16,7 @@ import DeleteUserModalView from "./DeleteUserModalView";
 import AddUserModalView from "./AddUserModalView";
 import UserDetailsModalView from "./UserDetailsModalView";
 import { useTranslation } from "react-i18next";
+import { string } from "prop-types";
 
 const useStyles = makeStyles({
   table: {
@@ -30,33 +31,19 @@ const useStyles = makeStyles({
   }
 });
 
-const rows = [
-  { email: "Anthony" },
-  { email: "Mark1" },
-  { email: "Mark2" },
-  { email: "Mark3" },
-  { email: "Mark4" },
-  { email: "Mark5" },
-  { email: "Mark6" },
-  { email: "Mark78" },
-  { email: "Mark8" },
-  { email: "Mark9" },
-  { email: "Mark0" },
-  { email: "Mark-" },
-  { email: "Mark" },
-  { email: "Ma=rk" },
-  { email: "Ma5rk" },
-  { email: "M0ark" }
-];
+type user = {
+  email: string;
+}
 
 const UsersPage: React.FC = () => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [page, setPage] = React.useState(0);
+  const [users, setUsers] = React.useState <user[]>([]);
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, users.length - page * rowsPerPage);
 
   const handleChangeRowsPerPage = (event: any) => {
     setRowsPerPage(parseInt(event.target.value, 10));
@@ -66,6 +53,29 @@ const UsersPage: React.FC = () => {
   const handleChangePage = (event: any, newPage: any) => {
     setPage(newPage);
   };
+
+  const getUsers = () => {
+    fetch("/api/users/all", {
+      method: "get",
+      headers: { "Content-Type": "application/json" }
+    }).then(res => {
+      if (res.status === 200 || res.status === 304) {
+        return res.json();
+      } else {
+        return null;
+      }
+    }).then(json => {
+      if(json !== null) {
+        setUsers(json.users);
+      } else {
+        // TODO
+      }
+    });
+  };
+
+    useEffect(() => {
+      getUsers();
+    }, []);
 
   return (
     <>
@@ -82,12 +92,12 @@ const UsersPage: React.FC = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows
+              {users
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => (
+                .map((user, index) => (
                   <TableRow key={index} className={classes.tableRow}>
                     <TableCell component="th" scope="row">
-                      {row.email}
+                      {user.email}
                     </TableCell>
                     <TableCell align="right">
                       <UserDetailsModalView />
@@ -108,7 +118,7 @@ const UsersPage: React.FC = () => {
             className={classes.table}
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={rows.length}
+            count={users.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onChangePage={handleChangePage}

@@ -5,7 +5,6 @@ interface IUserDao {
   getOne: (email: string) => Promise<IUser | null>;
   getAll: () => Promise<IUser[]>;
   add: (user: IUser) => Promise<void>;
-  update: (user: IUser) => Promise<void>;
   delete: (id: number) => Promise<void>;
 }
 
@@ -50,22 +49,6 @@ export class UserDao extends UserDb implements IUserDao {
       const db = await super.openDb();
       db.users.push(user);
       await super.saveDb(db);
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  public async update(user: IUser): Promise<void> {
-    try {
-      const db = await super.openDb();
-      for (let i = 0; i < db.users.length; i++) {
-        if (db.users[i].id === user.id) {
-          db.users[i] = user;
-          await super.saveDb(db);
-          return;
-        }
-      }
-      throw new Error("User not found");
     } catch (err) {
       throw err;
     }

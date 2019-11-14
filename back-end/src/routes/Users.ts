@@ -57,32 +57,6 @@ router.post('/add', async (req: Request, res: Response) => {
 
 
 /******************************************************************************
- *                       Update - "PUT /api/users/update"
- ******************************************************************************/
-
-router.put('/update', async (req: Request, res: Response) => {
-    try {
-        // Check Parameters
-        const { user } = req.body;
-        if (!user) {
-            return res.status(BAD_REQUEST).json({
-                error: paramMissingError,
-            });
-        }
-        // Update user
-        user.id = Number(user.id);
-        await userDao.update(user);
-        return res.status(OK).end();
-    } catch (err) {
-        logger.error(err.message, err);
-        return res.status(BAD_REQUEST).json({
-            error: err.message,
-        });
-    }
-});
-
-
-/******************************************************************************
  *                    Delete - "DELETE /api/users/delete/:id"
  ******************************************************************************/
 
