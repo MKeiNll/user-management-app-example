@@ -21,6 +21,8 @@ const LoginPage: React.FC = () => {
   const classes = useStyles();
   const [emailValue, setEmailValue] = useState<string>("");
   const [passwordValue, setPasswordValue] = useState<string>("");
+  const [emailInputError, setEmailInputError] = useState<string>("");
+  const [passwordInputError, setPasswordInputError] = useState<string>("");
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(
     sessionStorage.getItem("userLoggedIn")
   );
@@ -32,6 +34,8 @@ const LoginPage: React.FC = () => {
   }, [isUserLoggedIn]);
 
   const loginUser = () => {
+    setEmailInputError("");
+    setPasswordInputError("");
     fetch("/api/auth/login", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -39,11 +43,27 @@ const LoginPage: React.FC = () => {
         email: emailValue,
         password: passwordValue
       })
-    }).then(res => {
-      if (res.status === 200) {
-        setIsUserLoggedIn("true");
-      }
-    });
+    })
+      .then(res => {
+        if (res.status === 200) {
+          setIsUserLoggedIn("true");
+        } else if (res.status === 401) {
+          return res.json();
+        }
+        return null;
+      })
+      .then(errorJson => {
+        if (errorJson) {
+          let code = errorJson.error.code;
+          if (code === "9003") {
+            setEmailInputError(t("input.wrongEmailMessage"));
+          } else if (code === "9004") {
+            setPasswordInputError(t("input.wrongPasswordMessage"));
+          } else {
+            // TODO
+          }
+        }
+      });
   };
 
   return isUserLoggedIn ? (
@@ -56,8 +76,8 @@ const LoginPage: React.FC = () => {
           <b>{t("loginPage.emailLabel")}</b>
         </div>
         <TextField
-          error
-          helperText={t("input.wrongEmailMessage")}
+          error={emailInputError !== ""}
+          helperText={emailInputError}
           margin="normal"
           onChange={e => setEmailValue((e.target as HTMLInputElement).value)}
           className={classes.inputField}
@@ -67,8 +87,8 @@ const LoginPage: React.FC = () => {
           <b>{t("loginPage.passwordLabel")}</b>
         </div>
         <TextField
-          error
-          helperText={t("input.wrongPasswordMessage")}
+          error={passwordInputError !== ""}
+          helperText={passwordInputError}
           margin="normal"
           type="password"
           onChange={e => setPasswordValue((e.target as HTMLInputElement).value)}
@@ -79,7 +99,7 @@ const LoginPage: React.FC = () => {
             {t("loginPage.loginButtonLabel")}
           </Button>
         </div>
-        <br/>
+        <br />
         <PasswordRecoveryModalView />
       </div>
     </>
