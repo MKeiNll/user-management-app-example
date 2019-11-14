@@ -1,1 +1,24 @@
-{"users":[{"email":"132","pwdHash":"$2b$12$NDpmqDZFqBP11EH9Hhxp9O0yjt.3bqvfsHflHcO/e1/y4pB1B482W","logins":[]},{"email":"7","pwdHash":"$2b$12$0Ydk/fa50lisXx9zFaIFq.ednxrtubOdZg/ijUVHM7vUJMJCtzBpu","logins":["2019-11-14T19:13:42.685Z"]}]}
+{
+  "users": [
+    {
+      "email": "132",
+      "pwdHash": "$2b$12$NDpmqDZFqBP11EH9Hhxp9O0yjt.3bqvfsHflHcO/e1/y4pB1B482W",
+      "logins": []
+    },
+    {
+      "email": "1",
+      "pwdHash": "$2b$12$6/o0boiFnSBji/y1lv4uZOYs1KVTOXXhtDM5EjafkGmkavEDz633.",
+      "logins": ["2019-11-14T19:37:18.128Z"]
+    },
+    {
+      "email": "2",
+      "pwdHash": "$2b$12$XUHeHictq2MQ0OQk/O1ZBej3BYZxSE.9QB2H273HO4.9PBn.jUBd6",
+      "logins": []
+    },
+    {
+      "email": "3",
+      "pwdHash": "$2b$12$FUjbzcgTbbVCnTTiFLmPTe2rUemfBdljkcMzHD8BsGw8WvIbfZG3u",
+      "logins": []
+    }
+  ]
+}

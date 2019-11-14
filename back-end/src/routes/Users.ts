@@ -57,7 +57,8 @@ router.post("/add", async (req: Request, res: Response) => {
 
     let user = {
       email: email,
-      pwdHash: await bcrypt.hash(password, pwdSaltRounds)
+      pwdHash: await bcrypt.hash(password, pwdSaltRounds),
+      logins: []
     };
 
     await userDao.add(user);

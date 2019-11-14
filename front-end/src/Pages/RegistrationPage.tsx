@@ -34,6 +34,8 @@ const RegisterPage: React.FC = () => {
       }).then(res => {
         if (res.status === 201) {
           // TODO
+        } else {
+          // TODO
         }
       });
     } else {

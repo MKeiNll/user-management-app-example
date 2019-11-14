@@ -27,10 +27,19 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const AddUserModalView: React.FC = () => {
+type AddUserModalViewProps = {
+  handleCreation: (email: string) => void;
+};
+
+const AddUserModalView: React.FC<AddUserModalViewProps> = ({
+  handleCreation
+}: AddUserModalViewProps) => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [emailValue, setEmailValue] = useState<string>("");
+  const [password1Value, setPassword1Value] = useState<string>("");
+  const [password2Value, setPassword2Value] = useState<string>("");
 
   const handleOpen = () => {
     setOpen(true);
@@ -38,6 +47,28 @@ const AddUserModalView: React.FC = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const createUser = () => {
+    if (password1Value === password2Value) {
+      fetch("/api/users/add", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: emailValue,
+          password: password1Value
+        })
+      }).then(res => {
+        if (res.status === 201) {
+          handleCreation(emailValue);
+          // TODO
+        } else {
+          // TODO
+        }
+      });
+    } else {
+      // TOOD
+    }
   };
 
   return (
@@ -65,6 +96,7 @@ const AddUserModalView: React.FC = () => {
             helperText={t("input.emailTakenMessage")}
             margin="normal"
             className={classes.inputField}
+            onChange={e => setEmailValue((e.target as HTMLInputElement).value)}
           />
           <div>
             <b> {t("usersPage.newUserModal.password1Label")}</b>
@@ -74,6 +106,9 @@ const AddUserModalView: React.FC = () => {
             margin="normal"
             type="password"
             className={classes.inputField}
+            onChange={e =>
+              setPassword1Value((e.target as HTMLInputElement).value)
+            }
           />
           <div>
             <b> {t("usersPage.newUserModal.password2Label")}</b>
@@ -86,9 +121,12 @@ const AddUserModalView: React.FC = () => {
             margin="normal"
             type="password"
             className={classes.inputField}
+            onChange={e =>
+              setPassword2Value((e.target as HTMLInputElement).value)
+            }
           />
           <div>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={createUser}>
               {t("usersPage.newUserModal.createButtonLabel")}
             </Button>
           </div>

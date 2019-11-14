@@ -81,6 +81,13 @@ const UsersPage: React.FC = () => {
     setUsers(usersCopy);
   };
 
+  const handleUserCreation = (email: string) => {
+    let usersCopy = users.slice();
+    let logins: Date[] = [];
+    usersCopy.push({ email, logins });
+    setUsers(usersCopy);
+  };
+
   useEffect(() => {
     getUsers();
   }, []);
@@ -89,7 +96,7 @@ const UsersPage: React.FC = () => {
     <>
       <MenuComponent />
       <div className={classes.tableContainer}>
-        <AddUserModalView />
+        <AddUserModalView handleCreation={handleUserCreation} />
         <div>
           <Table className={classes.table}>
             <TableHead>
