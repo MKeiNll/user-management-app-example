@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: "140px",
+    width: "160px",
     textDecoration: "none",
     color: "white"
   },

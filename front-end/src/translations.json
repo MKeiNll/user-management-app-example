@@ -104,7 +104,7 @@
         },
         "newUserButtonLabel": "Lisage uus kasutaja",
         "deleteUserButtonLabel": "Kustuta kasutaja",
-        "userDetailsButtonLabel": "Kasutaja dertailvaade",
+        "userDetailsButtonLabel": "Kasutaja detailvaade",
         "passwordRecoveryButton": "Unustasid parooli?",
         "tableEmailLabel": "Kasutaja e-post",
         "tableIdLabel": "Kasutaja ID"
