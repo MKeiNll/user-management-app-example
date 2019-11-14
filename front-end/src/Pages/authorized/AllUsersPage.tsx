@@ -33,14 +33,14 @@ const useStyles = makeStyles({
 
 type user = {
   email: string;
-}
+};
 
 const UsersPage: React.FC = () => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [page, setPage] = React.useState(0);
-  const [users, setUsers] = React.useState <user[]>([]);
+  const [users, setUsers] = React.useState<user[]>([]);
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, users.length - page * rowsPerPage);
@@ -58,24 +58,32 @@ const UsersPage: React.FC = () => {
     fetch("/api/users/all", {
       method: "get",
       headers: { "Content-Type": "application/json" }
-    }).then(res => {
-      if (res.status === 200 || res.status === 304) {
-        return res.json();
-      } else {
-        return null;
-      }
-    }).then(json => {
-      if(json !== null) {
-        setUsers(json.users);
-      } else {
-        // TODO
-      }
-    });
+    })
+      .then(res => {
+        if (res.status === 200 || res.status === 304) {
+          return res.json();
+        } else {
+          return null;
+        }
+      })
+      .then(json => {
+        if (json !== null) {
+          setUsers(json.users);
+        } else {
+          // TODO
+        }
+      });
   };
 
-    useEffect(() => {
-      getUsers();
-    }, []);
+  const handleUserDeletion = (id: number) => {
+    let usersCopy = users.slice();
+    usersCopy.splice(id, 1);
+    setUsers(usersCopy);
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   return (
     <>
@@ -103,7 +111,10 @@ const UsersPage: React.FC = () => {
                       <UserDetailsModalView />
                     </TableCell>
                     <TableCell align="right">
-                      <DeleteUserModalView />
+                      <DeleteUserModalView
+                        id={index}
+                        handleDeletion={handleUserDeletion}
+                      />
                     </TableCell>
                   </TableRow>
                 ))}

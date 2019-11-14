@@ -24,7 +24,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const DeleteUserModalView: React.FC = () => {
+type DeleteUserModalViewProps = {
+  id: number;
+  handleDeletion: (id: number) => void;
+};
+
+const DeleteUserModalView: React.FC<DeleteUserModalViewProps> = ({
+  id,
+  handleDeletion
+}: DeleteUserModalViewProps) => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -37,6 +45,19 @@ const DeleteUserModalView: React.FC = () => {
     setOpen(false);
   };
 
+  const deleteUser = () => {
+    fetch("/api/users/delete/" + id, {
+      method: "delete",
+      headers: { "Content-Type": "application/json" }
+    }).then(res => {
+      if (res.status === 200) {
+        handleDeletion(id);
+      } else {
+        // TODO
+      }
+    });
+  };
+
   return (
     <>
       <Button variant="contained" onClick={handleOpen}>
@@ -47,9 +68,9 @@ const DeleteUserModalView: React.FC = () => {
           {t("usersPage.deleteUserModal.confirmationMessage")}
           <Button
             variant="contained"
-            onClick={handleOpen}
             color="primary"
             className={classes.deleteButton}
+            onClick={deleteUser}
           >
             {t("usersPage.deleteUserModal.deleteButton")}
           </Button>
