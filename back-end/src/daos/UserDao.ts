@@ -38,7 +38,11 @@ export class UserDao extends UserDb implements IUserDao {
   public async getAll(): Promise<IUser[]> {
     try {
       const db = await super.openDb();
-      return db.users;
+      let users = db.users.slice();
+      for (let i = 0, len = users.length; i < len; i++) {
+        delete users[i].pwdHash;
+      }
+      return users;
     } catch (err) {
       throw err;
     }
@@ -57,14 +61,10 @@ export class UserDao extends UserDb implements IUserDao {
   public async delete(id: number): Promise<void> {
     try {
       const db = await super.openDb();
-      for (let i = 0; i < db.users.length; i++) {
-        if (db.users[i].id === id) {
-          db.users.splice(i, 1);
-          await super.saveDb(db);
-          return;
-        }
-      }
-      throw new Error("User not found");
+      if (id >= db.users.length) throw new Error("User not found");
+      db.users.splice(id, 1);
+      await super.saveDb(db);
+      return;
     } catch (err) {
       throw err;
     }
