@@ -33,6 +33,7 @@ const useStyles = makeStyles({
 
 type user = {
   email: string;
+  logins: Date[];
 };
 
 const UsersPage: React.FC = () => {
@@ -108,7 +109,7 @@ const UsersPage: React.FC = () => {
                       {user.email}
                     </TableCell>
                     <TableCell align="right">
-                      <UserDetailsModalView />
+                      <UserDetailsModalView email={user.email} id={index}/>
                     </TableCell>
                     <TableCell align="right">
                       <DeleteUserModalView

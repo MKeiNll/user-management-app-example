@@ -6,6 +6,8 @@ interface IUserDao {
   getAll: () => Promise<IUser[]>;
   add: (user: IUser) => Promise<void>;
   delete: (id: number) => Promise<void>;
+  addLoginTime: (email: string, time: Date) => Promise<void>;
+  getLoginTimes: (id: number) => Promise<Date[]>;
 }
 
 class UserDb {
@@ -53,6 +55,30 @@ export class UserDao extends UserDb implements IUserDao {
       const db = await super.openDb();
       db.users.push(user);
       await super.saveDb(db);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  public async addLoginTime(email: string, time: Date): Promise<void> {
+    try {
+      const db = await super.openDb();
+      for (const user of db.users) {
+        if (user.email === email) {
+          user.logins.push(time);
+        }
+      }
+      await super.saveDb(db);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  public async getLoginTimes(id: number): Promise<Date[]> {
+    try {
+      const db = await super.openDb();
+      if (id >= db.users.length) throw new Error("User not found");
+      return db.users[id].logins;
     } catch (err) {
       throw err;
     }

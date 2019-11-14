@@ -32,8 +32,8 @@
           "deleteButton": "Delete user"
         },
         "userDetailsModal": {
-          "emailLabel": "Email:",
-          "loginsLabel": "This user has logged in at:"
+          "emailLabel": "Email: ",
+          "loginsLabel": "This user has logged in at: "
         },
         "passwordRecoveryModal": {
           "enterEmailMessage": "Please enter your email. A link with new password will be sent to it.",
@@ -94,7 +94,7 @@
           "deleteButton": "Kustuta kasutaja"
         },
         "userDetailsModal": {
-          "emailLabel": "E-post:",
+          "emailLabel": "E-post: ",
           "loginsLabel": "See kasutaja oli sisse loginud:"
         },
         "passwordRecoveryModal": {
