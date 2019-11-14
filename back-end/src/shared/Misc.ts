@@ -30,20 +30,3 @@ export const pErr = (err: Error) => {
 export const getRandomInt = () => {
     return Math.floor(Math.random() * 1_000_000_000_000);
 };
-
-
-// Middleware to verify if user is an admin
-export const adminMW = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        // Get json-web-token
-        const jwt = req.signedCookies[jwtCookieProps.key];
-        if (!jwt) {
-            throw Error('JWT not present in signed cookie.');
-        }
-        next();
-    } catch (err) {
-        return res.status(UNAUTHORIZED).json({
-            error: err.message,
-        });
-    }
-};
