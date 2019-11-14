@@ -9,9 +9,18 @@ import { JwtService } from './JwtService';
 // Init shared
 const jwtService = new JwtService();
 
-// Strings
-export const paramMissingError = 'One or more of the required parameters was missing.';
-export const loginFailedErr = 'Login failed';
+// Errors
+export const paramMissingError = '"One or more of the required parameters was missing."';
+export const loginFailedError = 'Login failed';
+export const emailTakenError = 'Email taken';
+export const emailValidationError = {
+    message: "Email is not valid",
+    code: "9001"
+}
+export const passwordValidationError = {
+  message: "Password is not valid",
+  code: "9002"
+};
 
 // Numbers
 export const pwdSaltRounds = 12;

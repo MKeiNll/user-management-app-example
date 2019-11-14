@@ -51,7 +51,9 @@
         "emailTakenMessage": "This email is already taken.",
         "passwordsDoNotMatchMessage": "Passwords do not match.",
         "wrongEmailMessage": "Email is not registered.",
-        "wrongPasswordMessage": "Wrong password."
+        "wrongPasswordMessage": "Wrong password.",
+        "emailValidationErrorMessage": "Email is not valid.",
+        "passwordValidationMessage": "Password should be at least 8 chars long."
       },
       "table": {
         "rowsPerPageLabel": "Rows per page:",
@@ -114,7 +116,9 @@
         "emailTakenMessage": "See e-mail on juba võetud.",
         "passwordsDoNotMatchMessage": "Paroolid ei kattu.",
         "wrongEmailMessage": "E-post ei ole registreeritud.",
-        "wrongPasswordMessage": "Vale parool."
+        "wrongPasswordMessage": "Vale parool.",
+        "emailValidationErrorMessage": "E-post pole kehtiv.",
+        "passwordValidationMessage": "Parool peaks olema vähemalt 8 märki pikk."
       },
       "table": {
         "rowsPerPageLabel": "Ridasid lehel:",

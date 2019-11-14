@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt';
 import { BAD_REQUEST, CREATED, OK, UNAUTHORIZED } from 'http-status-codes';
 import { Response, SuperTest, Test } from 'supertest';
 import { IUser, User, UserRoles } from '@entities';
-import { pErr, pwdSaltRounds, jwtCookieProps, loginFailedErr } from '@shared';
+import { pErr, pwdSaltRounds, jwtCookieProps, loginFailedError } from '@shared';
 import { UserDao } from '@daos';
 
 
@@ -54,7 +54,7 @@ describe('UserRouter', () => {
 
 
         it(`should return a response with a status of ${UNAUTHORIZED} and a json with the error
-            "${loginFailedErr}" if the email was not found.`, (done) => {
+            "${loginFailedError}" if the email was not found.`, (done) => {
             // Setup Dummy Data
             const creds = {
                 email: 'jsmith@gmail.com',
@@ -66,14 +66,14 @@ describe('UserRouter', () => {
                 .end((err: Error, res: any) => {
                     pErr(err);
                     expect(res.status).toBe(UNAUTHORIZED);
-                    expect(res.body.error).toBe(loginFailedErr);
+                    expect(res.body.error).toBe(loginFailedError);
                     done();
                 });
         });
 
 
         it(`should return a response with a status of ${UNAUTHORIZED} and a json with the error
-            "${loginFailedErr}" if the password failed.`, (done) => {
+            "${loginFailedError}" if the password failed.`, (done) => {
             // Setup Dummy Data
             const creds = {
                 email: 'jsmith@gmail.com',
@@ -88,7 +88,7 @@ describe('UserRouter', () => {
                 .end((err: Error, res: any) => {
                     pErr(err);
                     expect(res.status).toBe(UNAUTHORIZED);
-                    expect(res.body.error).toBe(loginFailedErr);
+                    expect(res.body.error).toBe(loginFailedError);
                     done();
                 });
         });

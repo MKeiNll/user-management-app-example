@@ -20,7 +20,9 @@ const RegisterPage: React.FC = () => {
   const classes = useStyles();
   const [emailValue, setEmailValue] = useState<string>("");
   const [password1Value, setPassword1Value] = useState<string>("");
-    const [password2Value, setPassword2Value] = useState<string>("");
+  const [password2Value, setPassword2Value] = useState<string>("");
+  const [emailInputError, setEmailInputError] = useState<string>("");
+  const [passwordInputError, setPasswordInputError] = useState<string>("");
 
   const createUser = () => {
     if (password1Value === password2Value) {
@@ -31,15 +33,31 @@ const RegisterPage: React.FC = () => {
           email: emailValue,
           password: password1Value
         })
-      }).then(res => {
-        if (res.status === 201) {
-          // TODO
-        } else {
-          // TODO
-        }
-      });
+      })
+        .then(res => {
+          if (res.status === 201) {
+            // TODO
+          } else if (res.status === 409) {
+            setEmailInputError(t("input.emailTakenMessage"));
+          } else {
+            return res.json();
+          }
+          return null;
+        })
+        .then(errorJson => {
+          if (errorJson) {
+            let code = errorJson.error.code;
+            if (code === "9001") {
+              setEmailInputError(t("input.emailValidationErrorMessage"));
+            } else if (code === "9002") {
+              setPasswordInputError(t("input.passwordValidationMessage"));
+            } else {
+              // TODO
+            }
+          }
+        });
     } else {
-      // TOOD
+      setPasswordInputError(t("input.passwordsDoNotMatchMessage"));
     }
   };
 
@@ -52,10 +70,10 @@ const RegisterPage: React.FC = () => {
           <b>{t("registrationPage.emailLabel")}</b>
         </div>
         <TextField
-          error
+          error={emailInputError !== ""}
           label={t("input.errorLabel")}
           defaultValue="Hello World"
-          helperText={t("input.emailTakenMessage")}
+          helperText={emailInputError}
           margin="normal"
           className={classes.inputField}
           onChange={e => setEmailValue((e.target as HTMLInputElement).value)}
@@ -77,10 +95,10 @@ const RegisterPage: React.FC = () => {
           <b>{t("registrationPage.password2Label")}</b>
         </div>
         <TextField
-          error
+          error={passwordInputError !== ""}
           label={t("input.errorLabel")}
           defaultValue="Hello World"
-          helperText={t("input.passwordsDoNotMatchMessage")}
+          helperText={passwordInputError}
           margin="normal"
           className={classes.inputField}
           type="password"

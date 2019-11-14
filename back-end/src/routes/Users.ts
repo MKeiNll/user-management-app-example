@@ -1,9 +1,16 @@
 import bcrypt from "bcrypt";
 import { Request, Response, Router } from "express";
-import { BAD_REQUEST, CREATED, OK } from "http-status-codes";
+import { BAD_REQUEST, CREATED, OK, CONFLICT } from "http-status-codes";
 import { ParamsDictionary } from "express-serve-static-core";
 import { UserDao } from "@daos";
-import { paramMissingError, logger, pwdSaltRounds } from "@shared";
+import {
+  paramMissingError,
+  logger,
+  pwdSaltRounds,
+  emailValidationError,
+  passwordValidationError,
+  emailTakenError
+} from "@shared";
 
 // Init shared
 const router = Router();
@@ -49,9 +56,22 @@ router.get("/logins/:id", async (req: Request, res: Response) => {
 router.post("/add", async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
+    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!email || !password) {
       return res.status(BAD_REQUEST).json({
         error: paramMissingError
+      });
+    } else if (await userDao.getOne(email)) {
+      return res.status(CONFLICT).json({
+        error: emailTakenError
+      });
+    } else if (!emailRegex.test(String(email).toLowerCase())) {
+      return res.status(BAD_REQUEST).json({
+        error: emailValidationError
+      });
+    } else if (password.length < 8) {
+      return res.status(BAD_REQUEST).json({
+        error: passwordValidationError
       });
     }
 

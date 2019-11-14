@@ -5,7 +5,7 @@ import { UserDao } from "@daos";
 
 import {
   paramMissingError,
-  loginFailedErr,
+  loginFailedError,
   logger,
   jwtCookieProps,
   JwtService
@@ -32,14 +32,14 @@ router.post("/login", async (req: Request, res: Response) => {
     const user = await userDao.getOne(email);
     if (!user) {
       return res.status(UNAUTHORIZED).json({
-        error: loginFailedErr
+        error: loginFailedError
       });
     }
     // Check password
     const pwdPassed = await bcrypt.compare(password, user.pwdHash);
     if (!pwdPassed) {
       return res.status(UNAUTHORIZED).json({
-        error: loginFailedErr
+        error: loginFailedError
       });
     }
     // Setup Admin Cookie
