@@ -16,7 +16,6 @@ import DeleteUserModalView from "./DeleteUserModalView";
 import AddUserModalView from "./AddUserModalView";
 import UserDetailsModalView from "./UserDetailsModalView";
 import { useTranslation } from "react-i18next";
-import { string } from "prop-types";
 
 const useStyles = makeStyles({
   table: {
@@ -96,6 +95,9 @@ const UsersPage: React.FC = () => {
             <TableHead>
               <TableRow>
                 <TableCell>
+                  <b>{t("usersPage.tableIdLabel")}</b>
+                </TableCell>
+                <TableCell>
                   <b>{t("usersPage.tableEmailLabel")}</b>
                 </TableCell>
               </TableRow>
@@ -106,10 +108,13 @@ const UsersPage: React.FC = () => {
                 .map((user, index) => (
                   <TableRow key={index} className={classes.tableRow}>
                     <TableCell component="th" scope="row">
+                      {index}
+                    </TableCell>
+                    <TableCell component="th" scope="row">
                       {user.email}
                     </TableCell>
                     <TableCell align="right">
-                      <UserDetailsModalView email={user.email} id={index}/>
+                      <UserDetailsModalView email={user.email} id={index} />
                     </TableCell>
                     <TableCell align="right">
                       <DeleteUserModalView

@@ -43,7 +43,8 @@
         "deleteUserButtonLabel": "Delete user",
         "userDetailsButtonLabel": "User details",
         "passwordRecoveryButton": "Forgot password?",
-        "tableEmailLabel": "User email"
+        "tableEmailLabel": "User email",
+        "tableIdLabel": "User ID"
       },
       "input": {
         "errorLabel": "Error",
@@ -105,7 +106,8 @@
         "deleteUserButtonLabel": "Kustuta kasutaja",
         "userDetailsButtonLabel": "Kasutaja dertailvaade",
         "passwordRecoveryButton": "Unustasid parooli?",
-        "tableEmailLabel": "Kasutaja e-post"
+        "tableEmailLabel": "Kasutaja e-post",
+        "tableIdLabel": "Kasutaja ID"
       },
       "input": {
         "errorLabel": "Viga",
