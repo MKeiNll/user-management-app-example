@@ -40,6 +40,8 @@ const AddUserModalView: React.FC<AddUserModalViewProps> = ({
   const [emailValue, setEmailValue] = useState<string>("");
   const [password1Value, setPassword1Value] = useState<string>("");
   const [password2Value, setPassword2Value] = useState<string>("");
+  const [emailInputError, setEmailInputError] = useState<string>("");
+  const [passwordInputError, setPasswordInputError] = useState<string>("");
 
   const handleOpen = () => {
     setOpen(true);
@@ -51,6 +53,8 @@ const AddUserModalView: React.FC<AddUserModalViewProps> = ({
 
   const createUser = () => {
     if (password1Value === password2Value) {
+      setEmailInputError("");
+      setPasswordInputError("");
       fetch("/api/users/add", {
         method: "post",
         headers: { "Content-Type": "application/json" },
@@ -58,16 +62,32 @@ const AddUserModalView: React.FC<AddUserModalViewProps> = ({
           email: emailValue,
           password: password1Value
         })
-      }).then(res => {
-        if (res.status === 201) {
-          handleCreation(emailValue);
-          // TODO
-        } else {
-          // TODO
-        }
-      });
+      })
+        .then(res => {
+          if (res.status === 201) {
+            handleCreation(emailValue);
+            // TODO
+          } else if (res.status === 409) {
+            setEmailInputError(t("input.emailTakenMessage"));
+          } else {
+            return res.json();
+          }
+          return null;
+        })
+        .then(errorJson => {
+          if (errorJson) {
+            let code = errorJson.error.code;
+            if (code === "9001") {
+              setEmailInputError(t("input.emailValidationErrorMessage"));
+            } else if (code === "9002") {
+              setPasswordInputError(t("input.passwordValidationMessage"));
+            } else {
+              // TODO
+            }
+          }
+        });
     } else {
-      // TOOD
+      setPasswordInputError(t("input.passwordsDoNotMatchMessage"));
     }
   };
 
@@ -90,10 +110,8 @@ const AddUserModalView: React.FC<AddUserModalViewProps> = ({
             <b> {t("usersPage.newUserModal.emailLabel")}</b>
           </div>
           <TextField
-            error
-            label={t("input.errorLabel")}
-            defaultValue="Hello World"
-            helperText={t("input.emailTakenMessage")}
+            error={emailInputError !== ""}
+            helperText={emailInputError}
             margin="normal"
             className={classes.inputField}
             onChange={e => setEmailValue((e.target as HTMLInputElement).value)}
@@ -102,7 +120,6 @@ const AddUserModalView: React.FC<AddUserModalViewProps> = ({
             <b> {t("usersPage.newUserModal.password1Label")}</b>
           </div>
           <TextField
-            defaultValue="Hello World"
             margin="normal"
             type="password"
             className={classes.inputField}
@@ -114,10 +131,8 @@ const AddUserModalView: React.FC<AddUserModalViewProps> = ({
             <b> {t("usersPage.newUserModal.password2Label")}</b>
           </div>
           <TextField
-            error
-            label={t("input.errorLabel")}
-            defaultValue="Hello World"
-            helperText={t("input.passwordsDoNotMatchMessage")}
+            error={passwordInputError !== ""}
+            helperText={passwordInputError}
             margin="normal"
             type="password"
             className={classes.inputField}

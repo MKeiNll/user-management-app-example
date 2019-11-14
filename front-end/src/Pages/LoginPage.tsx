@@ -57,8 +57,6 @@ const LoginPage: React.FC = () => {
         </div>
         <TextField
           error
-          label={t("input.errorLabel")}
-          defaultValue="Hello World"
           helperText={t("input.wrongEmailMessage")}
           margin="normal"
           onChange={e => setEmailValue((e.target as HTMLInputElement).value)}
@@ -70,8 +68,6 @@ const LoginPage: React.FC = () => {
         </div>
         <TextField
           error
-          label={t("input.errorLabel")}
-          defaultValue="Hello World"
           helperText={t("input.wrongPasswordMessage")}
           margin="normal"
           type="password"

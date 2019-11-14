@@ -115,17 +115,20 @@ const UsersPage: React.FC = () => {
                 .map((user, index) => (
                   <TableRow key={index} className={classes.tableRow}>
                     <TableCell component="th" scope="row">
-                      {index}
+                      {users.indexOf(user)}
                     </TableCell>
                     <TableCell component="th" scope="row">
                       {user.email}
                     </TableCell>
                     <TableCell align="right">
-                      <UserDetailsModalView email={user.email} id={index} />
+                      <UserDetailsModalView
+                        email={user.email}
+                        id={users.indexOf(user)}
+                      />
                     </TableCell>
                     <TableCell align="right">
                       <DeleteUserModalView
-                        id={index}
+                        id={users.indexOf(user)}
                         handleDeletion={handleUserDeletion}
                       />
                     </TableCell>

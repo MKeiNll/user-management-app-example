@@ -26,6 +26,8 @@ const RegisterPage: React.FC = () => {
 
   const createUser = () => {
     if (password1Value === password2Value) {
+      setEmailInputError("");
+      setPasswordInputError("");
       fetch("/api/users/add", {
         method: "post",
         headers: { "Content-Type": "application/json" },
@@ -71,8 +73,6 @@ const RegisterPage: React.FC = () => {
         </div>
         <TextField
           error={emailInputError !== ""}
-          label={t("input.errorLabel")}
-          defaultValue="Hello World"
           helperText={emailInputError}
           margin="normal"
           className={classes.inputField}
@@ -83,7 +83,6 @@ const RegisterPage: React.FC = () => {
           <b>{t("registrationPage.password1Label")}</b>
         </div>
         <TextField
-          defaultValue="Hello World"
           margin="normal"
           type="password"
           className={classes.inputField}
@@ -96,8 +95,6 @@ const RegisterPage: React.FC = () => {
         </div>
         <TextField
           error={passwordInputError !== ""}
-          label={t("input.errorLabel")}
-          defaultValue="Hello World"
           helperText={passwordInputError}
           margin="normal"
           className={classes.inputField}

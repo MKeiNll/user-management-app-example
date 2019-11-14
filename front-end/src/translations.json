@@ -47,7 +47,6 @@
         "tableIdLabel": "User ID"
       },
       "input": {
-        "errorLabel": "Error",
         "emailTakenMessage": "This email is already taken.",
         "passwordsDoNotMatchMessage": "Passwords do not match.",
         "wrongEmailMessage": "Email is not registered.",
@@ -112,7 +111,6 @@
         "tableIdLabel": "Kasutaja ID"
       },
       "input": {
-        "errorLabel": "Viga",
         "emailTakenMessage": "See e-mail on juba võetud.",
         "passwordsDoNotMatchMessage": "Paroolid ei kattu.",
         "wrongEmailMessage": "E-post ei ole registreeritud.",

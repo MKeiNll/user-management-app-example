@@ -50,8 +50,6 @@ const PasswordRecoveryModalView: React.FC = () => {
           <br />
           <TextField
             error
-            label={t("input.errorLabel")}
-            defaultValue="Hello World"
             helperText={t("input.wrongEmailMessage")}
             margin="normal"
             className={classes.inputField}
