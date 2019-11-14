@@ -1,5 +1,4 @@
 import { IUser } from "@entities";
-import { getRandomInt } from "@shared";
 import jsonfile from "jsonfile";
 
 interface IUserDao {
@@ -49,7 +48,6 @@ export class UserDao extends UserDb implements IUserDao {
   public async add(user: IUser): Promise<void> {
     try {
       const db = await super.openDb();
-      user.id = getRandomInt();
       db.users.push(user);
       await super.saveDb(db);
     } catch (err) {
