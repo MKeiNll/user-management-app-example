@@ -1,6 +1,7 @@
 import { IUser } from "@entities";
 import jsonfile from "jsonfile";
 import { IVerificationHash } from "src/entities/IVerificationHash";
+import { sendNewUserEmail } from "src/shared/EmailService";
 
 interface IUserDao {
   getOne: (email: string) => Promise<IUser | null>;
@@ -58,13 +59,15 @@ export class UserDao extends UserDb implements IUserDao {
       const db = await super.openDb();
       db.users.push(user);
 
+      let hash = uuidv1();
       const verificationHash: IVerificationHash = {
         email: user.email,
-        hash: uuidv1()
+        hash: hash
       };
-
       db.verificationHashes.push(verificationHash);
+
       await super.saveDb(db);
+      sendNewUserEmail(user.email, hash);
     } catch (err) {
       throw err;
     }

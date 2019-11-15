@@ -44,7 +44,10 @@
         "userDetailsButtonLabel": "User details",
         "passwordRecoveryButton": "Forgot password?",
         "tableEmailLabel": "User email",
-        "tableIdLabel": "User ID"
+        "tableIdLabel": "User ID",
+        "tableVerifiedLabel": "Email verified",
+        "tableYesLabel": "Yes",
+        "tableNoLabel": "No"
       },
       "input": {
         "emailTakenMessage": "This email is already taken.",
@@ -108,7 +111,10 @@
         "userDetailsButtonLabel": "Kasutaja detailvaade",
         "passwordRecoveryButton": "Unustasid parooli?",
         "tableEmailLabel": "Kasutaja e-post",
-        "tableIdLabel": "Kasutaja ID"
+        "tableIdLabel": "Kasutaja ID",
+        "tableVerifiedLabel": "E-post kinnitatud",
+        "tableYesLabel": "Jah",
+        "tableNoLabel": "Ei"
       },
       "input": {
         "emailTakenMessage": "See e-mail on juba võetud.",

@@ -15,9 +15,6 @@ import {
 const router = Router();
 const userDao = new UserDao();
 
-const postmark = require("postmark");
-const client = new postmark.ServerClient(process.env.POSTMARK_API_KEY);
-
 /******************************************************************************
  *                      Get All Users - "GET /api/users/all"
  ******************************************************************************/
@@ -82,18 +79,10 @@ router.post("/add", async (req: Request, res: Response) => {
     let user = {
       email: email,
       pwdHash: await bcrypt.hash(password, pwdSaltRounds),
-      logins: []
+      logins: [],
+      active: false
     };
     await userDao.add(user);
-
-    // Send email
-    client.sendEmail({
-      From: process.env.POSTMARK_EMAIL_FROM,
-      To: email,
-      Subject: "Test",
-      TextBody: "Hello from Postmark!"
-    });
-
     return res.status(CREATED).end();
   } catch (err) {
     logger.error(err.message, err);

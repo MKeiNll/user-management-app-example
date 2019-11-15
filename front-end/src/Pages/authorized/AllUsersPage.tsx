@@ -33,6 +33,7 @@ const useStyles = makeStyles({
 type user = {
   email: string;
   logins: Date[];
+  active: boolean;
 };
 
 const UsersPage: React.FC = () => {
@@ -84,7 +85,8 @@ const UsersPage: React.FC = () => {
   const handleUserCreation = (email: string) => {
     let usersCopy = users.slice();
     let logins: Date[] = [];
-    usersCopy.push({ email, logins });
+    let active = false;
+    usersCopy.push({ email, logins, active });
     setUsers(usersCopy);
   };
 
@@ -107,6 +109,9 @@ const UsersPage: React.FC = () => {
                 <TableCell>
                   <b>{t("usersPage.tableEmailLabel")}</b>
                 </TableCell>
+                <TableCell>
+                  <b>{t("usersPage.tableVerifiedLabel")}</b>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -119,6 +124,11 @@ const UsersPage: React.FC = () => {
                     </TableCell>
                     <TableCell component="th" scope="row">
                       {user.email}
+                    </TableCell>
+                    <TableCell component="th" scope="row">
+                      {user.active
+                        ? t("usersPage.tableYesLabel")
+                        : t("usersPage.tableNoLabel")}
                     </TableCell>
                     <TableCell align="right">
                       <UserDetailsModalView
