@@ -16,6 +16,7 @@ import DeleteUserModalView from "./DeleteUserModalView";
 import AddUserModalView from "./AddUserModalView";
 import UserDetailsModalView from "./UserDetailsModalView";
 import { useTranslation } from "react-i18next";
+import ErrorNotificationComponent from "../../Components/ErrorNotificationComponent";
 
 const useStyles = makeStyles({
   table: {
@@ -42,6 +43,7 @@ const UsersPage: React.FC = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [page, setPage] = React.useState(0);
   const [users, setUsers] = React.useState<user[]>([]);
+  const [errorOpen, setErrorOpen] = useState(false);
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, users.length - page * rowsPerPage);
@@ -53,6 +55,14 @@ const UsersPage: React.FC = () => {
 
   const handleChangePage = (event: any, newPage: any) => {
     setPage(newPage);
+  };
+
+  const handleErrorOpen = () => {
+    setErrorOpen(true);
+  };
+
+  const handleErrorClose = () => {
+    setErrorOpen(false);
   };
 
   const getUsers = () => {
@@ -71,7 +81,7 @@ const UsersPage: React.FC = () => {
         if (json !== null) {
           setUsers(json.users);
         } else {
-          // TODO
+          handleErrorOpen();
         }
       });
   };
@@ -175,6 +185,10 @@ const UsersPage: React.FC = () => {
           />
         </div>
       </div>
+      <ErrorNotificationComponent
+        open={errorOpen}
+        handleClose={handleErrorClose}
+      />
     </>
   );
 };

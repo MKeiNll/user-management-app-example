@@ -6,6 +6,7 @@ import classes from "*.module.css";
 import { makeStyles } from "@material-ui/styles";
 import { useTranslation } from "react-i18next";
 import NotificationComponent from "../Components/NotificationComponent";
+import ErrorNotificationComponent from "../Components/ErrorNotificationComponent";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -33,6 +34,7 @@ const PasswordRecoveryModalView: React.FC = () => {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [emailValue, setEmailValue] = useState<string>("");
   const [passwordInputError, setPasswordInputError] = useState<string>("");
+  const [errorOpen, setErrorOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -50,6 +52,14 @@ const PasswordRecoveryModalView: React.FC = () => {
     setNotificationOpen(false);
   };
 
+  const handleErrorOpen = () => {
+    setErrorOpen(true);
+  };
+
+  const handleErrorClose = () => {
+    setErrorOpen(false);
+  };
+
   const recoverPassword = () => {
     setPasswordInputError("");
     fetch("/api/auth/recover", {
@@ -65,7 +75,7 @@ const PasswordRecoveryModalView: React.FC = () => {
       } else if (res.status === 409) {
         setPasswordInputError(t("input.wrongEmailMessage"));
       } else {
-        // TODO
+        handleErrorOpen();
       }
     });
   };
@@ -92,11 +102,14 @@ const PasswordRecoveryModalView: React.FC = () => {
           </Button>
         </div>
       </Modal>
-
       <NotificationComponent
         handleClose={handleNotificationClose}
         open={notificationOpen}
         message={t("usersPage.passwordRecoveryModal.passwordRecoveredMessage")}
+      />
+      <ErrorNotificationComponent
+        open={errorOpen}
+        handleClose={handleErrorClose}
       />
     </>
   );

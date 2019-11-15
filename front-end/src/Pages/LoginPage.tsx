@@ -6,6 +6,8 @@ import { TextField, Button } from "@material-ui/core";
 import { Trans, useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/styles";
 import queryString from "query-string";
+import ErrorNotificationComponent from "../Components/ErrorNotificationComponent";
+import NotificationComponent from "../Components/NotificationComponent";
 
 const useStyles = makeStyles(() => ({
   inputContainer: {
@@ -27,6 +29,24 @@ const LoginPage: React.FC<ComponentProps<any>> = props => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(
     sessionStorage.getItem("userLoggedIn")
   );
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [errorOpen, setErrorOpen] = useState(false);
+
+  const handleNotificationOpen = () => {
+    setNotificationOpen(true);
+  };
+
+  const handleNotificationClose = () => {
+    setNotificationOpen(false);
+  };
+
+  const handleErrorOpen = () => {
+    setErrorOpen(true);
+  };
+
+  const handleErrorClose = () => {
+    setErrorOpen(false);
+  };
 
   useEffect(() => {
     if (isUserLoggedIn) {
@@ -46,9 +66,9 @@ const LoginPage: React.FC<ComponentProps<any>> = props => {
           })
         }).then(res => {
           if (res.status === 200) {
-            // TODO
+            handleNotificationOpen();
           } else {
-            // TODO
+            handleErrorOpen();
           }
         });
       }
@@ -84,7 +104,7 @@ const LoginPage: React.FC<ComponentProps<any>> = props => {
           } else if (code === "9005") {
             setEmailInputError(t("input.emailNotVerifiedErrorMessage"));
           } else {
-            // TODO
+            handleErrorOpen();
           }
         }
       });
@@ -126,6 +146,15 @@ const LoginPage: React.FC<ComponentProps<any>> = props => {
         <br />
         <PasswordRecoveryModalView />
       </div>
+      <NotificationComponent
+        handleClose={handleNotificationClose}
+        open={notificationOpen}
+        message={t("loginPage.emailVerifiedMessage")}
+      />
+      <ErrorNotificationComponent
+        open={errorOpen}
+        handleClose={handleErrorClose}
+      />
     </>
   );
 };

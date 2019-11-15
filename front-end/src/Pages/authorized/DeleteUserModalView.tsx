@@ -5,6 +5,7 @@ import classes from "*.module.css";
 import { makeStyles } from "@material-ui/styles";
 import { useTranslation } from "react-i18next";
 import NotificationComponent from "../../Components/NotificationComponent";
+import ErrorNotificationComponent from "../../Components/ErrorNotificationComponent";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -38,6 +39,7 @@ const DeleteUserModalView: React.FC<DeleteUserModalViewProps> = ({
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
+  const [errorOpen, setErrorOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -55,6 +57,14 @@ const DeleteUserModalView: React.FC<DeleteUserModalViewProps> = ({
     setNotificationOpen(false);
   };
 
+  const handleErrorOpen = () => {
+    setErrorOpen(true);
+  };
+
+  const handleErrorClose = () => {
+    setErrorOpen(false);
+  };
+
   const deleteUser = () => {
     fetch("/api/users/delete/" + id, {
       method: "delete",
@@ -65,7 +75,7 @@ const DeleteUserModalView: React.FC<DeleteUserModalViewProps> = ({
         handleNotificationOpen();
         handleClose();
       } else {
-        // TODO
+        handleErrorOpen();
       }
     });
   };
@@ -92,6 +102,10 @@ const DeleteUserModalView: React.FC<DeleteUserModalViewProps> = ({
         handleClose={handleNotificationClose}
         open={notificationOpen}
         message={t("usersPage.deleteUserModal.userDeletedMessage")}
+      />
+      <ErrorNotificationComponent
+        open={errorOpen}
+        handleClose={handleErrorClose}
       />
     </>
   );

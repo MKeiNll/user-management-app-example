@@ -5,6 +5,7 @@ import classes from "*.module.css";
 import { makeStyles } from "@material-ui/styles";
 import { useTranslation } from "react-i18next";
 import NotificationComponent from "../../Components/NotificationComponent";
+import ErrorNotificationComponent from "../../Components/ErrorNotificationComponent";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -39,6 +40,7 @@ const AddUserModalView: React.FC<AddUserModalViewProps> = ({
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
+  const [errorOpen, setErrorOpen] = useState(false);
   const [emailValue, setEmailValue] = useState<string>("");
   const [password1Value, setPassword1Value] = useState<string>("");
   const [password2Value, setPassword2Value] = useState<string>("");
@@ -59,6 +61,14 @@ const AddUserModalView: React.FC<AddUserModalViewProps> = ({
 
   const handleNotificationClose = () => {
     setNotificationOpen(false);
+  };
+
+  const handleErrorOpen = () => {
+    setErrorOpen(true);
+  };
+
+  const handleErrorClose = () => {
+    setErrorOpen(false);
   };
 
   const createUser = () => {
@@ -93,7 +103,7 @@ const AddUserModalView: React.FC<AddUserModalViewProps> = ({
             } else if (code === "9002") {
               setPasswordInputError(t("input.passwordValidationMessage"));
             } else {
-              // TODO
+              handleErrorOpen();
             }
           }
         });
@@ -162,6 +172,10 @@ const AddUserModalView: React.FC<AddUserModalViewProps> = ({
         handleClose={handleNotificationClose}
         open={notificationOpen}
         message={t("usersPage.newUserModal.userCreatedMessage")}
+      />
+      <ErrorNotificationComponent
+        open={errorOpen}
+        handleClose={handleErrorClose}
       />
     </>
   );

@@ -5,6 +5,7 @@ import classes from "*.module.css";
 import { makeStyles } from "@material-ui/styles";
 import { useTranslation } from "react-i18next";
 import { StringifyOptions } from "querystring";
+import ErrorNotificationComponent from "../../Components/ErrorNotificationComponent";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -28,11 +29,15 @@ type UserDetailsModalViewProps = {
   email: string;
 };
 
-const UserDetailsModalView: React.FC<UserDetailsModalViewProps> = ({ id, email }: UserDetailsModalViewProps) => {
+const UserDetailsModalView: React.FC<UserDetailsModalViewProps> = ({
+  id,
+  email
+}: UserDetailsModalViewProps) => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [logins, setLogins] = useState<Date[]>([]);
+  const [errorOpen, setErrorOpen] = useState(false);
 
   const handleOpen = () => {
     getUserDetails();
@@ -43,23 +48,33 @@ const UserDetailsModalView: React.FC<UserDetailsModalViewProps> = ({ id, email }
     setOpen(false);
   };
 
+  const handleErrorOpen = () => {
+    setErrorOpen(true);
+  };
+
+  const handleErrorClose = () => {
+    setErrorOpen(false);
+  };
+
   const getUserDetails = () => {
     fetch("/api/users/logins/" + id, {
       method: "get",
       headers: { "Content-Type": "application/json" }
-    }).then(res => {
-      if (res.status === 200) {
-        return res.json();
-      } else {
-        return null;
-      }
-    }).then(json => {
-      if(json !== null) {
-        setLogins(json);
-      } else {
-        // TODO
-      }
-    });
+    })
+      .then(res => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          return null;
+        }
+      })
+      .then(json => {
+        if (json !== null) {
+          setLogins(json);
+        } else {
+          handleErrorOpen();
+        }
+      });
   };
 
   return (
@@ -80,6 +95,10 @@ const UserDetailsModalView: React.FC<UserDetailsModalViewProps> = ({ id, email }
           </ul>
         </div>
       </Modal>
+      <ErrorNotificationComponent
+        open={errorOpen}
+        handleClose={handleErrorClose}
+      />
     </>
   );
 };

@@ -5,6 +5,7 @@ import { TextField, Button } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/styles";
 import NotificationComponent from "../Components/NotificationComponent";
+import ErrorNotificationComponent from "../Components/ErrorNotificationComponent";
 
 const useStyles = makeStyles(() => ({
   inputContainer: {
@@ -19,12 +20,13 @@ const useStyles = makeStyles(() => ({
 const RegisterPage: React.FC = () => {
   const { t } = useTranslation();
   const classes = useStyles();
-    const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationOpen, setNotificationOpen] = useState(false);
   const [emailValue, setEmailValue] = useState<string>("");
   const [password1Value, setPassword1Value] = useState<string>("");
   const [password2Value, setPassword2Value] = useState<string>("");
   const [emailInputError, setEmailInputError] = useState<string>("");
   const [passwordInputError, setPasswordInputError] = useState<string>("");
+  const [errorOpen, setErrorOpen] = useState(false);
 
   const handleNotificationOpen = () => {
     setNotificationOpen(true);
@@ -34,12 +36,19 @@ const RegisterPage: React.FC = () => {
     setNotificationOpen(false);
   };
 
+  const handleErrorOpen = () => {
+    setErrorOpen(true);
+  };
+
+  const handleErrorClose = () => {
+    setErrorOpen(false);
+  };
+
   const clearInputValues = () => {
     setEmailValue("");
     setPassword1Value("");
     setPassword2Value("");
-    console.log("set")
-  }
+  };
 
   const createUser = () => {
     if (password1Value === password2Value) {
@@ -72,7 +81,7 @@ const RegisterPage: React.FC = () => {
             } else if (code === "9002") {
               setPasswordInputError(t("input.passwordValidationMessage"));
             } else {
-              // TODO
+              handleErrorOpen();
             }
           }
         });
@@ -136,6 +145,10 @@ const RegisterPage: React.FC = () => {
         handleClose={handleNotificationClose}
         open={notificationOpen}
         message={t("registrationPage.userRegisteredMessage")}
+      />
+      <ErrorNotificationComponent
+        open={errorOpen}
+        handleClose={handleErrorClose}
       />
     </>
   );

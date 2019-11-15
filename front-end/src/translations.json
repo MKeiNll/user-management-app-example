@@ -11,7 +11,8 @@
       "loginPage": {
         "emailLabel": "Email:",
         "passwordLabel": "Password:",
-        "loginButtonLabel": "Login"
+        "loginButtonLabel": "Login",
+        "emailVerifiedMessage": "Your email has been verified."
       },
       "registrationPage": {
         "emailLabel": "Email:",
@@ -84,7 +85,8 @@
       "loginPage": {
         "emailLabel": "E-post:",
         "passwordLabel": "Parool:",
-        "loginButtonLabel": "Logi sisse"
+        "loginButtonLabel": "Logi sisse",
+        "emailVerifiedMessage": "Teie e-posti aadress on kinnitatud."
       },
       "registrationPage": {
         "emailLabel": "E-post:",
