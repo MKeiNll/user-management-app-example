@@ -1,6 +1,12 @@
 import bcrypt from "bcrypt";
 import { Request, Response, Router } from "express";
-import { BAD_REQUEST, CREATED, OK, CONFLICT } from "http-status-codes";
+import {
+  BAD_REQUEST,
+  CREATED,
+  OK,
+  CONFLICT,
+  UNAUTHORIZED
+} from "http-status-codes";
 import { ParamsDictionary } from "express-serve-static-core";
 import { UserDao } from "@daos";
 import {
@@ -9,11 +15,25 @@ import {
   pwdSaltRounds,
   emailValidationError,
   passwordValidationError,
-  emailTakenError
+  emailTakenError,
+  unauthorizedError,
+  JwtService
 } from "@shared";
 
 const router = Router();
 const userDao = new UserDao();
+const jwtService = new JwtService();
+
+const isJwtOk = async (req: Request) => {
+  let jwt = req.signedCookies["JwtCookieKey"];
+  if (jwt) {
+    let clientData = await jwtService.decodeJwt(jwt);
+    if (clientData.email) {
+      return true;
+    }
+  }
+  return false;
+};
 
 /******************************************************************************
  *                      Get All Users - "GET /api/users/all"
@@ -21,6 +41,12 @@ const userDao = new UserDao();
 
 router.get("/all", async (req: Request, res: Response) => {
   try {
+    if (!(await isJwtOk(req))) {
+      return res.status(UNAUTHORIZED).json({
+        error: unauthorizedError
+      });
+    }
+
     const users = await userDao.getAll();
     return res.status(OK).json({ users });
   } catch (err) {
@@ -37,6 +63,12 @@ router.get("/all", async (req: Request, res: Response) => {
 
 router.get("/logins/:id", async (req: Request, res: Response) => {
   try {
+    if (!(await isJwtOk(req))) {
+      return res.status(UNAUTHORIZED).json({
+        error: unauthorizedError
+      });
+    }
+
     const { id } = req.params as ParamsDictionary;
     const loginTimes = await userDao.getLoginTimes(Number(id));
     return res.status(OK).json(loginTimes);
@@ -54,6 +86,12 @@ router.get("/logins/:id", async (req: Request, res: Response) => {
 
 router.post("/add", async (req: Request, res: Response) => {
   try {
+    if (!(await isJwtOk(req))) {
+      return res.status(UNAUTHORIZED).json({
+        error: unauthorizedError
+      });
+    }
+
     // Check req body
     const { email, password } = req.body;
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -97,6 +135,12 @@ router.post("/add", async (req: Request, res: Response) => {
 
 router.delete("/delete/:id", async (req: Request, res: Response) => {
   try {
+    if (!(await isJwtOk(req))) {
+      return res.status(UNAUTHORIZED).json({
+        error: unauthorizedError
+      });
+    }
+
     const { id } = req.params as ParamsDictionary;
     await userDao.delete(Number(id));
     return res.status(OK).end();

@@ -4,9 +4,6 @@ import logger from 'morgan';
 import path from 'path';
 import BaseRouter from './routes';
 
-import { Request, Response } from 'express';
-import { jwtCookieProps } from '@shared';
-
 const app = express();
 
 app.use(logger('dev'));

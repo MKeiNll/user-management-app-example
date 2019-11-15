@@ -4,9 +4,6 @@ import { logger } from "./Logger";
 import { jwtCookieProps } from "./cookies";
 import { JwtService } from "./JwtService";
 
-// Init shared
-const jwtService = new JwtService();
-
 // Errors
 export const paramMissingError =
   '"One or more of the required parameters was missing."';
@@ -33,6 +30,7 @@ export const passwordValidationError = {
   message: "Password is not valid",
   code: "9002"
 };
+export const unauthorizedError = "Unauthorized request"
 
 // Numbers
 export const pwdSaltRounds = 12;
