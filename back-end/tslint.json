@@ -1,19 +1,31 @@
 {
   "extends": "tslint:recommended",
   "rules": {
-    "member-ordering": false,
-    "object-literal-sort-keys": false,
-    "ordered-imports": false,
-    "quotemark": [true, "single"],
-    "no-consecutive-blank-lines": false,
-    "lines-between-class-members": [true, 2]
+    "indent": ["error", 4],
+    "max-len": ["error", 180],
+    "comma-dangle": ["error", "never"],
+    "space-before-function-paren": ["error", "always"],
+    "arrow-body-style": ["off"],
+    "func-names": ["off"],
+    "new-cap": ["error", { "capIsNewExceptions": ["Component"] }],
+    "brace-style": ["error", "stroustrup"],
+    "no-console": [
+      "warn",
+      {
+        "allow": [
+          "warn",
+          "error",
+          "info",
+          "debug",
+          "groupCollapsed",
+          "groupEnd"
+        ]
+      }
+    ],
+    "no-param-reassign": ["off"]
   },
   "linterOptions": {
-    "exclude": [
-      "./node_modules/**"
-    ]
+    "exclude": ["./node_modules/**"]
   },
-  "rulesDirectory": [
-    "node_modules/tslint-lines-between-class-members"
-  ]
+  "rulesDirectory": ["node_modules/tslint-lines-between-class-members"]
 }

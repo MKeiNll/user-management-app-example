@@ -1,11 +1,11 @@
-import bcrypt from "bcrypt";
-import { SuperTest, Test } from "supertest";
 import { UserDao } from "@daos";
 import { pwdSaltRounds } from "@shared";
+import bcrypt from "bcrypt";
+import { SuperTest, Test } from "supertest";
 
 const creds = {
   email: "jsmith@gmail.com",
-  password: "Password@1"
+  password: "Password@1",
 };
 
 export const login = (beforeAgent: SuperTest<Test>, done: any) => {
@@ -14,10 +14,10 @@ export const login = (beforeAgent: SuperTest<Test>, done: any) => {
     email: "jsmith@gmail.com",
     pwdHash: bcrypt.hashSync(creds.password, pwdSaltRounds),
     logins: [],
-    active: true
+    active: true,
   };
   spyOn(UserDao.prototype, "getOne").and.returnValue(
-    Promise.resolve(loginUser)
+    Promise.resolve(loginUser),
   );
   // Call Login API
   beforeAgent

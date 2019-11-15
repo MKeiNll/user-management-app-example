@@ -1,34 +1,34 @@
+import { UserDao } from "@daos";
+import {
+  emailTakenError,
+  emailValidationError,
+  JwtService,
+  logger,
+  paramMissingError,
+  passwordValidationError,
+  pwdSaltRounds,
+  unauthorizedError,
+} from "@shared";
 import bcrypt from "bcrypt";
 import validator from "email-validator";
 import { Request, Response, Router } from "express";
+import { ParamsDictionary } from "express-serve-static-core";
 import {
   BAD_REQUEST,
+  CONFLICT,
   CREATED,
   OK,
-  CONFLICT,
-  UNAUTHORIZED
+  UNAUTHORIZED,
 } from "http-status-codes";
-import { ParamsDictionary } from "express-serve-static-core";
-import { UserDao } from "@daos";
-import {
-  paramMissingError,
-  logger,
-  pwdSaltRounds,
-  emailValidationError,
-  passwordValidationError,
-  emailTakenError,
-  unauthorizedError,
-  JwtService
-} from "@shared";
 
 const router = Router();
 const userDao = new UserDao();
 const jwtService = new JwtService();
 
 const isJwtOk = async (req: Request) => {
-  let jwt = req.signedCookies["JwtCookieKey"];
+  const jwt = req.signedCookies.JwtCookieKey;
   if (jwt) {
-    let clientData = await jwtService.decodeJwt(jwt);
+    const clientData = await jwtService.decodeJwt(jwt);
     if (clientData.email) {
       return true;
     }
@@ -44,7 +44,7 @@ router.get("/all", async (req: Request, res: Response) => {
   try {
     if (!(await isJwtOk(req))) {
       return res.status(UNAUTHORIZED).json({
-        error: unauthorizedError
+        error: unauthorizedError,
       });
     }
 
@@ -53,7 +53,7 @@ router.get("/all", async (req: Request, res: Response) => {
   } catch (err) {
     logger.error(err.message, err);
     return res.status(BAD_REQUEST).json({
-      error: err.message
+      error: err.message,
     });
   }
 });
@@ -66,7 +66,7 @@ router.get("/logins/:id", async (req: Request, res: Response) => {
   try {
     if (!(await isJwtOk(req))) {
       return res.status(UNAUTHORIZED).json({
-        error: unauthorizedError
+        error: unauthorizedError,
       });
     }
 
@@ -76,7 +76,7 @@ router.get("/logins/:id", async (req: Request, res: Response) => {
   } catch (err) {
     logger.error(err.message, err);
     return res.status(BAD_REQUEST).json({
-      error: err.message
+      error: err.message,
     });
   }
 });
@@ -86,27 +86,27 @@ const createUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(BAD_REQUEST).json({
-      error: paramMissingError
+      error: paramMissingError,
     });
   } else if (await userDao.getOne(email)) {
     return res.status(CONFLICT).json({
-      error: emailTakenError
+      error: emailTakenError,
     });
   } else if (!validator.validate(String(email).toLowerCase())) {
     return res.status(BAD_REQUEST).json({
-      error: emailValidationError
+      error: emailValidationError,
     });
   } else if (password.length < +process.env.MIN_PWD_LENGTH!) {
     return res.status(BAD_REQUEST).json({
-      error: passwordValidationError
+      error: passwordValidationError,
     });
   }
   // Save user
-  let user = {
-    email: email,
+  const user = {
+    email,
     pwdHash: await bcrypt.hash(password, pwdSaltRounds),
     logins: [],
-    active: false
+    active: false,
   };
   await userDao.add(user);
   return res.status(CREATED).end();
@@ -120,14 +120,14 @@ router.post("/add", async (req: Request, res: Response) => {
   try {
     if (!(await isJwtOk(req))) {
       return res.status(UNAUTHORIZED).json({
-        error: unauthorizedError
+        error: unauthorizedError,
       });
     }
     return createUser(req, res);
   } catch (err) {
     logger.error(err.message, err);
     return res.status(BAD_REQUEST).json({
-      error: err.message
+      error: err.message,
     });
   }
 });
@@ -142,7 +142,7 @@ router.post("/register", async (req: Request, res: Response) => {
   } catch (err) {
     logger.error(err.message, err);
     return res.status(BAD_REQUEST).json({
-      error: err.message
+      error: err.message,
     });
   }
 });
@@ -155,7 +155,7 @@ router.delete("/delete/:id", async (req: Request, res: Response) => {
   try {
     if (!(await isJwtOk(req))) {
       return res.status(UNAUTHORIZED).json({
-        error: unauthorizedError
+        error: unauthorizedError,
       });
     }
 
@@ -165,7 +165,7 @@ router.delete("/delete/:id", async (req: Request, res: Response) => {
   } catch (err) {
     logger.error(err.message, err);
     return res.status(BAD_REQUEST).json({
-      error: err.message
+      error: err.message,
     });
   }
 });

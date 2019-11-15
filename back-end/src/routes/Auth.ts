@@ -1,25 +1,25 @@
+import { UserDao } from "@daos";
 import bcrypt from "bcrypt";
 import { Request, Response, Router } from "express";
 import {
   BAD_REQUEST,
+  CONFLICT,
+  FORBIDDEN,
   OK,
   UNAUTHORIZED,
-  CONFLICT,
-  FORBIDDEN
 } from "http-status-codes";
-import { UserDao } from "@daos";
 
 import {
-  paramMissingError,
-  logger,
+  emailTakenError,
   jwtCookieProps,
   JwtService,
+  logger,
+  loginEmailNotVerifiedError,
   loginWrongEmailError,
   loginWrongPasswordError,
-  emailTakenError,
+  paramMissingError,
   recoverPasswordWrongEmailError,
-  loginEmailNotVerifiedError,
-  userNotFoundError
+  userNotFoundError,
 } from "@shared";
 
 const router = Router();
@@ -36,32 +36,32 @@ router.post("/login", async (req: Request, res: Response) => {
     const { email, password } = req.body;
     if (!(email && password)) {
       return res.status(BAD_REQUEST).json({
-        error: paramMissingError
+        error: paramMissingError,
       });
     }
     // Fetch user
     const user = await userDao.getOne(email);
     if (!user) {
       return res.status(UNAUTHORIZED).json({
-        error: loginWrongEmailError
+        error: loginWrongEmailError,
       });
     }
     // Check email is verified
     if (!user.active) {
       return res.status(UNAUTHORIZED).json({
-        error: loginEmailNotVerifiedError
+        error: loginEmailNotVerifiedError,
       });
     }
     // Check password
     const pwdPassed = await bcrypt.compare(password, user.pwdHash);
     if (!pwdPassed) {
       return res.status(UNAUTHORIZED).json({
-        error: loginWrongPasswordError
+        error: loginWrongPasswordError,
       });
     }
     // Setup Admin Cookie
     const jwt = await jwtService.getJwt({
-      email: user.email
+      email: user.email,
     });
     const { key, options } = jwtCookieProps;
     res.cookie(key, jwt, options);
@@ -71,7 +71,7 @@ router.post("/login", async (req: Request, res: Response) => {
   } catch (err) {
     logger.error(err.message, err);
     return res.status(BAD_REQUEST).json({
-      error: err.message
+      error: err.message,
     });
   }
 });
@@ -86,25 +86,25 @@ router.post("/recover", async (req: Request, res: Response) => {
     const { email } = req.body;
     if (!email) {
       return res.status(BAD_REQUEST).json({
-        error: paramMissingError
+        error: paramMissingError,
       });
     } else if (!(await userDao.getOne(email))) {
       return res.status(CONFLICT).json({
-        error: recoverPasswordWrongEmailError
+        error: recoverPasswordWrongEmailError,
       });
     }
     // Generate new password
-    let newPassword = userDao.createNewPassword(email);
+    const newPassword = userDao.createNewPassword(email);
     if (newPassword === null) {
       return res.status(BAD_REQUEST).json({
-        error: userNotFoundError
+        error: userNotFoundError,
       });
     }
     return res.status(OK).end();
   } catch (err) {
     logger.error(err.message, err);
     return res.status(BAD_REQUEST).json({
-      error: err.message
+      error: err.message,
     });
   }
 });
@@ -119,7 +119,7 @@ router.post("/validate", async (req: Request, res: Response) => {
     const { hash } = req.body;
     if (!hash) {
       return res.status(BAD_REQUEST).json({
-        error: paramMissingError
+        error: paramMissingError,
       });
     }
 
@@ -128,7 +128,7 @@ router.post("/validate", async (req: Request, res: Response) => {
   } catch (err) {
     logger.error(err.message, err);
     return res.status(BAD_REQUEST).json({
-      error: err.message
+      error: err.message,
     });
   }
 });
@@ -145,7 +145,7 @@ router.get("/logout", async (req: Request, res: Response) => {
   } catch (err) {
     logger.error(err.message, err);
     return res.status(BAD_REQUEST).json({
-      error: err.message
+      error: err.message,
     });
   }
 });

@@ -1,6 +1,6 @@
+import { logger } from "@shared";
 import find from "find";
 import Jasmine from "jasmine";
-import { logger } from "@shared";
 
 // Init Jasmine
 const jasmine = new Jasmine(null);
@@ -10,7 +10,7 @@ jasmine.loadConfig({
   random: true,
   spec_dir: "spec",
   spec_files: ["./**/*.spec.ts"],
-  stopSpecOnExpectationFailure: false
+  stopSpecOnExpectationFailure: false,
 });
 
 // On complete callback function
@@ -25,7 +25,7 @@ jasmine.onComplete((passed: boolean) => {
 // Run all or a single unit-test
 if (process.argv[2]) {
   const testFile = process.argv[2];
-  find.file(testFile + ".spec.ts", "./spec", files => {
+  find.file(testFile + ".spec.ts", "./spec", (files) => {
     if (files.length === 1) {
       jasmine.specFiles = [files[0]];
       jasmine.execute();

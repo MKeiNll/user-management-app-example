@@ -1,5 +1,5 @@
-import randomString from "randomstring";
 import jsonwebtoken, { VerifyErrors } from "jsonwebtoken";
+import randomString from "randomstring";
 import { jwtCookieExp } from "./cookies";
 
 interface IClientData {
@@ -14,7 +14,7 @@ export class JwtService {
   constructor() {
     this.secret = process.env.JWT_SECRET || randomString.generate(100);
     this.options = {
-      expiresIn: jwtCookieExp + " days"
+      expiresIn: jwtCookieExp + " days",
     };
   }
 
@@ -43,7 +43,7 @@ export class JwtService {
         this.secret,
         (err: VerifyErrors, decoded: object | string) => {
           return err ? rej(this.VALIDATION_ERROR) : res(decoded as IClientData);
-        }
+        },
       );
     });
   }

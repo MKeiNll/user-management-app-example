@@ -1,12 +1,12 @@
 import app from "@server";
 import supertest from "supertest";
 
-import { BAD_REQUEST, CREATED, OK, CONFLICT } from "http-status-codes";
-import { Response, SuperTest, Test } from "supertest";
-import { IUser } from "@entities";
 import { UserDao } from "@daos";
+import { IUser } from "@entities";
+import { jwtCookieProps, paramMissingError, pErr } from "@shared";
+import { BAD_REQUEST, CONFLICT, CREATED, OK } from "http-status-codes";
+import { Response, SuperTest, Test } from "supertest";
 import { login } from "./support/LoginAgent";
-import { pErr, paramMissingError, jwtCookieProps } from "@shared";
 
 describe("UserRouter", () => {
   const usersPath = "/api/users";
@@ -18,7 +18,7 @@ describe("UserRouter", () => {
   let agent: SuperTest<Test>;
   let jwtCookie: string;
 
-  beforeAll(done => {
+  beforeAll((done) => {
     agent = supertest.agent(app);
     login(agent, (cookie: string) => {
       jwtCookie = cookie;
@@ -32,27 +32,27 @@ describe("UserRouter", () => {
     };
 
     it(`should return a JSON object with all the users and a status code of "${OK}" if the
-            request was successful.`, done => {
+            request was successful.`, (done) => {
       // Setup Dummy Data
       const users = [
         {
           email: "sean.maxwell@gmail.com'",
           logins: [],
-          active: true
+          active: true,
         },
         {
           email: "john.smith@gmail.com",
           logins: [],
-          active: true
+          active: true,
         },
         {
           email: "gordan.freeman@gmail.com",
           logins: [],
-          active: true
-        }
+          active: true,
+        },
       ];
       spyOn(UserDao.prototype, "getAll").and.returnValue(
-        Promise.resolve(users)
+        Promise.resolve(users),
       );
       // Call API
       callApi().end((err: Error, res: Response) => {
@@ -65,7 +65,7 @@ describe("UserRouter", () => {
     });
 
     it(`should return a JSON object containing an error message and a status code of
-            "${BAD_REQUEST}" if the request was unsuccessful.`, done => {
+            "${BAD_REQUEST}" if the request was unsuccessful.`, (done) => {
       // Setup Dummy Data
       const errMsg = "Could not fetch users.";
       spyOn(UserDao.prototype, "getAll").and.throwError(errMsg);
@@ -90,11 +90,11 @@ describe("UserRouter", () => {
 
     const userData = {
       email: "sean.maxwell@gmail.com",
-      password: "12345678"
+      password: "12345678",
     };
 
     it(`should return a JSON object with an error message of "${paramMissingError}" and a status
-            code of "${BAD_REQUEST}" if the user param was missing.`, done => {
+            code of "${BAD_REQUEST}" if the user param was missing.`, (done) => {
       callApi({}).end((err: Error, res: Response) => {
         pErr(err);
         expect(res.status).toBe(BAD_REQUEST);
@@ -104,7 +104,7 @@ describe("UserRouter", () => {
     });
 
     it(`should return a JSON object with an error message and a status code of "${CONFLICT}"
-            if the request was unsuccessful.`, done => {
+            if the request was unsuccessful.`, (done) => {
       // Setup Dummy Response
       const errMsg = "Email taken";
       spyOn(UserDao.prototype, "add").and.throwError(errMsg);
@@ -124,7 +124,7 @@ describe("UserRouter", () => {
       return agent.delete(path).set("Cookie", jwtCookie);
     };
 
-    it(`should return a status code of "${OK}" if the request was successful.`, done => {
+    it(`should return a status code of "${OK}" if the request was successful.`, (done) => {
       spyOn(UserDao.prototype, "delete").and.returnValue(Promise.resolve());
       callApi(5).end((err: Error, res: Response) => {
         pErr(err);
@@ -135,7 +135,7 @@ describe("UserRouter", () => {
     });
 
     it(`should return a JSON object with an error message and a status code of "${BAD_REQUEST}"
-            if the request was unsuccessful.`, done => {
+            if the request was unsuccessful.`, (done) => {
       // Setup Dummy Response
       const deleteErrMsg = "Could not delete user.";
       spyOn(UserDao.prototype, "delete").and.throwError(deleteErrMsg);

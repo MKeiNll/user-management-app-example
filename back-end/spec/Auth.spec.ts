@@ -1,18 +1,18 @@
 import app from "@server";
-import supertest from "supertest";
 import bcrypt from "bcrypt";
+import supertest from "supertest";
 
-import { BAD_REQUEST, CREATED, OK, UNAUTHORIZED } from "http-status-codes";
-import { Response, SuperTest, Test } from "supertest";
-import {
-  pErr,
-  pwdSaltRounds,
-  jwtCookieProps,
-  loginWrongEmailError,
-  loginWrongPasswordError
-} from "@shared";
 import { UserDao } from "@daos";
 import { IUser } from "@entities";
+import {
+  jwtCookieProps,
+  loginWrongEmailError,
+  loginWrongPasswordError,
+  pErr,
+  pwdSaltRounds,
+} from "@shared";
+import { BAD_REQUEST, CREATED, OK, UNAUTHORIZED } from "http-status-codes";
+import { Response, SuperTest, Test } from "supertest";
 
 describe("AuthRouter", () => {
   const authPath = "/api/auth";
@@ -21,7 +21,7 @@ describe("AuthRouter", () => {
 
   let agent: SuperTest<Test>;
 
-  beforeAll(done => {
+  beforeAll((done) => {
     agent = supertest.agent(app);
     done();
   });
@@ -35,20 +35,20 @@ describe("AuthRouter", () => {
     };
 
     it(`should return a response with a status of ${OK} and a cookie with a jwt if the login
-            was successful.`, done => {
+            was successful.`, (done) => {
       // Setup Dummy Data
       const user = {
         email: "jsmith@gmail.com",
         pwdHash: hashPwd("Password@1"),
         logins: [],
-        active: true
+        active: true,
       };
 
       spyOn(UserDao.prototype, "getOne").and.returnValue(Promise.resolve(user));
       // Call API
       callApi({
         email: "jsmith@gmail.com",
-        password: "Password@1"
+        password: "Password@1",
       }).end((err: Error, res: any) => {
         pErr(err);
         expect(res.status).toBe(OK);
@@ -58,20 +58,20 @@ describe("AuthRouter", () => {
     });
 
     it(`should return a response with a status of ${UNAUTHORIZED} and a json with the error
-            "${loginWrongEmailError}" if the email was not found.`, done => {
+            "${loginWrongEmailError}" if the email was not found.`, (done) => {
       // Setup Dummy Data
       const user = {
         email: "jsmith@gmail.com",
         pwdHash: hashPwd("Password@1"),
         logins: [],
-        active: true
+        active: true,
       };
 
       spyOn(UserDao.prototype, "getOne").and.returnValue(Promise.resolve(null));
       // Call API
       callApi({
         email: "jsmith@gmail.com",
-        password: "Password@1"
+        password: "Password@1",
       }).end((err: Error, res: any) => {
         pErr(err);
         expect(res.status).toBe(UNAUTHORIZED);
@@ -81,20 +81,20 @@ describe("AuthRouter", () => {
     });
 
     it(`should return a response with a status of ${UNAUTHORIZED} and a json with the error
-            "${loginWrongPasswordError}" if the password failed.`, done => {
+            "${loginWrongPasswordError}" if the password failed.`, (done) => {
       // Setup Dummy Data
       const user = {
         email: "jsmith@gmail.com",
         pwdHash: hashPwd("Password@1"),
         logins: [],
-        active: true
+        active: true,
       };
 
       spyOn(UserDao.prototype, "getOne").and.returnValue(Promise.resolve(user));
       // Call API
       callApi({
         email: "jsmith@gmail.com",
-        password: "wrong"
+        password: "wrong",
       }).end((err: Error, res: any) => {
         pErr(err);
         expect(res.status).toBe(UNAUTHORIZED);
@@ -104,14 +104,14 @@ describe("AuthRouter", () => {
     });
 
     it(`should return a response with a status of ${BAD_REQUEST} and a json with an error
-            for all other bad responses.`, done => {
+            for all other bad responses.`, (done) => {
       // Setup Dummy Data
       const creds = {
         email: "jsmith@gmail.com",
-        password: "someBadPassword"
+        password: "someBadPassword",
       };
       spyOn(UserDao.prototype, "getOne").and.throwError(
-        "Database query failed."
+        "Database query failed.",
       );
       // Call API
       callApi(creds).end((err: Error, res: any) => {
@@ -124,7 +124,7 @@ describe("AuthRouter", () => {
   });
 
   describe(`"GET:${logoutPath}"`, () => {
-    it(`should return a response with a status of ${OK}.`, done => {
+    it(`should return a response with a status of ${OK}.`, (done) => {
       agent.get(logoutPath).end((err: Error, res: any) => {
         pErr(err);
         expect(res.status).toBe(OK);

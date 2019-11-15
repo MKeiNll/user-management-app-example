@@ -8,6 +8,6 @@ export const jwtCookieProps = Object.freeze({
     signed: process.env.SIGNED_COOKIE === "true",
     maxAge: 1000 * 60 * 60 * 24 * Number(jwtCookieExp),
     domain: process.env.COOKIE_DOMAIN,
-    secure: process.env.SECURE_COOKIE === "true"
-  }
+    secure: process.env.SECURE_COOKIE === "true",
+  },
 });

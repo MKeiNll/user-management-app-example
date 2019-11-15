@@ -1,13 +1,13 @@
-import bcrypt from "bcrypt";
 import { IUser } from "@entities";
+import { pwdSaltRounds } from "@shared";
+import bcrypt from "bcrypt";
 import jsonfile, { Path } from "jsonfile";
 import { IVerificationHash } from "src/entities/IVerificationHash";
 import {
-  sendNewUserEmail,
+  sendDeletedEmail,
   sendNewPasswordEmail,
-  sendDeletedEmail
+  sendNewUserEmail,
 } from "src/shared/EmailService";
-import { pwdSaltRounds } from "@shared";
 
 const crypto = require("crypto");
 
@@ -54,7 +54,7 @@ export class UserDao extends UserDb implements IUserDao {
   public async getAll(): Promise<IUser[]> {
     try {
       const db = await super.openDb();
-      let users = db.users.slice();
+      const users = db.users.slice();
       for (let i = 0, len = users.length; i < len; i++) {
         delete users[i].pwdHash;
       }
@@ -69,10 +69,10 @@ export class UserDao extends UserDb implements IUserDao {
       const db = await super.openDb();
       db.users.push(user);
 
-      let hash = uuidv1();
+      const hash = uuidv1();
       const verificationHash: IVerificationHash = {
         email: user.email,
-        hash: hash
+        hash,
       };
       db.verificationHashes.push(verificationHash);
 
@@ -100,7 +100,7 @@ export class UserDao extends UserDb implements IUserDao {
   public async getLoginTimes(id: number): Promise<Date[]> {
     try {
       const db = await super.openDb();
-      if (id >= db.users.length) throw new Error("User not found");
+      if (id >= db.users.length) { throw new Error("User not found"); }
       return db.users[id].logins;
     } catch (err) {
       throw err;
@@ -110,7 +110,7 @@ export class UserDao extends UserDb implements IUserDao {
   public async validateEmail(hash: string): Promise<void> {
     try {
       const db = await super.openDb();
-      let verificationHash = db.verificationHashes.filter((obj: any) => {
+      const verificationHash = db.verificationHashes.filter((obj: any) => {
         return obj.hash === hash;
       });
 
@@ -120,7 +120,7 @@ export class UserDao extends UserDb implements IUserDao {
             user.active = true;
             db.verificationHashes.splice(
               db.verificationHashes.indexOf(verificationHash),
-              1
+              1,
             );
             await super.saveDb(db);
           }
@@ -136,7 +136,7 @@ export class UserDao extends UserDb implements IUserDao {
       const db = await super.openDb();
       for (const user of db.users) {
         if (user.email === email) {
-          let newPassword = crypto.randomBytes(6).toString("hex");
+          const newPassword = crypto.randomBytes(6).toString("hex");
           user.pwdHash = await bcrypt.hash(newPassword, pwdSaltRounds);
           await super.saveDb(db);
           sendNewPasswordEmail(email, newPassword);
@@ -152,10 +152,10 @@ export class UserDao extends UserDb implements IUserDao {
   public async delete(id: number): Promise<void> {
     try {
       const db = await super.openDb();
-      if (id >= db.users.length) throw new Error("User not found");
-      let userEmail = db.users[id].email;
+      if (id >= db.users.length) { throw new Error("User not found"); }
+      const userEmail = db.users[id].email;
       // Delete verification hashes if they exist
-      for (var i = db.verificationHashes.length - 1; i >= 0; i--) {
+      for (let i = db.verificationHashes.length - 1; i >= 0; i--) {
         if (db.verificationHashes[i].email === userEmail) {
           db.verificationHashes.splice(i, 1);
         }
