@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
-import { Modal, Button } from "@material-ui/core";
 import classes from "*.module.css";
+import { Button, Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import NotificationComponent from "../../Components/NotificationComponent";
+import { Redirect } from "react-router-dom";
 import ErrorNotificationComponent from "../../Components/ErrorNotificationComponent";
+import NotificationComponent from "../../Components/NotificationComponent";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
     width: 350,
@@ -19,21 +19,21 @@ const useStyles = makeStyles(theme => ({
     right: "0",
     top: "0",
     bottom: "0",
-    margin: "auto"
+    margin: "auto",
   },
   deleteButton: {
-    marginTop: 25
-  }
+    marginTop: 25,
+  },
 }));
 
-type DeleteUserModalViewProps = {
+interface DeleteUserModalViewProps {
   id: number;
   handleDeletion: (id: number) => void;
-};
+}
 
 const DeleteUserModalView: React.FC<DeleteUserModalViewProps> = ({
   id,
-  handleDeletion
+  handleDeletion,
 }: DeleteUserModalViewProps) => {
   const { t } = useTranslation();
   const classes = useStyles();
@@ -68,8 +68,8 @@ const DeleteUserModalView: React.FC<DeleteUserModalViewProps> = ({
   const deleteUser = () => {
     fetch("/api/users/delete/" + id, {
       method: "delete",
-      headers: { "Content-Type": "application/json" }
-    }).then(res => {
+      headers: { "Content-Type": "application/json" },
+    }).then((res) => {
       if (res.status === 200) {
         handleDeletion(id);
         handleNotificationOpen();

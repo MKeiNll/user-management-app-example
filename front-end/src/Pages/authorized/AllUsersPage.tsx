@@ -1,41 +1,41 @@
-import React, { useState, useEffect } from "react";
-import { Redirect, Link } from "react-router-dom";
-import MenuComponent from "../../Components/MenuComponent";
+import classes from "*.module.css";
+import { jsxElement } from "@babel/types";
 import {
   Table,
-  TableHead,
-  TableRow,
-  TableCell,
   TableBody,
-  TablePagination
+  TableCell,
+  TableHead,
+  TablePagination,
+  TableRow,
 } from "@material-ui/core";
-import classes from "*.module.css";
 import { makeStyles } from "@material-ui/styles";
-import { jsxElement } from "@babel/types";
-import DeleteUserModalView from "./DeleteUserModalView";
-import AddUserModalView from "./AddUserModalView";
-import UserDetailsModalView from "./UserDetailsModalView";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Link, Redirect } from "react-router-dom";
 import ErrorNotificationComponent from "../../Components/ErrorNotificationComponent";
+import MenuComponent from "../../Components/MenuComponent";
+import AddUserModalView from "./AddUserModalView";
+import DeleteUserModalView from "./DeleteUserModalView";
+import UserDetailsModalView from "./UserDetailsModalView";
 
 const useStyles = makeStyles({
   table: {
-    width: 1000
+    width: 1000,
   },
   tableContainer: {
     marginLeft: 200,
-    marginTop: 50
+    marginTop: 50,
   },
   tableRow: {
-    height: 75
-  }
+    height: 75,
+  },
 });
 
-type user = {
+interface user {
   email: string;
   logins: Date[];
   active: boolean;
-};
+}
 
 const UsersPage: React.FC = () => {
   const { t } = useTranslation();
@@ -68,16 +68,16 @@ const UsersPage: React.FC = () => {
   const getUsers = () => {
     fetch("/api/users/all", {
       method: "get",
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     })
-      .then(res => {
+      .then((res) => {
         if (res.status === 200 || res.status === 304) {
           return res.json();
         } else {
           return null;
         }
       })
-      .then(json => {
+      .then((json) => {
         if (json !== null) {
           setUsers(json.users);
         } else {
@@ -87,15 +87,15 @@ const UsersPage: React.FC = () => {
   };
 
   const handleUserDeletion = (id: number) => {
-    let usersCopy = users.slice();
+    const usersCopy = users.slice();
     usersCopy.splice(id, 1);
     setUsers(usersCopy);
   };
 
   const handleUserCreation = (email: string) => {
-    let usersCopy = users.slice();
-    let logins: Date[] = [];
-    let active = false;
+    const usersCopy = users.slice();
+    const logins: Date[] = [];
+    const active = false;
     usersCopy.push({ email, logins, active });
     setUsers(usersCopy);
   };

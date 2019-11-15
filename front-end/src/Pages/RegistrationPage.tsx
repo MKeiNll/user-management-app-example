@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
-import MenuComponent from "../Components/MenuComponent";
-import { TextField, Button } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
+import { Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import NotificationComponent from "../Components/NotificationComponent";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Redirect } from "react-router-dom";
 import ErrorNotificationComponent from "../Components/ErrorNotificationComponent";
+import MenuComponent from "../Components/MenuComponent";
+import NotificationComponent from "../Components/NotificationComponent";
 
 const useStyles = makeStyles(() => ({
   inputContainer: {
     marginLeft: 200,
-    marginTop: 50
+    marginTop: 50,
   },
   inputField: {
-    marginBottom: 25
-  }
+    marginBottom: 25,
+  },
 }));
 
 const RegisterPage: React.FC = () => {
@@ -59,10 +59,10 @@ const RegisterPage: React.FC = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: emailValue,
-          password: password1Value
-        })
+          password: password1Value,
+        }),
       })
-        .then(res => {
+        .then((res) => {
           if (res.status === 201) {
             handleNotificationOpen();
             clearInputValues();
@@ -73,9 +73,9 @@ const RegisterPage: React.FC = () => {
           }
           return null;
         })
-        .then(errorJson => {
+        .then((errorJson) => {
           if (errorJson) {
-            let code = errorJson.error.code;
+            const code = errorJson.error.code;
             if (code === "9001") {
               setEmailInputError(t("input.emailValidationErrorMessage"));
             } else if (code === "9002") {
@@ -103,7 +103,7 @@ const RegisterPage: React.FC = () => {
           helperText={emailInputError}
           margin="normal"
           className={classes.inputField}
-          onChange={e => setEmailValue((e.target as HTMLInputElement).value)}
+          onChange={(e) => setEmailValue((e.target as HTMLInputElement).value)}
           value={emailValue}
         />
 
@@ -114,7 +114,7 @@ const RegisterPage: React.FC = () => {
           margin="normal"
           type="password"
           className={classes.inputField}
-          onChange={e =>
+          onChange={(e) =>
             setPassword1Value((e.target as HTMLInputElement).value)
           }
           value={password1Value}
@@ -128,7 +128,7 @@ const RegisterPage: React.FC = () => {
           margin="normal"
           className={classes.inputField}
           type="password"
-          onChange={e =>
+          onChange={(e) =>
             setPassword2Value((e.target as HTMLInputElement).value)
           }
           value={password2Value}

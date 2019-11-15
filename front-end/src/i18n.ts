@@ -6,10 +6,10 @@ i18n.use(initReactI18next).init({
   resources: translations,
   lng: "eng",
   interpolation: {
-    escapeValue: false
+    escapeValue: false,
   },
   ns: ["translations"],
-  defaultNS: "translations"
+  defaultNS: "translations",
 });
 
 export default i18n;

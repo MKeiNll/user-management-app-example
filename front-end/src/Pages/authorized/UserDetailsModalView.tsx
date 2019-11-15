@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
-import { Modal, Button } from "@material-ui/core";
 import classes from "*.module.css";
+import { Button, Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { useTranslation } from "react-i18next";
 import { StringifyOptions } from "querystring";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Redirect } from "react-router-dom";
 import ErrorNotificationComponent from "../../Components/ErrorNotificationComponent";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
     width: 350,
@@ -20,18 +20,18 @@ const useStyles = makeStyles(theme => ({
     right: "0",
     top: "0",
     bottom: "0",
-    margin: "auto"
-  }
+    margin: "auto",
+  },
 }));
 
-type UserDetailsModalViewProps = {
+interface UserDetailsModalViewProps {
   id: number;
   email: string;
-};
+}
 
 const UserDetailsModalView: React.FC<UserDetailsModalViewProps> = ({
   id,
-  email
+  email,
 }: UserDetailsModalViewProps) => {
   const { t } = useTranslation();
   const classes = useStyles();
@@ -59,16 +59,16 @@ const UserDetailsModalView: React.FC<UserDetailsModalViewProps> = ({
   const getUserDetails = () => {
     fetch("/api/users/logins/" + id, {
       method: "get",
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     })
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           return res.json();
         } else {
           return null;
         }
       })
-      .then(json => {
+      .then((json) => {
         if (json !== null) {
           setLogins(json);
         } else {

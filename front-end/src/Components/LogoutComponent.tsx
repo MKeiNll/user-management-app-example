@@ -1,32 +1,32 @@
-import React, { useState, useEffect } from "react";
 import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import { NavLink, Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import Toolbar from "@material-ui/core/Toolbar";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { NavLink, Redirect } from "react-router-dom";
 import ErrorNotificationComponent from "./ErrorNotificationComponent";
 
 const useStyles = makeStyles(() => ({
   logoutButton: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "120px",
-    height: "100%",
-    float: "right",
+    "display": "flex",
+    "justifyContent": "center",
+    "alignItems": "center",
+    "width": "120px",
+    "height": "100%",
+    "float": "right",
     "&:hover": {
       background: "#C9CEEA",
       color: "#3F51B5",
-      cursor: "pointer"
-    }
-  }
+      cursor: "pointer",
+    },
+  },
 }));
 
 const LogoutComponent: React.FC = () => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(
-    sessionStorage.getItem("userLoggedIn")
+    sessionStorage.getItem("userLoggedIn"),
   );
   const [errorOpen, setErrorOpen] = useState(false);
 
@@ -49,8 +49,8 @@ const LogoutComponent: React.FC = () => {
   const logoutUser = () => {
     fetch("/api/auth/logout", {
       method: "get",
-      headers: { "Content-Type": "application/json" }
-    }).then(res => {
+      headers: { "Content-Type": "application/json" },
+    }).then((res) => {
       if (res.status === 200) {
         setIsUserLoggedIn(null);
       } else {

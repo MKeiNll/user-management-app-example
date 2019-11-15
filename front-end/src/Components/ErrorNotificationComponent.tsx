@@ -1,32 +1,32 @@
-import React, { useState, useEffect } from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import { NavLink } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import LogoutComponent from "./LogoutComponent";
-import { useTranslation } from "react-i18next";
-import LanguageComponent from "./LanguageComponent";
 import {
   Button,
-  Snackbar,
   IconButton,
-  SnackbarContent
+  Snackbar,
+  SnackbarContent,
 } from "@material-ui/core";
+import AppBar from "@material-ui/core/AppBar";
+import { makeStyles } from "@material-ui/core/styles";
+import Toolbar from "@material-ui/core/Toolbar";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { NavLink } from "react-router-dom";
+import LanguageComponent from "./LanguageComponent";
+import LogoutComponent from "./LogoutComponent";
 
 const useStyles = makeStyles(() => ({
   errorNotification: {
-    backgroundColor: "#D32F2F"
-  }
+    backgroundColor: "#D32F2F",
+  },
 }));
 
-type NotificationComponentProps = {
+interface NotificationComponentProps {
   open: boolean;
   handleClose: () => void;
-};
+}
 
 const ErrorNotificationComponent: React.FC<NotificationComponentProps> = ({
   open,
-  handleClose
+  handleClose,
 }: NotificationComponentProps) => {
   const { t } = useTranslation();
   const classes = useStyles();
@@ -35,7 +35,7 @@ const ErrorNotificationComponent: React.FC<NotificationComponentProps> = ({
     <Snackbar
       anchorOrigin={{
         vertical: "bottom",
-        horizontal: "left"
+        horizontal: "left",
       }}
       open={open}
       onClose={handleClose}

@@ -1,25 +1,25 @@
-import React, { useState, useEffect, ComponentProps } from "react";
-import { Redirect, Link, useParams } from "react-router-dom";
-import MenuComponent from "../Components/MenuComponent";
-import PasswordRecoveryModalView from "./PasswordRecoveryModalView";
-import { TextField, Button } from "@material-ui/core";
-import { Trans, useTranslation } from "react-i18next";
+import { Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import queryString from "query-string";
+import React, { ComponentProps, useEffect, useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
+import { Link, Redirect, useParams } from "react-router-dom";
 import ErrorNotificationComponent from "../Components/ErrorNotificationComponent";
+import MenuComponent from "../Components/MenuComponent";
 import NotificationComponent from "../Components/NotificationComponent";
+import PasswordRecoveryModalView from "./PasswordRecoveryModalView";
 
 const useStyles = makeStyles(() => ({
   inputContainer: {
     marginLeft: 200,
-    marginTop: 50
+    marginTop: 50,
   },
   inputField: {
-    marginBottom: 25
-  }
+    marginBottom: 25,
+  },
 }));
 
-const LoginPage: React.FC<ComponentProps<any>> = props => {
+const LoginPage: React.FC<ComponentProps<any>> = (props) => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [emailValue, setEmailValue] = useState<string>("");
@@ -27,7 +27,7 @@ const LoginPage: React.FC<ComponentProps<any>> = props => {
   const [emailInputError, setEmailInputError] = useState<string>("");
   const [passwordInputError, setPasswordInputError] = useState<string>("");
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(
-    sessionStorage.getItem("userLoggedIn")
+    sessionStorage.getItem("userLoggedIn"),
   );
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [errorOpen, setErrorOpen] = useState(false);
@@ -55,16 +55,16 @@ const LoginPage: React.FC<ComponentProps<any>> = props => {
   }, [isUserLoggedIn]);
 
   useEffect(() => {
-    let params = queryString.parse(props.location.search);
+    const params = queryString.parse(props.location.search);
     if (params) {
       if (params.hash) {
         fetch("/api/auth/validate", {
           method: "post",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            hash: params.hash
-          })
-        }).then(res => {
+            hash: params.hash,
+          }),
+        }).then((res) => {
           if (res.status === 200) {
             handleNotificationOpen();
           } else {
@@ -83,10 +83,10 @@ const LoginPage: React.FC<ComponentProps<any>> = props => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: emailValue,
-        password: passwordValue
-      })
+        password: passwordValue,
+      }),
     })
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           setIsUserLoggedIn("true");
         } else if (res.status === 401) {
@@ -94,9 +94,9 @@ const LoginPage: React.FC<ComponentProps<any>> = props => {
         }
         return null;
       })
-      .then(errorJson => {
+      .then((errorJson) => {
         if (errorJson) {
-          let code = errorJson.error.code;
+          const code = errorJson.error.code;
           if (code === "9003") {
             setEmailInputError(t("input.wrongEmailMessage"));
           } else if (code === "9004") {
@@ -123,7 +123,7 @@ const LoginPage: React.FC<ComponentProps<any>> = props => {
           error={emailInputError !== ""}
           helperText={emailInputError}
           margin="normal"
-          onChange={e => setEmailValue((e.target as HTMLInputElement).value)}
+          onChange={(e) => setEmailValue((e.target as HTMLInputElement).value)}
           className={classes.inputField}
         />
 
@@ -135,7 +135,7 @@ const LoginPage: React.FC<ComponentProps<any>> = props => {
           helperText={passwordInputError}
           margin="normal"
           type="password"
-          onChange={e => setPasswordValue((e.target as HTMLInputElement).value)}
+          onChange={(e) => setPasswordValue((e.target as HTMLInputElement).value)}
           className={classes.inputField}
         />
         <div>

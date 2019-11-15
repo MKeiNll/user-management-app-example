@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
-import MenuComponent from "../Components/MenuComponent";
-import { Modal, Button, TextField } from "@material-ui/core";
 import classes from "*.module.css";
+import { Button, Modal, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import NotificationComponent from "../Components/NotificationComponent";
+import { Redirect } from "react-router-dom";
 import ErrorNotificationComponent from "../Components/ErrorNotificationComponent";
+import MenuComponent from "../Components/MenuComponent";
+import NotificationComponent from "../Components/NotificationComponent";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
     width: 350,
@@ -20,11 +20,11 @@ const useStyles = makeStyles(theme => ({
     right: "0",
     top: "0",
     bottom: "0",
-    margin: "auto"
+    margin: "auto",
   },
   inputField: {
-    marginBottom: 25
-  }
+    marginBottom: 25,
+  },
 }));
 
 const PasswordRecoveryModalView: React.FC = () => {
@@ -66,9 +66,9 @@ const PasswordRecoveryModalView: React.FC = () => {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        email: emailValue
-      })
-    }).then(res => {
+        email: emailValue,
+      }),
+    }).then((res) => {
       if (res.status === 200) {
         handleNotificationOpen();
         handleClose();
@@ -95,7 +95,7 @@ const PasswordRecoveryModalView: React.FC = () => {
             helperText={passwordInputError}
             margin="normal"
             className={classes.inputField}
-            onChange={e => setEmailValue((e.target as HTMLInputElement).value)}
+            onChange={(e) => setEmailValue((e.target as HTMLInputElement).value)}
           />
           <Button variant="contained" color="primary" onClick={recoverPassword}>
             {t("usersPage.passwordRecoveryModal.sendPasswordButton")}

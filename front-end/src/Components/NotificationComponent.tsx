@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from "react";
+import { Button, IconButton, Snackbar } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import { NavLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import LogoutComponent from "./LogoutComponent";
+import Toolbar from "@material-ui/core/Toolbar";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { NavLink } from "react-router-dom";
 import LanguageComponent from "./LanguageComponent";
-import { Button, Snackbar, IconButton } from "@material-ui/core";
+import LogoutComponent from "./LogoutComponent";
 
-type NotificationComponentProps = {
+interface NotificationComponentProps {
   message: string;
   open: boolean;
   handleClose: () => void;
-};
+}
 
 const NotificationComponent: React.FC<NotificationComponentProps> = ({
   message,
   open,
-  handleClose
+  handleClose,
 }: NotificationComponentProps) => {
   return (
     <Snackbar
       anchorOrigin={{
         vertical: "bottom",
-        horizontal: "left"
+        horizontal: "left",
       }}
       open={open}
       onClose={handleClose}

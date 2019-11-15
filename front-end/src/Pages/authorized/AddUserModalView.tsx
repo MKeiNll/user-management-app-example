@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
-import { Modal, TextField, Button } from "@material-ui/core";
 import classes from "*.module.css";
+import { Button, Modal, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import NotificationComponent from "../../Components/NotificationComponent";
+import { Redirect } from "react-router-dom";
 import ErrorNotificationComponent from "../../Components/ErrorNotificationComponent";
+import NotificationComponent from "../../Components/NotificationComponent";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
     width: 350,
@@ -19,22 +19,22 @@ const useStyles = makeStyles(theme => ({
     right: "0",
     top: "0",
     bottom: "0",
-    margin: "auto"
+    margin: "auto",
   },
   openModalButton: {
-    marginBottom: 25
+    marginBottom: 25,
   },
   inputField: {
-    marginBottom: 25
-  }
+    marginBottom: 25,
+  },
 }));
 
-type AddUserModalViewProps = {
+interface AddUserModalViewProps {
   handleCreation: (email: string) => void;
-};
+}
 
 const AddUserModalView: React.FC<AddUserModalViewProps> = ({
-  handleCreation
+  handleCreation,
 }: AddUserModalViewProps) => {
   const { t } = useTranslation();
   const classes = useStyles();
@@ -80,10 +80,10 @@ const AddUserModalView: React.FC<AddUserModalViewProps> = ({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: emailValue,
-          password: password1Value
-        })
+          password: password1Value,
+        }),
       })
-        .then(res => {
+        .then((res) => {
           if (res.status === 201) {
             handleCreation(emailValue);
             handleNotificationOpen();
@@ -95,9 +95,9 @@ const AddUserModalView: React.FC<AddUserModalViewProps> = ({
           }
           return null;
         })
-        .then(errorJson => {
+        .then((errorJson) => {
           if (errorJson) {
-            let code = errorJson.error.code;
+            const code = errorJson.error.code;
             if (code === "9001") {
               setEmailInputError(t("input.emailValidationErrorMessage"));
             } else if (code === "9002") {
@@ -135,7 +135,7 @@ const AddUserModalView: React.FC<AddUserModalViewProps> = ({
             helperText={emailInputError}
             margin="normal"
             className={classes.inputField}
-            onChange={e => setEmailValue((e.target as HTMLInputElement).value)}
+            onChange={(e) => setEmailValue((e.target as HTMLInputElement).value)}
           />
           <div>
             <b> {t("usersPage.newUserModal.password1Label")}</b>
@@ -144,7 +144,7 @@ const AddUserModalView: React.FC<AddUserModalViewProps> = ({
             margin="normal"
             type="password"
             className={classes.inputField}
-            onChange={e =>
+            onChange={(e) =>
               setPassword1Value((e.target as HTMLInputElement).value)
             }
           />
@@ -157,7 +157,7 @@ const AddUserModalView: React.FC<AddUserModalViewProps> = ({
             margin="normal"
             type="password"
             className={classes.inputField}
-            onChange={e =>
+            onChange={(e) =>
               setPassword2Value((e.target as HTMLInputElement).value)
             }
           />

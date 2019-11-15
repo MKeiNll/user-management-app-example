@@ -1,0 +1,32 @@
+{
+  "parser": "babel-eslint",
+  "extends": "tslint:recommended",
+  "rules": {
+    "indent": ["error", 4],
+    "max-len": ["error", 180],
+    "comma-dangle": ["error", "never"],
+    "space-before-function-paren": ["error", "always"],
+    "arrow-body-style": ["off"],
+    "func-names": ["off"],
+    "new-cap": ["error", { "capIsNewExceptions": ["Component"] }],
+    "brace-style": ["error", "stroustrup"],
+    "no-console": [
+      "warn",
+      {
+        "allow": [
+          "warn",
+          "error",
+          "info",
+          "debug",
+          "groupCollapsed",
+          "groupEnd"
+        ]
+      }
+    ],
+    "no-param-reassign": ["off"]
+  },
+  "linterOptions": {
+    "exclude": ["./node_modules/**"]
+  },
+  "rulesDirectory": ["node_modules/tslint-lines-between-class-members"]
+}
