@@ -6,7 +6,7 @@ import { JwtService } from "./JwtService";
 
 // Errors
 export const paramMissingError =
-  '"One or more of the required parameters was missing."';
+  "One or more of the required parameters was missing.";
 export const loginWrongEmailError = {
   message: "Wrong email",
   code: "9003"

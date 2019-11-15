@@ -36,37 +36,6 @@ const isJwtOk = async (req: Request) => {
   return false;
 };
 
-const createUser = async (req: Request, res: Response) => {
-  // Check req body
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return res.status(BAD_REQUEST).json({
-      error: paramMissingError
-    });
-  } else if (await userDao.getOne(email)) {
-    return res.status(CONFLICT).json({
-      error: emailTakenError
-    });
-  } else if (!validator.validate(String(email).toLowerCase())) {
-    return res.status(BAD_REQUEST).json({
-      error: emailValidationError
-    });
-  } else if (password.length < +process.env.MIN_PWD_LENGTH!) {
-    return res.status(BAD_REQUEST).json({
-      error: passwordValidationError
-    });
-  }
-  // Save user
-  let user = {
-    email: email,
-    pwdHash: await bcrypt.hash(password, pwdSaltRounds),
-    logins: [],
-    active: false
-  };
-  await userDao.add(user);
-  return res.status(CREATED).end();
-};
-
 /******************************************************************************
  *                      Get All Users - "GET /api/users/all"
  ******************************************************************************/
@@ -111,6 +80,37 @@ router.get("/logins/:id", async (req: Request, res: Response) => {
     });
   }
 });
+
+const createUser = async (req: Request, res: Response) => {
+  // Check req body
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(BAD_REQUEST).json({
+      error: paramMissingError
+    });
+  } else if (await userDao.getOne(email)) {
+    return res.status(CONFLICT).json({
+      error: emailTakenError
+    });
+  } else if (!validator.validate(String(email).toLowerCase())) {
+    return res.status(BAD_REQUEST).json({
+      error: emailValidationError
+    });
+  } else if (password.length < +process.env.MIN_PWD_LENGTH!) {
+    return res.status(BAD_REQUEST).json({
+      error: passwordValidationError
+    });
+  }
+  // Save user
+  let user = {
+    email: email,
+    pwdHash: await bcrypt.hash(password, pwdSaltRounds),
+    logins: [],
+    active: false
+  };
+  await userDao.add(user);
+  return res.status(CREATED).end();
+};
 
 /******************************************************************************
  *                       Add One - "POST /api/users/add"
