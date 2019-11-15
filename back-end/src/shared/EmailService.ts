@@ -1,5 +1,5 @@
 import Mustache = require("mustache");
-import postmark from "postmark";
+import postmark = require("postmark");
 import newPasswordTemplate from "./emailTemplates/newPassword.html";
 import newUserTemplate from "./emailTemplates/newUser.html";
 import userDeletedTemplate from "./emailTemplates/userDeleted.html";

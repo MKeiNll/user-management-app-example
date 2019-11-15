@@ -6,11 +6,10 @@ import { IVerificationHash } from "src/entities/IVerificationHash";
 import {
   sendDeletedEmail,
   sendNewPasswordEmail,
-  sendNewUserEmail,
+  sendNewUserEmail
 } from "src/shared/EmailService";
 import uuidv1 from "uuid/v1";
-import { UserDb } from "./UserDb";
-
+import jsonfile, { Path } from "jsonfile";
 interface IUserDao {
   getOne: (email: string) => Promise<IUser | null>;
   getAll: () => Promise<IUser[]>;
@@ -22,10 +21,20 @@ interface IUserDao {
   createNewPassword: (email: string) => Promise<string | null>;
 }
 
-export class UserDao extends UserDb implements IUserDao {
+export class UserDao implements IUserDao {
+  private readonly dbFilePath = process.env.DB_FILE_PATH;
+
+  protected openDb(): Promise<any> {
+    return jsonfile.readFile(this.dbFilePath as Path);
+  }
+
+  protected saveDb(db: any): Promise<any> {
+    return jsonfile.writeFile(this.dbFilePath as Path, db);
+  }
+
   public async getOne(email: string): Promise<IUser | null> {
     try {
-      const db = await super.openDb();
+      const db = await this.openDb();
       for (const user of db.users) {
         if (user.email === email) {
           return user;
@@ -39,7 +48,7 @@ export class UserDao extends UserDb implements IUserDao {
 
   public async getAll(): Promise<IUser[]> {
     try {
-      const db = await super.openDb();
+      const db = await this.openDb();
       const users = db.users.slice();
       for (let i = 0, len = users.length; i < len; i++) {
         delete users[i].pwdHash;
@@ -52,17 +61,17 @@ export class UserDao extends UserDb implements IUserDao {
 
   public async add(user: IUser): Promise<void> {
     try {
-      const db = await super.openDb();
+      const db = await this.openDb();
       db.users.push(user);
 
       const hash = uuidv1();
       const verificationHash: IVerificationHash = {
         email: user.email,
-        hash,
+        hash
       };
       db.verificationHashes.push(verificationHash);
 
-      await super.saveDb(db);
+      await this.saveDb(db);
       sendNewUserEmail(user.email, hash);
     } catch (err) {
       throw err;
@@ -71,13 +80,13 @@ export class UserDao extends UserDb implements IUserDao {
 
   public async addLoginTime(email: string, time: Date): Promise<void> {
     try {
-      const db = await super.openDb();
+      const db = await this.openDb();
       for (const user of db.users) {
         if (user.email === email) {
           user.logins.push(time);
         }
       }
-      await super.saveDb(db);
+      await this.saveDb(db);
     } catch (err) {
       throw err;
     }
@@ -85,7 +94,7 @@ export class UserDao extends UserDb implements IUserDao {
 
   public async getLoginTimes(id: number): Promise<Date[]> {
     try {
-      const db = await super.openDb();
+      const db = await this.openDb();
       if (id >= db.users.length) {
         throw new Error("User not found");
       }
@@ -97,7 +106,7 @@ export class UserDao extends UserDb implements IUserDao {
 
   public async validateEmail(hash: string): Promise<void> {
     try {
-      const db = await super.openDb();
+      const db = await this.openDb();
       const verificationHash = db.verificationHashes.filter((obj: any) => {
         return obj.hash === hash;
       });
@@ -108,9 +117,9 @@ export class UserDao extends UserDb implements IUserDao {
             user.active = true;
             db.verificationHashes.splice(
               db.verificationHashes.indexOf(verificationHash),
-              1,
+              1
             );
-            await super.saveDb(db);
+            await this.saveDb(db);
           }
         }
       }
@@ -121,12 +130,12 @@ export class UserDao extends UserDb implements IUserDao {
 
   public async createNewPassword(email: string): Promise<string | null> {
     try {
-      const db = await super.openDb();
+      const db = await this.openDb();
       for (const user of db.users) {
         if (user.email === email) {
           const newPassword = crypto.randomBytes(6).toString("hex");
           user.pwdHash = await bcrypt.hash(newPassword, pwdSaltRounds);
-          await super.saveDb(db);
+          await this.saveDb(db);
           sendNewPasswordEmail(email, newPassword);
           return newPassword;
         }
@@ -139,7 +148,7 @@ export class UserDao extends UserDb implements IUserDao {
 
   public async delete(id: number): Promise<void> {
     try {
-      const db = await super.openDb();
+      const db = await this.openDb();
       if (id >= db.users.length) {
         throw new Error("User not found");
       }
@@ -152,7 +161,7 @@ export class UserDao extends UserDb implements IUserDao {
       }
       // Delete user
       db.users.splice(id, 1);
-      await super.saveDb(db);
+      await this.saveDb(db);
       sendDeletedEmail(userEmail);
       return;
     } catch (err) {
