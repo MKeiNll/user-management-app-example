@@ -4,6 +4,7 @@ import { Modal, Button } from "@material-ui/core";
 import classes from "*.module.css";
 import { makeStyles } from "@material-ui/styles";
 import { useTranslation } from "react-i18next";
+import NotificationComponent from "../../Components/NotificationComponent";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -36,6 +37,7 @@ const DeleteUserModalView: React.FC<DeleteUserModalViewProps> = ({
   const { t } = useTranslation();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [notificationOpen, setNotificationOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -45,6 +47,14 @@ const DeleteUserModalView: React.FC<DeleteUserModalViewProps> = ({
     setOpen(false);
   };
 
+  const handleNotificationOpen = () => {
+    setNotificationOpen(true);
+  };
+
+  const handleNotificationClose = () => {
+    setNotificationOpen(false);
+  };
+
   const deleteUser = () => {
     fetch("/api/users/delete/" + id, {
       method: "delete",
@@ -52,6 +62,8 @@ const DeleteUserModalView: React.FC<DeleteUserModalViewProps> = ({
     }).then(res => {
       if (res.status === 200) {
         handleDeletion(id);
+        handleNotificationOpen();
+        handleClose();
       } else {
         // TODO
       }
@@ -76,6 +88,11 @@ const DeleteUserModalView: React.FC<DeleteUserModalViewProps> = ({
           </Button>
         </div>
       </Modal>
+      <NotificationComponent
+        handleClose={handleNotificationClose}
+        open={notificationOpen}
+        message={t("usersPage.deleteUserModal.userDeletedMessage")}
+      />
     </>
   );
 };

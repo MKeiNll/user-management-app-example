@@ -31,7 +31,8 @@
         },
         "deleteUserModal": {
           "confirmationMessage": "Are you sure you want to delete this user?",
-          "deleteButton": "Delete user"
+          "deleteButton": "Delete user",
+          "userDeletedMessage": "User has been deleted."
         },
         "userDetailsModal": {
           "emailLabel": "Email: ",
@@ -102,7 +103,8 @@
         },
         "deleteUserModal": {
           "confirmationMessage": "Kas kindlasti soovite selle kasutaja kustutada?",
-          "deleteButton": "Kustuta kasutaja"
+          "deleteButton": "Kustuta kasutaja",
+          "userDeletedMessage": "Kasutaja on kustutatud."
         },
         "userDetailsModal": {
           "emailLabel": "E-post: ",

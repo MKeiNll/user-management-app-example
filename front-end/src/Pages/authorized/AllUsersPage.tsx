@@ -19,7 +19,7 @@ import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles({
   table: {
-    width: 800
+    width: 1000
   },
   tableContainer: {
     marginLeft: 200,
