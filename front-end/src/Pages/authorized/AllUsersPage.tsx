@@ -1,4 +1,3 @@
-import { jsxElement } from "@babel/types";
 import {
   Table,
   TableBody,
@@ -10,7 +9,6 @@ import {
 import { makeStyles } from "@material-ui/styles";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, Redirect } from "react-router-dom";
 import ErrorNotificationComponent from "../../Components/ErrorNotificationComponent";
 import MenuComponent from "../../Components/MenuComponent";
 import AddUserModalView from "./AddUserModalView";

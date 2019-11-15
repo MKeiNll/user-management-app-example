@@ -2,9 +2,7 @@ import { Button, Modal, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Redirect } from "react-router-dom";
 import ErrorNotificationComponent from "../Components/ErrorNotificationComponent";
-import MenuComponent from "../Components/MenuComponent";
 import NotificationComponent from "../Components/NotificationComponent";
 
 const useStyles = makeStyles((theme) => ({

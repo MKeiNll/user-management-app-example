@@ -1,9 +1,7 @@
 import { Button, Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { StringifyOptions } from "querystring";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Redirect } from "react-router-dom";
 import ErrorNotificationComponent from "../../Components/ErrorNotificationComponent";
 
 const useStyles = makeStyles((theme) => ({
