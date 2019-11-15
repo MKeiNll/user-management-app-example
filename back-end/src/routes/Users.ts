@@ -228,7 +228,8 @@ router.post("/add", async (req: Request, res: Response) => {
 
 /**
  *
- * POST /api/users/register : Creates a new user. 
+ * POST /api/users/register : Creates a new user. Also generates a unique hash
+ *                              which is need to verify user's email.
  *                            Identical to /api/users/add except it 
  *                              doesn't require a @cookie
  * 
