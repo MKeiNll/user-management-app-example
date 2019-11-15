@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import validator from "email-validator";
 import { Request, Response, Router } from "express";
 import {
   BAD_REQUEST,
@@ -94,7 +95,6 @@ router.post("/add", async (req: Request, res: Response) => {
 
     // Check req body
     const { email, password } = req.body;
-    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!email || !password) {
       return res.status(BAD_REQUEST).json({
         error: paramMissingError
@@ -103,7 +103,7 @@ router.post("/add", async (req: Request, res: Response) => {
       return res.status(CONFLICT).json({
         error: emailTakenError
       });
-    } else if (!emailRegex.test(String(email).toLowerCase())) {
+    } else if (!validator.validate(String(email).toLowerCase())) {
       return res.status(BAD_REQUEST).json({
         error: emailValidationError
       });
