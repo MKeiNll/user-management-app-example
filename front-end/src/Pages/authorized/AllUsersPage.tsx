@@ -30,7 +30,6 @@ const useStyles = makeStyles({
 
 interface IUser {
   email: string;
-  logins: Date[];
   active: boolean;
 }
 
@@ -70,9 +69,8 @@ const UsersPage: React.FC = () => {
 
   const handleUserCreation = (email: string) => {
     const usersCopy = users.slice();
-    const logins: Date[] = [];
     const active = false;
-    usersCopy.push({ email, logins, active });
+    usersCopy.push({ email, active });
     setUsers(usersCopy);
   };
 
