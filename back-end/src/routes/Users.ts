@@ -51,7 +51,7 @@ const createUser = async (req: Request, res: Response) => {
     return res.status(BAD_REQUEST).json({
       error: emailValidationError
     });
-  } else if (password.length < 8) {
+  } else if (password.length < +process.env.MIN_PWD_LENGTH!) {
     return res.status(BAD_REQUEST).json({
       error: passwordValidationError
     });

@@ -1,7 +1,7 @@
 export const jwtCookieExp = process.env.COOKIE_JWT_EXP_DAYS || 3;
 
 export const jwtCookieProps = Object.freeze({
-  key: "JwtCookieKey",
+  key: process.env.JWT_COOKIE_KEY!,
   options: {
     path: process.env.JWT_COOKIE_PATH,
     httpOnly: process.env.HTTP_ONLY_COOKIE === "true",

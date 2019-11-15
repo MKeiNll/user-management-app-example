@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { IUser } from "@entities";
-import jsonfile from "jsonfile";
+import jsonfile, { Path } from "jsonfile";
 import { IVerificationHash } from "src/entities/IVerificationHash";
 import {
   sendNewUserEmail,
@@ -25,14 +25,14 @@ interface IUserDao {
 const uuidv1 = require("uuid/v1");
 
 class UserDb {
-  private readonly dbFilePath = "src/daos/UserDb.json";
+  private readonly dbFilePath = process.env.DB_FILE_PATH;
 
   protected openDb(): Promise<any> {
-    return jsonfile.readFile(this.dbFilePath);
+    return jsonfile.readFile(this.dbFilePath as Path);
   }
 
   protected saveDb(db: any): Promise<any> {
-    return jsonfile.writeFile(this.dbFilePath, db);
+    return jsonfile.writeFile(this.dbFilePath as Path, db);
   }
 }
 

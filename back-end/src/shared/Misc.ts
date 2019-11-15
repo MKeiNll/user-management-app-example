@@ -30,10 +30,10 @@ export const passwordValidationError = {
   message: "Password is not valid",
   code: "9002"
 };
-export const unauthorizedError = "Unauthorized request"
+export const unauthorizedError = "Unauthorized request";
 
 // Numbers
-export const pwdSaltRounds = 12;
+export const pwdSaltRounds = +process.env.PWD_SALT_ROUNDS!;
 
 /* Functions */
 
