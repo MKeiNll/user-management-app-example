@@ -52,6 +52,7 @@ export class UserDao implements IUserDao {
       const users = db.users.slice();
       for (let i = 0, len = users.length; i < len; i++) {
         delete users[i].pwdHash;
+        delete users[i].logins;
       }
       return users;
     } catch (err) {
