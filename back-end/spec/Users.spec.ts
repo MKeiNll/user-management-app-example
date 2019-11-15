@@ -36,19 +36,19 @@ describe("UserRouter", () => {
       // Setup Dummy Data
       const users = [
         {
+          active: true,
           email: "sean.maxwell@gmail.com'",
           logins: [],
-          active: true,
         },
         {
+          active: true,
           email: "john.smith@gmail.com",
           logins: [],
-          active: true,
         },
         {
+          active: true,
           email: "gordan.freeman@gmail.com",
           logins: [],
-          active: true,
         },
       ];
       spyOn(UserDao.prototype, "getAll").and.returnValue(

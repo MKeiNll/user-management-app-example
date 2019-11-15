@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@types/mustache": "^0.8.32",
+    "@types/uuid": "^3.4.6",
     "bcrypt": "^3.0.6",
     "cookie-parser": "^1.4.4",
     "cross-env": "^6.0.3",

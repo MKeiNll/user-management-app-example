@@ -38,10 +38,10 @@ describe("AuthRouter", () => {
             was successful.`, (done) => {
       // Setup Dummy Data
       const user = {
-        email: "jsmith@gmail.com",
-        pwdHash: hashPwd("Password@1"),
-        logins: [],
         active: true,
+        email: "jsmith@gmail.com",
+        logins: [],
+        pwdHash: hashPwd("Password@1"),
       };
 
       spyOn(UserDao.prototype, "getOne").and.returnValue(Promise.resolve(user));
@@ -59,14 +59,6 @@ describe("AuthRouter", () => {
 
     it(`should return a response with a status of ${UNAUTHORIZED} and a json with the error
             "${loginWrongEmailError}" if the email was not found.`, (done) => {
-      // Setup Dummy Data
-      const user = {
-        email: "jsmith@gmail.com",
-        pwdHash: hashPwd("Password@1"),
-        logins: [],
-        active: true,
-      };
-
       spyOn(UserDao.prototype, "getOne").and.returnValue(Promise.resolve(null));
       // Call API
       callApi({
@@ -84,10 +76,10 @@ describe("AuthRouter", () => {
             "${loginWrongPasswordError}" if the password failed.`, (done) => {
       // Setup Dummy Data
       const user = {
-        email: "jsmith@gmail.com",
-        pwdHash: hashPwd("Password@1"),
-        logins: [],
         active: true,
+        email: "jsmith@gmail.com",
+        logins: [],
+        pwdHash: hashPwd("Password@1"),
       };
 
       spyOn(UserDao.prototype, "getOne").and.returnValue(Promise.resolve(user));

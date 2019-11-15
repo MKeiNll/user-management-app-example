@@ -11,10 +11,10 @@ const creds = {
 export const login = (beforeAgent: SuperTest<Test>, done: any) => {
   // Setup dummy data
   const loginUser = {
-    email: "jsmith@gmail.com",
-    pwdHash: bcrypt.hashSync(creds.password, pwdSaltRounds),
-    logins: [],
     active: true,
+    email: "jsmith@gmail.com",
+    logins: [],
+    pwdHash: bcrypt.hashSync(creds.password, pwdSaltRounds),
   };
   spyOn(UserDao.prototype, "getOne").and.returnValue(
     Promise.resolve(loginUser),
