@@ -10,6 +10,7 @@ interface IUserDao {
   delete: (id: number) => Promise<void>;
   addLoginTime: (email: string, time: Date) => Promise<void>;
   getLoginTimes: (id: number) => Promise<Date[]>;
+  validateEmail: (hash: string) => Promise<boolean>;
 }
 
 const uuidv1 = require("uuid/v1");
@@ -97,11 +98,48 @@ export class UserDao extends UserDb implements IUserDao {
     }
   }
 
+  public async validateEmail(hash: string): Promise<boolean> {
+    try {
+      const db = await super.openDb();
+      let verificationHash = db.verificationHashes.filter((obj: any) => {
+        return obj.hash === hash;
+      });
+
+      if (verificationHash) {
+        for (const user of db.users) {
+          if (user.email === verificationHash[0].email) {
+            user.active = true;
+            db.verificationHashes.splice(
+              db.verificationHashes.indexOf(verificationHash),
+              1
+            );
+            await super.saveDb(db);
+            return true;
+          }
+        }
+      }
+      return false;
+    } catch (err) {
+      throw err;
+    }
+  }
+
   public async delete(id: number): Promise<void> {
     try {
       const db = await super.openDb();
       if (id >= db.users.length) throw new Error("User not found");
+      let userEmail = db.users[id].email;
+
+      // Delete verification hashes if they exist
+      for (var i = db.verificationHashes.length - 1; i >= 0; i--) {
+        if (db.verificationHashes[i].email === userEmail) {
+          db.verificationHashes.splice(i, 1);
+        }
+      }
+
+      // Delete user
       db.users.splice(id, 1);
+
       await super.saveDb(db);
       return;
     } catch (err) {

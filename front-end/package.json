@@ -11,6 +11,7 @@
     "@types/react-router": "^5.1.2",
     "@types/react-router-dom": "^5.1.2",
     "i18next": "^19.0.0",
+    "query-string": "^6.9.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-i18next": "^11.2.0",

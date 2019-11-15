@@ -1,6 +1,12 @@
 import bcrypt from "bcrypt";
 import { Request, Response, Router } from "express";
-import { BAD_REQUEST, OK, UNAUTHORIZED, CONFLICT } from "http-status-codes";
+import {
+  BAD_REQUEST,
+  OK,
+  UNAUTHORIZED,
+  CONFLICT,
+  FORBIDDEN
+} from "http-status-codes";
 import { UserDao } from "@daos";
 
 import {
@@ -85,6 +91,32 @@ router.post("/recover", async (req: Request, res: Response) => {
 
     // Return
     return res.status(OK).end();
+  } catch (err) {
+    logger.error(err.message, err);
+    return res.status(BAD_REQUEST).json({
+      error: err.message
+    });
+  }
+});
+
+/******************************************************************************
+ *                      Validate email - "POST /api/auth/validate"
+ ******************************************************************************/
+
+router.post("/validate", async (req: Request, res: Response) => {
+  try {
+    // Check hash present
+    const { hash } = req.body;
+    if (!hash) {
+      return res.status(BAD_REQUEST).json({
+        error: paramMissingError
+      });
+    }
+
+    if (await userDao.validateEmail(hash)) {
+      return res.status(OK).end();
+    }
+    return res.status(FORBIDDEN).end();
   } catch (err) {
     logger.error(err.message, err);
     return res.status(BAD_REQUEST).json({

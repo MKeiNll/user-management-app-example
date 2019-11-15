@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Redirect, Link } from "react-router-dom";
+import React, { useState, useEffect, ComponentProps } from "react";
+import { Redirect, Link, useParams } from "react-router-dom";
 import MenuComponent from "../Components/MenuComponent";
 import PasswordRecoveryModalView from "./PasswordRecoveryModalView";
 import { TextField, Button } from "@material-ui/core";
 import { Trans, useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/styles";
+import queryString from "query-string";
 
 const useStyles = makeStyles(() => ({
   inputContainer: {
@@ -16,7 +17,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const LoginPage: React.FC = () => {
+const LoginPage: React.FC<ComponentProps<any>> = (props) => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [emailValue, setEmailValue] = useState<string>("");
@@ -32,6 +33,27 @@ const LoginPage: React.FC = () => {
       sessionStorage.setItem("userLoggedIn", isUserLoggedIn as string);
     }
   }, [isUserLoggedIn]);
+
+  useEffect(() => {
+    let params = queryString.parse(props.location.search);
+    if(params) {
+      if(params.hash) {
+        fetch("/api/auth/validate", {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            hash: params.hash
+          })
+        }).then(res => {
+          if (res.status === 200) {
+            // TODO
+          } else {
+            // TODO
+          }
+        });
+      }
+    }
+  }, []);
 
   const loginUser = () => {
     setEmailInputError("");
