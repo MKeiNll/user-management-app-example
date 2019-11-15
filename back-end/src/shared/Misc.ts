@@ -1,7 +1,3 @@
-import { NextFunction, Request, Response } from "express";
-import { UNAUTHORIZED } from "http-status-codes";
-import { jwtCookieProps } from "./cookies";
-import { JwtService } from "./JwtService";
 import { logger } from "./Logger";
 
 // Errors
@@ -35,8 +31,7 @@ export const unauthorizedError = "Unauthorized request";
 // Numbers
 export const pwdSaltRounds = +process.env.PWD_SALT_ROUNDS!;
 
-/* Functions */
-
+// Functions
 export const pErr = (err: Error) => {
   if (err) {
     logger.error(err);

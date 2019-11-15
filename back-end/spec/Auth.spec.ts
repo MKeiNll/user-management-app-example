@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 import supertest from "supertest";
 
 import { UserDao } from "@daos";
-import { IUser } from "@entities";
 import {
   jwtCookieProps,
   loginWrongEmailError,
@@ -11,8 +10,8 @@ import {
   pErr,
   pwdSaltRounds,
 } from "@shared";
-import { BAD_REQUEST, CREATED, OK, UNAUTHORIZED } from "http-status-codes";
-import { Response, SuperTest, Test } from "supertest";
+import { BAD_REQUEST, OK, UNAUTHORIZED } from "http-status-codes";
+import { SuperTest, Test } from "supertest";
 
 describe("AuthRouter", () => {
   const authPath = "/api/auth";

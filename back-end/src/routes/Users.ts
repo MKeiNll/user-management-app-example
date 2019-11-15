@@ -33,6 +33,7 @@ const isJwtOk = async (req: Request) => {
       return true;
     }
   }
+
   return false;
 };
 
@@ -49,9 +50,11 @@ router.get("/all", async (req: Request, res: Response) => {
     }
 
     const users = await userDao.getAll();
+
     return res.status(OK).json({ users });
   } catch (err) {
     logger.error(err.message, err);
+
     return res.status(BAD_REQUEST).json({
       error: err.message,
     });
@@ -72,9 +75,11 @@ router.get("/logins/:id", async (req: Request, res: Response) => {
 
     const { id } = req.params as ParamsDictionary;
     const loginTimes = await userDao.getLoginTimes(Number(id));
+
     return res.status(OK).json(loginTimes);
   } catch (err) {
     logger.error(err.message, err);
+
     return res.status(BAD_REQUEST).json({
       error: err.message,
     });
@@ -109,6 +114,7 @@ const createUser = async (req: Request, res: Response) => {
     pwdHash: await bcrypt.hash(password, pwdSaltRounds),
   };
   await userDao.add(user);
+
   return res.status(CREATED).end();
 };
 
@@ -123,9 +129,11 @@ router.post("/add", async (req: Request, res: Response) => {
         error: unauthorizedError,
       });
     }
+
     return createUser(req, res);
   } catch (err) {
     logger.error(err.message, err);
+
     return res.status(BAD_REQUEST).json({
       error: err.message,
     });
@@ -141,6 +149,7 @@ router.post("/register", async (req: Request, res: Response) => {
     return createUser(req, res);
   } catch (err) {
     logger.error(err.message, err);
+
     return res.status(BAD_REQUEST).json({
       error: err.message,
     });
@@ -161,9 +170,11 @@ router.delete("/delete/:id", async (req: Request, res: Response) => {
 
     const { id } = req.params as ParamsDictionary;
     await userDao.delete(Number(id));
+
     return res.status(OK).end();
   } catch (err) {
     logger.error(err.message, err);
+
     return res.status(BAD_REQUEST).json({
       error: err.message,
     });

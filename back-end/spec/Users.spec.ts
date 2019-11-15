@@ -2,8 +2,7 @@ import app from "@server";
 import supertest from "supertest";
 
 import { UserDao } from "@daos";
-import { IUser } from "@entities";
-import { jwtCookieProps, paramMissingError, pErr } from "@shared";
+import { paramMissingError, pErr } from "@shared";
 import { BAD_REQUEST, CONFLICT, CREATED, OK } from "http-status-codes";
 import { Response, SuperTest, Test } from "supertest";
 import { login } from "./support/LoginAgent";
@@ -121,6 +120,7 @@ describe("UserRouter", () => {
   describe(`"DELETE:${deleteUserPath}"`, () => {
     const callApi = (id: number) => {
       const path = deleteUserPath.replace(":id", id.toString());
+
       return agent.delete(path).set("Cookie", jwtCookie);
     };
 

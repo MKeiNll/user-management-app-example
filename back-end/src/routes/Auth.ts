@@ -4,13 +4,11 @@ import { Request, Response, Router } from "express";
 import {
   BAD_REQUEST,
   CONFLICT,
-  FORBIDDEN,
   OK,
   UNAUTHORIZED,
 } from "http-status-codes";
 
 import {
-  emailTakenError,
   jwtCookieProps,
   JwtService,
   logger,
@@ -67,9 +65,11 @@ router.post("/login", async (req: Request, res: Response) => {
     res.cookie(key, jwt, options);
     // Set login time
     userDao.addLoginTime(email, new Date());
+
     return res.status(OK).end();
   } catch (err) {
     logger.error(err.message, err);
+
     return res.status(BAD_REQUEST).json({
       error: err.message,
     });
@@ -100,9 +100,11 @@ router.post("/recover", async (req: Request, res: Response) => {
         error: userNotFoundError,
       });
     }
+
     return res.status(OK).end();
   } catch (err) {
     logger.error(err.message, err);
+
     return res.status(BAD_REQUEST).json({
       error: err.message,
     });
@@ -124,9 +126,11 @@ router.post("/validate", async (req: Request, res: Response) => {
     }
 
     await userDao.validateEmail(hash);
+
     return res.status(OK).end();
   } catch (err) {
     logger.error(err.message, err);
+
     return res.status(BAD_REQUEST).json({
       error: err.message,
     });
@@ -141,9 +145,11 @@ router.get("/logout", async (req: Request, res: Response) => {
   try {
     const { key, options } = jwtCookieProps;
     res.clearCookie(key);
+
     return res.status(OK).end();
   } catch (err) {
     logger.error(err.message, err);
+
     return res.status(BAD_REQUEST).json({
       error: err.message,
     });
