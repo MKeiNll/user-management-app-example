@@ -122,7 +122,7 @@ const AddUserModalView: React.FC<IAddUserModalViewProps> = ({
       </Button>
       <Modal open={open} onClose={handleClose}>
         <div className={classes.paper}>
-          <div className="login-header">
+          <div>
             <h3>{t("usersPage.newUserModal.title")}</h3>
           </div>
           <div>

@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import ErrorNotificationComponent from "../Components/ErrorNotificationComponent";
 import NotificationComponent from "../Components/NotificationComponent";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(({
   paper: {
     position: "absolute",
     width: 350,

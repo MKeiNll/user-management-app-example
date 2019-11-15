@@ -6,7 +6,7 @@ import ErrorNotificationComponent from "../Components/ErrorNotificationComponent
 import MenuComponent from "../Components/MenuComponent";
 import NotificationComponent from "../Components/NotificationComponent";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(({
   inputContainer: {
     marginLeft: 200,
     marginTop: 50,

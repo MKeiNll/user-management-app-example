@@ -9,7 +9,7 @@ import MenuComponent from "../Components/MenuComponent";
 import NotificationComponent from "../Components/NotificationComponent";
 import PasswordRecoveryModalView from "./PasswordRecoveryModalView";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(({
   inputContainer: {
     marginLeft: 200,
     marginTop: 50,

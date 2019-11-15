@@ -35,7 +35,7 @@ const ErrorNotificationComponent: React.FC<INotificationComponentProps> = ({
     >
       <SnackbarContent
         className={classes.errorNotification}
-        message={<span id="message-id">{t("unexpectedError")}</span>}
+        message={t("unexpectedError")}
       />
     </Snackbar>
   );
