@@ -4,7 +4,8 @@ import jsonfile from "jsonfile";
 import { IVerificationHash } from "src/entities/IVerificationHash";
 import {
   sendNewUserEmail,
-  sendNewPasswordEmail
+  sendNewPasswordEmail,
+  sendDeletedEmail
 } from "src/shared/EmailService";
 import { pwdSaltRounds } from "@shared";
 
@@ -153,18 +154,16 @@ export class UserDao extends UserDb implements IUserDao {
       const db = await super.openDb();
       if (id >= db.users.length) throw new Error("User not found");
       let userEmail = db.users[id].email;
-
       // Delete verification hashes if they exist
       for (var i = db.verificationHashes.length - 1; i >= 0; i--) {
         if (db.verificationHashes[i].email === userEmail) {
           db.verificationHashes.splice(i, 1);
         }
       }
-
       // Delete user
       db.users.splice(id, 1);
-
       await super.saveDb(db);
+      sendDeletedEmail(userEmail);
       return;
     } catch (err) {
       throw err;
