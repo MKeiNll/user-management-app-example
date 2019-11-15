@@ -17,7 +17,8 @@
         "emailLabel": "Email:",
         "password1Label": "Password:",
         "password2Label": "Repeat  password:",
-        "registrationButton": "Create account"
+        "registrationButton": "Create account",
+        "userRegisteredMessage": "A verification link has been sent to your email."
       },
       "usersPage": {
         "newUserModal": {
@@ -37,7 +38,8 @@
         },
         "passwordRecoveryModal": {
           "enterEmailMessage": "Please enter your email. A link with new password will be sent to it.",
-          "sendPasswordButton": "Send new password"
+          "sendPasswordButton": "Send new password",
+          "passwordRecoveredMessage": "A new password has been sent."
         },
         "newUserButtonLabel": "Add new user",
         "deleteUserButtonLabel": "Delete user",
@@ -85,7 +87,8 @@
         "emailLabel": "E-post:",
         "password1Label": "Parool:",
         "password2Label": "Korda parooli:",
-        "registrationButton": "Loo konto"
+        "registrationButton": "Loo konto",
+        "userRegisteredMessage": "Teie e-posti aadressile on saadetud kinnituslink."
       },
       "usersPage": {
         "newUserModal": {
@@ -105,7 +108,8 @@
         },
         "passwordRecoveryModal": {
           "enterEmailMessage": "Sisestage oma e-posti aadress. Sellele saadetakse link uue parooliga.",
-          "sendPasswordButton": "Saada uus parool"
+          "sendPasswordButton": "Saada uus parool",
+          "passwordRecoveredMessage": "Uus parool on saadetud."
         },
         "newUserButtonLabel": "Lisage uus kasutaja",
         "deleteUserButtonLabel": "Kustuta kasutaja",

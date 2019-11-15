@@ -5,6 +5,7 @@ import { Modal, Button, TextField } from "@material-ui/core";
 import classes from "*.module.css";
 import { makeStyles } from "@material-ui/styles";
 import { useTranslation } from "react-i18next";
+import NotificationComponent from "../Components/NotificationComponent";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -29,6 +30,7 @@ const PasswordRecoveryModalView: React.FC = () => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [notificationOpen, setNotificationOpen] = useState(false);
   const [emailValue, setEmailValue] = useState<string>("");
   const [passwordInputError, setPasswordInputError] = useState<string>("");
 
@@ -38,6 +40,14 @@ const PasswordRecoveryModalView: React.FC = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleNotificationOpen = () => {
+    setNotificationOpen(true);
+  };
+
+  const handleNotificationClose = () => {
+    setNotificationOpen(false);
   };
 
   const recoverPassword = () => {
@@ -50,7 +60,8 @@ const PasswordRecoveryModalView: React.FC = () => {
       })
     }).then(res => {
       if (res.status === 200) {
-        // TODO
+        handleNotificationOpen();
+        handleClose();
       } else if (res.status === 409) {
         setPasswordInputError(t("input.wrongEmailMessage"));
       } else {
@@ -81,6 +92,12 @@ const PasswordRecoveryModalView: React.FC = () => {
           </Button>
         </div>
       </Modal>
+
+      <NotificationComponent
+        handleClose={handleNotificationClose}
+        open={notificationOpen}
+        message={t("usersPage.passwordRecoveryModal.passwordRecoveredMessage")}
+      />
     </>
   );
 };

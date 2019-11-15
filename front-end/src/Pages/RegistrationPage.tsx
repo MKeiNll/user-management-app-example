@@ -4,6 +4,7 @@ import MenuComponent from "../Components/MenuComponent";
 import { TextField, Button } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/styles";
+import NotificationComponent from "../Components/NotificationComponent";
 
 const useStyles = makeStyles(() => ({
   inputContainer: {
@@ -18,11 +19,27 @@ const useStyles = makeStyles(() => ({
 const RegisterPage: React.FC = () => {
   const { t } = useTranslation();
   const classes = useStyles();
+    const [notificationOpen, setNotificationOpen] = useState(false);
   const [emailValue, setEmailValue] = useState<string>("");
   const [password1Value, setPassword1Value] = useState<string>("");
   const [password2Value, setPassword2Value] = useState<string>("");
   const [emailInputError, setEmailInputError] = useState<string>("");
   const [passwordInputError, setPasswordInputError] = useState<string>("");
+
+  const handleNotificationOpen = () => {
+    setNotificationOpen(true);
+  };
+
+  const handleNotificationClose = () => {
+    setNotificationOpen(false);
+  };
+
+  const clearInputValues = () => {
+    setEmailValue("");
+    setPassword1Value("");
+    setPassword2Value("");
+    console.log("set")
+  }
 
   const createUser = () => {
     if (password1Value === password2Value) {
@@ -38,7 +55,8 @@ const RegisterPage: React.FC = () => {
       })
         .then(res => {
           if (res.status === 201) {
-            // TODO
+            handleNotificationOpen();
+            clearInputValues();
           } else if (res.status === 409) {
             setEmailInputError(t("input.emailTakenMessage"));
           } else {
@@ -77,6 +95,7 @@ const RegisterPage: React.FC = () => {
           margin="normal"
           className={classes.inputField}
           onChange={e => setEmailValue((e.target as HTMLInputElement).value)}
+          value={emailValue}
         />
 
         <div>
@@ -89,6 +108,7 @@ const RegisterPage: React.FC = () => {
           onChange={e =>
             setPassword1Value((e.target as HTMLInputElement).value)
           }
+          value={password1Value}
         />
         <div>
           <b>{t("registrationPage.password2Label")}</b>
@@ -102,6 +122,7 @@ const RegisterPage: React.FC = () => {
           onChange={e =>
             setPassword2Value((e.target as HTMLInputElement).value)
           }
+          value={password2Value}
         />
 
         <div>
@@ -110,6 +131,12 @@ const RegisterPage: React.FC = () => {
           </Button>
         </div>
       </div>
+
+      <NotificationComponent
+        handleClose={handleNotificationClose}
+        open={notificationOpen}
+        message={t("registrationPage.userRegisteredMessage")}
+      />
     </>
   );
 };
