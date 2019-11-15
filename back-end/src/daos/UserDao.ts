@@ -1,7 +1,14 @@
+import bcrypt from "bcrypt";
 import { IUser } from "@entities";
 import jsonfile from "jsonfile";
 import { IVerificationHash } from "src/entities/IVerificationHash";
-import { sendNewUserEmail } from "src/shared/EmailService";
+import {
+  sendNewUserEmail,
+  sendNewPasswordEmail
+} from "src/shared/EmailService";
+import { pwdSaltRounds } from "@shared";
+
+const crypto = require("crypto");
 
 interface IUserDao {
   getOne: (email: string) => Promise<IUser | null>;
@@ -10,7 +17,8 @@ interface IUserDao {
   delete: (id: number) => Promise<void>;
   addLoginTime: (email: string, time: Date) => Promise<void>;
   getLoginTimes: (id: number) => Promise<Date[]>;
-  validateEmail: (hash: string) => Promise<boolean>;
+  validateEmail: (hash: string) => Promise<void>;
+  createNewPassword: (email: string) => Promise<string | null>;
 }
 
 const uuidv1 = require("uuid/v1");
@@ -98,7 +106,7 @@ export class UserDao extends UserDb implements IUserDao {
     }
   }
 
-  public async validateEmail(hash: string): Promise<boolean> {
+  public async validateEmail(hash: string): Promise<void> {
     try {
       const db = await super.openDb();
       let verificationHash = db.verificationHashes.filter((obj: any) => {
@@ -114,11 +122,27 @@ export class UserDao extends UserDb implements IUserDao {
               1
             );
             await super.saveDb(db);
-            return true;
           }
         }
       }
-      return false;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  public async createNewPassword(email: string): Promise<string | null> {
+    try {
+      const db = await super.openDb();
+      for (const user of db.users) {
+        if (user.email === email) {
+          let newPassword = crypto.randomBytes(6).toString("hex");
+          user.pwdHash = await bcrypt.hash(newPassword, pwdSaltRounds);
+          await super.saveDb(db);
+          sendNewPasswordEmail(email, newPassword);
+          return newPassword;
+        }
+      }
+      return null;
     } catch (err) {
       throw err;
     }

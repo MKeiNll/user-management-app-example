@@ -18,7 +18,8 @@ import {
   loginWrongPasswordError,
   emailTakenError,
   recoverPasswordWrongEmailError,
-  loginEmailNotVerifiedError
+  loginEmailNotVerifiedError,
+  userNotFoundError
 } from "@shared";
 
 const router = Router();
@@ -66,7 +67,6 @@ router.post("/login", async (req: Request, res: Response) => {
     res.cookie(key, jwt, options);
     // Set login time
     userDao.addLoginTime(email, new Date());
-    // Return
     return res.status(OK).end();
   } catch (err) {
     logger.error(err.message, err);
@@ -93,10 +93,13 @@ router.post("/recover", async (req: Request, res: Response) => {
         error: recoverPasswordWrongEmailError
       });
     }
-
-    // TODO
-
-    // Return
+    // Generate new password
+    let newPassword = userDao.createNewPassword(email);
+    if (newPassword === null) {
+      return res.status(BAD_REQUEST).json({
+        error: userNotFoundError
+      });
+    }
     return res.status(OK).end();
   } catch (err) {
     logger.error(err.message, err);
@@ -112,7 +115,7 @@ router.post("/recover", async (req: Request, res: Response) => {
 
 router.post("/validate", async (req: Request, res: Response) => {
   try {
-    // Check hash present
+    // Check hash is present
     const { hash } = req.body;
     if (!hash) {
       return res.status(BAD_REQUEST).json({
@@ -120,10 +123,8 @@ router.post("/validate", async (req: Request, res: Response) => {
       });
     }
 
-    if (await userDao.validateEmail(hash)) {
-      return res.status(OK).end();
-    }
-    return res.status(FORBIDDEN).end();
+    await userDao.validateEmail(hash);
+    return res.status(OK).end();
   } catch (err) {
     logger.error(err.message, err);
     return res.status(BAD_REQUEST).json({

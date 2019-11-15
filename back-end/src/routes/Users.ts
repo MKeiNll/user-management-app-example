@@ -74,7 +74,6 @@ router.post("/add", async (req: Request, res: Response) => {
         error: passwordValidationError
       });
     }
-
     // Save user
     let user = {
       email: email,
