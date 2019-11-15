@@ -173,7 +173,7 @@ const createUser = async (req: Request, res: Response) => {
 /**
  *
  * POST /api/users/add : Creates a new user. Also generates a unique hash
- *                         which is need to verify user's email.
+ *                         which is need to verify user's email and sends it via email.
  * 
  * @cookie      JwtTokenKey   JWT with an email payload
  * @body        of format: { email: string, password: string }
@@ -229,7 +229,7 @@ router.post("/add", async (req: Request, res: Response) => {
 /**
  *
  * POST /api/users/register : Creates a new user. Also generates a unique hash
- *                              which is need to verify user's email.
+ *                              which is need to verify user's email and sends it via email.
  *                            Identical to /api/users/add except it 
  *                              doesn't require a @cookie
  * 
@@ -279,7 +279,8 @@ router.post("/register", async (req: Request, res: Response) => {
 
 /**
  *
- * DELETE /api/users/delete/:id : Deletes a user.
+ * DELETE /api/users/delete/:id : Deletes a user. Also sends a notifying email
+ *                                  to deleted user.
  *                            
  * 
  * @routeParam  id            User id
