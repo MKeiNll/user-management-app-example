@@ -60,7 +60,7 @@
         "wrongEmailMessage": "Email is not registered.",
         "wrongPasswordMessage": "Wrong password.",
         "emailValidationErrorMessage": "Email is not valid.",
-        "passwordValidationMessage": "Password should be at least 8 chars long.",
+        "passwordValidationMessage": "Password too short.",
         "emailNotVerifiedErrorMessage": "Email is not verified."
       },
       "table": {
@@ -134,7 +134,7 @@
         "wrongEmailMessage": "E-post ei ole registreeritud.",
         "wrongPasswordMessage": "Vale parool.",
         "emailValidationErrorMessage": "E-post pole kehtiv.",
-        "passwordValidationMessage": "Parool peaks olema vähemalt 8 märki pikk.",
+        "passwordValidationMessage": "Parool on liiga lühike.",
         "emailNotVerifiedErrorMessage": "E-posti aadress pole kinnitatud."
       },
       "table": {
