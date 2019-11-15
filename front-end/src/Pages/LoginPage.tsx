@@ -60,11 +60,11 @@ const LoginPage: React.FC<ComponentProps<any>> = (props) => {
       if (params.hash) {
         fetch("/api/auth/validate", {
           body: JSON.stringify({
-            hash: params.hash
+            hash: params.hash,
           }),
           headers: { "Content-Type": "application/json" },
-          method: "post"
-        }).then(res => {
+          method: "post",
+        }).then((res) => {
           if (res.status === 200) {
             handleNotificationOpen();
           } else {

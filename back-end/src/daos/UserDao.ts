@@ -2,14 +2,14 @@ import { IUser } from "@entities";
 import { pwdSaltRounds } from "@shared";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
+import jsonfile, { Path } from "jsonfile";
 import { IVerificationHash } from "src/entities/IVerificationHash";
 import {
   sendDeletedEmail,
   sendNewPasswordEmail,
-  sendNewUserEmail
+  sendNewUserEmail,
 } from "src/shared/EmailService";
 import uuidv1 from "uuid/v1";
-import jsonfile, { Path } from "jsonfile";
 interface IUserDao {
   getOne: (email: string) => Promise<IUser | null>;
   getAll: () => Promise<IUser[]>;
@@ -23,14 +23,6 @@ interface IUserDao {
 
 export class UserDao implements IUserDao {
   private readonly dbFilePath = process.env.DB_FILE_PATH;
-
-  protected openDb(): Promise<any> {
-    return jsonfile.readFile(this.dbFilePath as Path);
-  }
-
-  protected saveDb(db: any): Promise<any> {
-    return jsonfile.writeFile(this.dbFilePath as Path, db);
-  }
 
   public async getOne(email: string): Promise<IUser | null> {
     try {
@@ -68,7 +60,7 @@ export class UserDao implements IUserDao {
       const hash = uuidv1();
       const verificationHash: IVerificationHash = {
         email: user.email,
-        hash
+        hash,
       };
       db.verificationHashes.push(verificationHash);
 
@@ -118,7 +110,7 @@ export class UserDao implements IUserDao {
             user.active = true;
             db.verificationHashes.splice(
               db.verificationHashes.indexOf(verificationHash),
-              1
+              1,
             );
             await this.saveDb(db);
           }
@@ -168,5 +160,13 @@ export class UserDao implements IUserDao {
     } catch (err) {
       throw err;
     }
+  }
+
+  protected openDb(): Promise<any> {
+    return jsonfile.readFile(this.dbFilePath as Path);
+  }
+
+  protected saveDb(db: any): Promise<any> {
+    return jsonfile.writeFile(this.dbFilePath as Path, db);
   }
 }

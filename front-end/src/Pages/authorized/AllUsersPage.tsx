@@ -4,7 +4,7 @@ import {
   TableCell,
   TableHead,
   TablePagination,
-  TableRow
+  TableRow,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import React, { useEffect, useState } from "react";
@@ -17,15 +17,15 @@ import UserDetailsModalView from "./UserDetailsModalView";
 
 const useStyles = makeStyles({
   table: {
-    width: 1000
+    width: 1000,
   },
   tableContainer: {
     marginLeft: 200,
-    marginTop: 50
+    marginTop: 50,
   },
   tableRow: {
-    height: 75
-  }
+    height: 75,
+  },
 });
 
 interface IUser {
@@ -77,16 +77,16 @@ const UsersPage: React.FC = () => {
   useEffect(() => {
     fetch("/api/users/all", {
       method: "get",
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     })
-      .then(res => {
+      .then((res) => {
         if (res.status === 200 || res.status === 304) {
           return res.json();
         } else {
           return null;
         }
       })
-      .then(json => {
+      .then((json) => {
         if (json !== null) {
           setUsers(json.users);
         } else {

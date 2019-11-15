@@ -7,7 +7,7 @@ import {
   paramMissingError,
   passwordValidationError,
   pwdSaltRounds,
-  unauthorizedError
+  unauthorizedError,
 } from "@shared";
 import bcrypt from "bcrypt";
 import validator from "email-validator";
@@ -17,9 +17,9 @@ import {
   BAD_REQUEST,
   CONFLICT,
   CREATED,
+  INTERNAL_SERVER_ERROR,
   OK,
   UNAUTHORIZED,
-  INTERNAL_SERVER_ERROR
 } from "http-status-codes";
 
 const router = Router();
@@ -41,9 +41,9 @@ const isJwtOk = async (req: Request) => {
 /**
  *
  * GET /api/users/all : Returns an all users.
- * 
+ *
  * @cookie JwtTokenKey  JWT with an email payload
- * 
+ *
  *
  * on success                 @return HTTP 200 & body of format:
  *   {
@@ -58,12 +58,12 @@ const isJwtOk = async (req: Request) => {
  *       }
  *     ]
  *   }
- * 
+ *
  * on missing/invalid cookie  @return HTTP 401 & body of format:
  *   {
  *     "error": "message"
  *   }
- *         
+ *
  * on server failure          @return HTTP 500 & body of format:
  *   {
  *     "error": "message"
@@ -74,7 +74,7 @@ router.get("/all", async (req: Request, res: Response) => {
   try {
     if (!(await isJwtOk(req))) {
       return res.status(UNAUTHORIZED).json({
-        error: unauthorizedError
+        error: unauthorizedError,
       });
     }
 
@@ -85,7 +85,7 @@ router.get("/all", async (req: Request, res: Response) => {
     logger.error(err.message, err);
 
     return res.status(INTERNAL_SERVER_ERROR).json({
-      error: err.message
+      error: err.message,
     });
   }
 });
@@ -93,10 +93,10 @@ router.get("/all", async (req: Request, res: Response) => {
 /**
  *
  * GET /api/users/logins/:id : Returns all login times for a user with given id.
- * 
+ *
  * @cookie      JwtTokenKey   JWT with an email payload
  * @routeParam  id            User id
- * 
+ *
  *
  * on success                 @return HTTP 200 & body of format:
  *   {
@@ -104,12 +104,12 @@ router.get("/all", async (req: Request, res: Response) => {
  *       "2019-11-14T19:37:18.128Z"
  *     ]
  *   }
- * 
+ *
  * on missing/invalid cookie  @return HTTP 401 & body of format:
  *   {
  *     "error": "message"
  *   }
- *         
+ *
  * on server failure          @return HTTP 500 & body of format:
  *   {
  *     "error": "message"
@@ -120,7 +120,7 @@ router.get("/logins/:id", async (req: Request, res: Response) => {
   try {
     if (!(await isJwtOk(req))) {
       return res.status(UNAUTHORIZED).json({
-        error: unauthorizedError
+        error: unauthorizedError,
       });
     }
 
@@ -132,7 +132,7 @@ router.get("/logins/:id", async (req: Request, res: Response) => {
     logger.error(err.message, err);
 
     return res.status(INTERNAL_SERVER_ERROR).json({
-      error: err.message
+      error: err.message,
     });
   }
 });
@@ -143,19 +143,19 @@ const createUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(BAD_REQUEST).json({
-      error: paramMissingError
+      error: paramMissingError,
     });
   } else if (await userDao.getOne(email)) {
     return res.status(CONFLICT).json({
-      error: emailTakenError
+      error: emailTakenError,
     });
   } else if (!validator.validate(String(email).toLowerCase())) {
     return res.status(BAD_REQUEST).json({
-      error: emailValidationError
+      error: emailValidationError,
     });
   } else if (password.length < +process.env.MIN_PWD_LENGTH!) {
     return res.status(BAD_REQUEST).json({
-      error: passwordValidationError
+      error: passwordValidationError,
     });
   }
   // Save user
@@ -163,7 +163,7 @@ const createUser = async (req: Request, res: Response) => {
     active: false,
     email,
     logins: [],
-    pwdHash: await bcrypt.hash(password, pwdSaltRounds)
+    pwdHash: await bcrypt.hash(password, pwdSaltRounds),
   };
   await userDao.add(user);
 
@@ -174,34 +174,34 @@ const createUser = async (req: Request, res: Response) => {
  *
  * POST /api/users/add : Creates a new user. Also generates a unique hash
  *                         which is need to verify user's email and sends it via email.
- * 
+ *
  * @cookie      JwtTokenKey   JWT with an email payload
  * @body        of format: { email: string, password: string }
- *              where: 
+ *              where:
  *                email should be a valid email
  *                password should be at least 8 digits long
- * 
+ *
  *
  * on success                     @return HTTP 201
- * 
+ *
  * on missing/invalid cookie      @return HTTP 401 & body of format:
  *   {
  *     "error": "message"
  *   }
- * 
+ *
  * on missing email or password   @return HTTP 400 & body of format:
  * on email being not valid
- * on password being shorter 
+ * on password being shorter
  *  than 8 digits
  *   {
  *     "error": "message"
  *   }
- * 
+ *
  * on email already being taken   @return HTTP 409 & body of format:
  *   {
  *     "error": "message"
  *   }
- *         
+ *
  * on server failure              @return HTTP 500 & body of format:
  *   {
  *     "error": "message"
@@ -212,7 +212,7 @@ router.post("/add", async (req: Request, res: Response) => {
   try {
     if (!(await isJwtOk(req))) {
       return res.status(UNAUTHORIZED).json({
-        error: unauthorizedError
+        error: unauthorizedError,
       });
     }
 
@@ -221,7 +221,7 @@ router.post("/add", async (req: Request, res: Response) => {
     logger.error(err.message, err);
 
     return res.status(INTERNAL_SERVER_ERROR).json({
-      error: err.message
+      error: err.message,
     });
   }
 });
@@ -230,35 +230,35 @@ router.post("/add", async (req: Request, res: Response) => {
  *
  * POST /api/users/register : Creates a new user. Also generates a unique hash
  *                              which is need to verify user's email and sends it via email.
- *                            Identical to /api/users/add except it 
+ *                            Identical to /api/users/add except it
  *                              doesn't require a @cookie
- * 
+ *
  * @body        of format: { email: string, password: string }
- *              where: 
+ *              where:
  *                email should be a valid email
  *                password should be at least 8 digits long
- * 
+ *
  *
  * on success                     @return HTTP 201
- * 
+ *
  * on missing cookie              @return HTTP 401 & body of format:
  *   {
  *     "error": "message"
  *   }
- * 
+ *
  * on missing email or password   @return HTTP 400 & body of format:
  * on email being not valid
- * on password being shorter 
+ * on password being shorter
  *  than 8 digits
  *   {
  *     "error": "message"
  *   }
- * 
+ *
  * on email already being taken   @return HTTP 409 & body of format:
  *   {
  *     "error": "message"
  *   }
- *         
+ *
  * on server failure              @return HTTP 500 & body of format:
  *   {
  *     "error": "message"
@@ -272,7 +272,7 @@ router.post("/register", async (req: Request, res: Response) => {
     logger.error(err.message, err);
 
     return res.status(INTERNAL_SERVER_ERROR).json({
-      error: err.message
+      error: err.message,
     });
   }
 });
@@ -281,19 +281,19 @@ router.post("/register", async (req: Request, res: Response) => {
  *
  * DELETE /api/users/delete/:id : Deletes a user. Also sends a notifying email
  *                                  to deleted user.
- *                            
- * 
+ *
+ *
  * @routeParam  id            User id
  * @cookie      JwtTokenKey   JWT with an email payload
- * 
- * 
+ *
+ *
  * on success                     @return HTTP 200
- * 
+ *
  * on missing/invalid cookie      @return HTTP 401 & body of format:
  *   {
  *     "error": "message"
  *   }
- *         
+ *
  * on server failure              @return HTTP 500 & body of format:
  *   {
  *     "error": "message"
@@ -304,7 +304,7 @@ router.delete("/delete/:id", async (req: Request, res: Response) => {
   try {
     if (!(await isJwtOk(req))) {
       return res.status(UNAUTHORIZED).json({
-        error: unauthorizedError
+        error: unauthorizedError,
       });
     }
 
@@ -316,7 +316,7 @@ router.delete("/delete/:id", async (req: Request, res: Response) => {
     logger.error(err.message, err);
 
     return res.status(INTERNAL_SERVER_ERROR).json({
-      error: err.message
+      error: err.message,
     });
   }
 });
