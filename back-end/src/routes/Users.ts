@@ -12,9 +12,11 @@ import {
   emailTakenError
 } from "@shared";
 
-// Init shared
 const router = Router();
 const userDao = new UserDao();
+
+const postmark = require("postmark");
+const client = new postmark.ServerClient(process.env.POSTMARK_API_KEY);
 
 /******************************************************************************
  *                      Get All Users - "GET /api/users/all"
@@ -55,6 +57,7 @@ router.get("/logins/:id", async (req: Request, res: Response) => {
 
 router.post("/add", async (req: Request, res: Response) => {
   try {
+    // Check req body
     const { email, password } = req.body;
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!email || !password) {
@@ -75,13 +78,22 @@ router.post("/add", async (req: Request, res: Response) => {
       });
     }
 
+    // Save user
     let user = {
       email: email,
       pwdHash: await bcrypt.hash(password, pwdSaltRounds),
       logins: []
     };
-
     await userDao.add(user);
+
+    // Send email
+    client.sendEmail({
+      From: process.env.POSTMARK_EMAIL_FROM,
+      To: email,
+      Subject: "Test",
+      TextBody: "Hello from Postmark!"
+    });
+
     return res.status(CREATED).end();
   } catch (err) {
     logger.error(err.message, err);

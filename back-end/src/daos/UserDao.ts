@@ -1,5 +1,6 @@
 import { IUser } from "@entities";
 import jsonfile from "jsonfile";
+import { IVerificationHash } from "src/entities/IVerificationHash";
 
 interface IUserDao {
   getOne: (email: string) => Promise<IUser | null>;
@@ -9,6 +10,8 @@ interface IUserDao {
   addLoginTime: (email: string, time: Date) => Promise<void>;
   getLoginTimes: (id: number) => Promise<Date[]>;
 }
+
+const uuidv1 = require("uuid/v1");
 
 class UserDb {
   private readonly dbFilePath = "src/daos/UserDb.json";
@@ -54,6 +57,13 @@ export class UserDao extends UserDb implements IUserDao {
     try {
       const db = await super.openDb();
       db.users.push(user);
+
+      const verificationHash: IVerificationHash = {
+        email: user.email,
+        hash: uuidv1()
+      };
+
+      db.verificationHashes.push(verificationHash);
       await super.saveDb(db);
     } catch (err) {
       throw err;
