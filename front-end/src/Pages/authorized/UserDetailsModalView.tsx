@@ -1,4 +1,3 @@
-import classes from "*.module.css";
 import { Button, Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { StringifyOptions } from "querystring";
@@ -24,15 +23,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface UserDetailsModalViewProps {
+interface IUserDetailsModalViewProps {
   id: number;
   email: string;
 }
 
-const UserDetailsModalView: React.FC<UserDetailsModalViewProps> = ({
+const UserDetailsModalView: React.FC<IUserDetailsModalViewProps> = ({
   id,
   email,
-}: UserDetailsModalViewProps) => {
+}: IUserDetailsModalViewProps) => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [open, setOpen] = useState(false);

@@ -8,17 +8,17 @@ import ErrorNotificationComponent from "./ErrorNotificationComponent";
 
 const useStyles = makeStyles(() => ({
   logoutButton: {
-    "display": "flex",
-    "justifyContent": "center",
     "alignItems": "center",
-    "width": "120px",
-    "height": "100%",
+    "display": "flex",
     "float": "right",
+    "height": "100%",
     "&:hover": {
       background: "#C9CEEA",
       color: "#3F51B5",
       cursor: "pointer",
     },
+    "justifyContent": "center",
+    "width": "120px",
   },
 }));
 
@@ -48,8 +48,8 @@ const LogoutComponent: React.FC = () => {
 
   const logoutUser = () => {
     fetch("/api/auth/logout", {
-      method: "get",
       headers: { "Content-Type": "application/json" },
+      method: "get",
     }).then((res) => {
       if (res.status === 200) {
         setIsUserLoggedIn(null);

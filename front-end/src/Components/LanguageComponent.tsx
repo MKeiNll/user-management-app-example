@@ -7,17 +7,17 @@ import { NavLink, Redirect } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   menuItem: {
-    "display": "flex",
-    "justifyContent": "center",
     "alignItems": "center",
-    "width": "180px",
-    "height": "100%",
+    "display": "flex",
     "float": "right",
+    "height": "100%",
     "&:hover": {
       background: "#C9CEEA",
       color: "#3F51B5",
       cursor: "pointer",
     },
+    "justifyContent": "center",
+    "width": "180px",
   },
 }));
 

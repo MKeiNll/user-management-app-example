@@ -8,22 +8,22 @@ import { NavLink } from "react-router-dom";
 import LanguageComponent from "./LanguageComponent";
 import LogoutComponent from "./LogoutComponent";
 
-interface NotificationComponentProps {
+interface INotificationComponentProps {
   message: string;
   open: boolean;
   handleClose: () => void;
 }
 
-const NotificationComponent: React.FC<NotificationComponentProps> = ({
+const NotificationComponent: React.FC<INotificationComponentProps> = ({
   message,
   open,
   handleClose,
-}: NotificationComponentProps) => {
+}: INotificationComponentProps) => {
   return (
     <Snackbar
       anchorOrigin={{
-        vertical: "bottom",
         horizontal: "left",
+        vertical: "bottom",
       }}
       open={open}
       onClose={handleClose}

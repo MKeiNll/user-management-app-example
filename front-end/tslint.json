@@ -23,7 +23,8 @@
         ]
       }
     ],
-    "no-param-reassign": ["off"]
+    "no-param-reassign": ["off"],
+    "object-literal-sort-keys": false
   },
   "linterOptions": {
     "exclude": ["./node_modules/**"]

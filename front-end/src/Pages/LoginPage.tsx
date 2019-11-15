@@ -59,11 +59,11 @@ const LoginPage: React.FC<ComponentProps<any>> = (props) => {
     if (params) {
       if (params.hash) {
         fetch("/api/auth/validate", {
-          method: "post",
-          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             hash: params.hash,
           }),
+          headers: { "Content-Type": "application/json" },
+          method: "post",
         }).then((res) => {
           if (res.status === 200) {
             handleNotificationOpen();
@@ -79,12 +79,12 @@ const LoginPage: React.FC<ComponentProps<any>> = (props) => {
     setEmailInputError("");
     setPasswordInputError("");
     fetch("/api/auth/login", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: emailValue,
         password: passwordValue,
       }),
+      headers: { "Content-Type": "application/json" },
+      method: "post",
     })
       .then((res) => {
         if (res.status === 200) {

@@ -19,23 +19,23 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-interface NotificationComponentProps {
+interface INotificationComponentProps {
   open: boolean;
   handleClose: () => void;
 }
 
-const ErrorNotificationComponent: React.FC<NotificationComponentProps> = ({
+const ErrorNotificationComponent: React.FC<INotificationComponentProps> = ({
   open,
   handleClose,
-}: NotificationComponentProps) => {
+}: INotificationComponentProps) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
   return (
     <Snackbar
       anchorOrigin={{
-        vertical: "bottom",
         horizontal: "left",
+        vertical: "bottom",
       }}
       open={open}
       onClose={handleClose}

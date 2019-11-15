@@ -8,29 +8,29 @@ import LanguageComponent from "./LanguageComponent";
 import LogoutComponent from "./LogoutComponent";
 
 const useStyles = makeStyles(() => ({
-  toolbar: {
-    display: "flex",
-    alignItems: "stretch",
+  activeNavlink: {
+    backgroundColor: "rgb(201, 206, 234)",
+    color: "#3f51b5 !important",
+    fontWeight: "bold",
   },
   leftMenuBlock: {
     display: "flex",
     width: "50%",
   },
+  menuItem: {
+    alignItems: "center",
+    color: "white",
+    display: "flex",
+    justifyContent: "center",
+    textDecoration: "none",
+    width: "160px",
+  },
   rightMenuBlock: {
     width: "50%",
   },
-  menuItem: {
+  toolbar: {
+    alignItems: "stretch",
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "160px",
-    textDecoration: "none",
-    color: "white",
-  },
-  activeNavlink: {
-    color: "#3f51b5 !important",
-    backgroundColor: "rgb(201, 206, 234)",
-    fontWeight: "bold",
   },
 }));
 

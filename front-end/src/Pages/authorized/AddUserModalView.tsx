@@ -1,4 +1,3 @@
-import classes from "*.module.css";
 import { Button, Modal, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import React, { useState } from "react";
@@ -29,13 +28,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface AddUserModalViewProps {
+interface IAddUserModalViewProps {
   handleCreation: (email: string) => void;
 }
 
-const AddUserModalView: React.FC<AddUserModalViewProps> = ({
+const AddUserModalView: React.FC<IAddUserModalViewProps> = ({
   handleCreation,
-}: AddUserModalViewProps) => {
+}: IAddUserModalViewProps) => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [open, setOpen] = useState(false);

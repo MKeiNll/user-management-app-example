@@ -1,4 +1,3 @@
-import classes from "*.module.css";
 import { jsxElement } from "@babel/types";
 import {
   Table,
@@ -31,7 +30,7 @@ const useStyles = makeStyles({
   },
 });
 
-interface user {
+interface IUser {
   email: string;
   logins: Date[];
   active: boolean;
@@ -42,7 +41,7 @@ const UsersPage: React.FC = () => {
   const classes = useStyles();
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [page, setPage] = React.useState(0);
-  const [users, setUsers] = React.useState<user[]>([]);
+  const [users, setUsers] = React.useState<IUser[]>([]);
   const [errorOpen, setErrorOpen] = useState(false);
 
   const emptyRows =

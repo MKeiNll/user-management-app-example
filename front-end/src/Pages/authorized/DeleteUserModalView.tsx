@@ -1,4 +1,3 @@
-import classes from "*.module.css";
 import { Button, Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import React, { useState } from "react";
@@ -26,15 +25,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface DeleteUserModalViewProps {
+interface IDeleteUserModalViewProps {
   id: number;
   handleDeletion: (id: number) => void;
 }
 
-const DeleteUserModalView: React.FC<DeleteUserModalViewProps> = ({
+const DeleteUserModalView: React.FC<IDeleteUserModalViewProps> = ({
   id,
   handleDeletion,
-}: DeleteUserModalViewProps) => {
+}: IDeleteUserModalViewProps) => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
