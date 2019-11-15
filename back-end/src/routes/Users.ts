@@ -103,10 +103,10 @@ const createUser = async (req: Request, res: Response) => {
   }
   // Save user
   const user = {
-    email,
-    pwdHash: await bcrypt.hash(password, pwdSaltRounds),
-    logins: [],
     active: false,
+    email,
+    logins: [],
+    pwdHash: await bcrypt.hash(password, pwdSaltRounds),
   };
   await userDao.add(user);
   return res.status(CREATED).end();

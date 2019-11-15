@@ -1,15 +1,15 @@
 import { IUser } from "@entities";
 import { pwdSaltRounds } from "@shared";
 import bcrypt from "bcrypt";
-import jsonfile, { Path } from "jsonfile";
+import crypto from "crypto";
 import { IVerificationHash } from "src/entities/IVerificationHash";
 import {
   sendDeletedEmail,
   sendNewPasswordEmail,
   sendNewUserEmail,
 } from "src/shared/EmailService";
-
-const crypto = require("crypto");
+import uuidv1 from "uuid/v1";
+import { UserDb } from "./UserDb";
 
 interface IUserDao {
   getOne: (email: string) => Promise<IUser | null>;
@@ -20,20 +20,6 @@ interface IUserDao {
   getLoginTimes: (id: number) => Promise<Date[]>;
   validateEmail: (hash: string) => Promise<void>;
   createNewPassword: (email: string) => Promise<string | null>;
-}
-
-const uuidv1 = require("uuid/v1");
-
-class UserDb {
-  private readonly dbFilePath = process.env.DB_FILE_PATH;
-
-  protected openDb(): Promise<any> {
-    return jsonfile.readFile(this.dbFilePath as Path);
-  }
-
-  protected saveDb(db: any): Promise<any> {
-    return jsonfile.writeFile(this.dbFilePath as Path, db);
-  }
 }
 
 export class UserDao extends UserDb implements IUserDao {
@@ -100,7 +86,9 @@ export class UserDao extends UserDb implements IUserDao {
   public async getLoginTimes(id: number): Promise<Date[]> {
     try {
       const db = await super.openDb();
-      if (id >= db.users.length) { throw new Error("User not found"); }
+      if (id >= db.users.length) {
+        throw new Error("User not found");
+      }
       return db.users[id].logins;
     } catch (err) {
       throw err;
@@ -152,7 +140,9 @@ export class UserDao extends UserDb implements IUserDao {
   public async delete(id: number): Promise<void> {
     try {
       const db = await super.openDb();
-      if (id >= db.users.length) { throw new Error("User not found"); }
+      if (id >= db.users.length) {
+        throw new Error("User not found");
+      }
       const userEmail = db.users[id].email;
       // Delete verification hashes if they exist
       for (let i = db.verificationHashes.length - 1; i >= 0; i--) {

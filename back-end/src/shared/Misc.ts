@@ -8,27 +8,27 @@ import { logger } from "./Logger";
 export const paramMissingError =
   "One or more of the required parameters was missing.";
 export const loginWrongEmailError = {
-  message: "Wrong email",
   code: "9003",
+  message: "Wrong email",
 };
 export const loginWrongPasswordError = {
-  message: "Wrong password",
   code: "9004",
+  message: "Wrong password",
 };
 export const loginEmailNotVerifiedError = {
-  message: "Email not verified",
   code: "9005",
+  message: "Email not verified",
 };
 export const recoverPasswordWrongEmailError = "Wrong email";
 export const emailTakenError = "Email taken";
 export const userNotFoundError = "Email taken";
 export const emailValidationError = {
-  message: "Email is not valid",
   code: "9001",
+  message: "Email is not valid",
 };
 export const passwordValidationError = {
-  message: "Password is not valid",
   code: "9002",
+  message: "Password is not valid",
 };
 export const unauthorizedError = "Unauthorized request";
 
