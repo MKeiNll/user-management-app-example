@@ -1,1 +1,36 @@
-{"users":[{"email":"1","pwdHash":"$2b$12$6/o0boiFnSBji/y1lv4uZOYs1KVTOXXhtDM5EjafkGmkavEDz633.","logins":["2019-11-14T19:37:18.128Z","2019-11-14T20:53:16.070Z","2019-11-14T21:03:50.782Z","2019-11-14T21:10:45.698Z","2019-11-14T21:47:57.931Z","2019-11-15T12:16:09.946Z","2019-11-15T12:24:09.682Z","2019-11-15T12:39:53.062Z","2019-11-15T13:34:36.123Z","2019-11-15T13:37:04.308Z","2019-11-15T13:52:03.019Z","2019-11-15T13:54:06.053Z","2019-11-15T13:59:11.340Z","2019-11-15T15:03:59.581Z","2019-11-15T16:07:48.014Z","2019-11-15T16:40:59.699Z","2019-11-15T16:45:03.265Z","2019-11-15T17:16:38.099Z","2019-11-15T17:40:35.089Z","2019-11-15T17:43:02.717Z","2019-11-15T17:53:38.347Z","2019-11-15T18:08:21.452Z","2019-11-15T18:13:05.709Z","2019-11-15T18:22:29.361Z"],"active":true},{"email":"sean.masdaxwell@gmail.com","pwdHash":"$2b$12$DI/TJrEw5F3mb.l27ZgscOzi6hNEn/YWkBmIZU1G3D1bVPgTrbbqG","logins":[],"active":false},{"email":"sean.maxwsdaell@gmail.com","pwdHash":"$2b$12$MsZM8r7h.nxjSGlW2IykZ.xYR8cMXTG//FHJjcNwVl0EbICOReViS","logins":[],"active":false},{"email":"zzzz@zzz.zzz","pwdHash":"$2b$12$WC.y7fs8mseVeanGk86F8O6RN5v/8CdWRoef3nALxfkKRoic8H2.S","logins":[],"active":true},{"email":"asd@asd.com","pwdHash":"$2b$12$QcgbbgreNJFCbPZrM4De.e4sidbj/A9nhYoccLKB3WxFhXWMhkqPu","logins":[],"active":true},{"email":"seasdwell@gmail.com","pwdHash":"$2b$12$RFYiMB97gM3ejFWJJHCTO.gjJB.M8eO7lwSEMswiOpcXvJ/U54T/C","logins":[],"active":false},{"email":"a@a.aa","pwdHash":"$2b$12$E1BYTZkPLQl9rMKR5KpG8.vVLKeL/.CRacwoBrBvzGK2237/2yVyO","logins":[],"active":false},{"email":"seaawell@sdgmail.com","pwdHash":"$2b$12$Isb.3ayhs8MjW94L6AzT9u1rjEQt/.b5QIF9BgMWt8TXExmGKvokC","logins":[],"active":false},{"email":"ASD@asd.com","pwdHash":"$2b$10$bxRkLDMkE/TT66wncY8X7un5Zv9fvBFNy82st96cs1Za4Ahkxmwnq","logins":[],"active":false},{"email":"seasdasdwwaxwell@gmail.com","pwdHash":"$2b$10$5uA2w6OQeXHgza87xa543uNGAmGLb4x84wMQR1S2vJpPWJn4.mFNW","logins":[],"active":false},{"email":"asdaweq@asd.asd","pwdHash":"$2b$10$OBkSbvahMsdXepxJw11wz.YnKGnQOiIdwEDD.ccgXPYX.jYP6RL..","logins":[],"active":false},{"email":"asdasd@asdased.com","pwdHash":"$2b$12$/zcKDMskgsAuscn6vnKdzejM2CyUuO/L1MlZlFBi9wBAL9gxLWnJe","logins":[],"active":false},{"email":"asd22@asd.asd","pwdHash":"$2b$12$EOajZnV6TLqpw7E47tl2.OD8BAy1oh/nVM9tB3h984HBqGck193QS","logins":[],"active":false}],"verificationHashes":[{"email":"sean.masdaxwell@gmail.com","hash":"ecd29380-07c0-11ea-9756-6d43e97ad3fa"},{"email":"sean.maxwsdaell@gmail.com","hash":"123335d0-07c1-11ea-81e9-7b49ddf295b1"},{"email":"seasdwell@gmail.com","hash":"1a29fca0-07d1-11ea-94b0-adcefe2ba4f5"},{"email":"a@a.aa","hash":"534663b0-07d2-11ea-8e89-c53a7293800e"},{"email":"seaawell@sdgmail.com","hash":"eeeabff0-07d2-11ea-b1c2-894cb00f396c"},{"email":"ASD@asd.com","hash":"9ab57aa0-07d3-11ea-9335-25848c46fc55"},{"email":"seasdasdwwaxwell@gmail.com","hash":"fd78aea0-07d3-11ea-b0d7-475a00c20f93"},{"email":"asdaweq@asd.asd","hash":"23f52130-07d4-11ea-a702-b5204cb111eb"},{"email":"asdasd@asdased.com","hash":"80a8f8c0-07d4-11ea-9f15-fdc3e3d792cd"},{"email":"asd22@asd.asd","hash":"ea64b0b0-07d4-11ea-996b-2f21de009dfb"}]}
+{
+  "users": [
+    {
+      "email": "1",
+      "pwdHash": "$2b$12$6/o0boiFnSBji/y1lv4uZOYs1KVTOXXhtDM5EjafkGmkavEDz633.",
+      "logins": [
+        "2019-11-14T19:37:18.128Z",
+        "2019-11-14T20:53:16.070Z",
+        "2019-11-14T21:03:50.782Z",
+        "2019-11-14T21:10:45.698Z",
+        "2019-11-14T21:47:57.931Z",
+        "2019-11-15T12:16:09.946Z",
+        "2019-11-15T12:24:09.682Z",
+        "2019-11-15T12:39:53.062Z",
+        "2019-11-15T13:34:36.123Z",
+        "2019-11-15T13:37:04.308Z",
+        "2019-11-15T13:52:03.019Z",
+        "2019-11-15T13:54:06.053Z",
+        "2019-11-15T13:59:11.340Z",
+        "2019-11-15T15:03:59.581Z",
+        "2019-11-15T16:07:48.014Z",
+        "2019-11-15T16:40:59.699Z",
+        "2019-11-15T16:45:03.265Z",
+        "2019-11-15T17:16:38.099Z",
+        "2019-11-15T17:40:35.089Z",
+        "2019-11-15T17:43:02.717Z",
+        "2019-11-15T17:53:38.347Z",
+        "2019-11-15T18:08:21.452Z",
+        "2019-11-15T18:13:05.709Z",
+        "2019-11-15T18:22:29.361Z"
+      ],
+      "active": true
+    }
+  ],
+  "verificationHashes": []
+}
