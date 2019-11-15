@@ -17,7 +17,8 @@ import {
   loginWrongEmailError,
   loginWrongPasswordError,
   emailTakenError,
-  recoverPasswordWrongEmailError
+  recoverPasswordWrongEmailError,
+  loginEmailNotVerifiedError
 } from "@shared";
 
 const router = Router();
@@ -42,6 +43,12 @@ router.post("/login", async (req: Request, res: Response) => {
     if (!user) {
       return res.status(UNAUTHORIZED).json({
         error: loginWrongEmailError
+      });
+    }
+    // Check email is verified
+    if (!user.active) {
+      return res.status(UNAUTHORIZED).json({
+        error: loginEmailNotVerifiedError
       });
     }
     // Check password

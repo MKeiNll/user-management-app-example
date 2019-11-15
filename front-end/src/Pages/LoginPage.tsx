@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const LoginPage: React.FC<ComponentProps<any>> = (props) => {
+const LoginPage: React.FC<ComponentProps<any>> = props => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [emailValue, setEmailValue] = useState<string>("");
@@ -36,8 +36,8 @@ const LoginPage: React.FC<ComponentProps<any>> = (props) => {
 
   useEffect(() => {
     let params = queryString.parse(props.location.search);
-    if(params) {
-      if(params.hash) {
+    if (params) {
+      if (params.hash) {
         fetch("/api/auth/validate", {
           method: "post",
           headers: { "Content-Type": "application/json" },
@@ -81,6 +81,8 @@ const LoginPage: React.FC<ComponentProps<any>> = (props) => {
             setEmailInputError(t("input.wrongEmailMessage"));
           } else if (code === "9004") {
             setPasswordInputError(t("input.wrongPasswordMessage"));
+          } else if (code === "9005") {
+            setEmailInputError(t("input.emailNotVerifiedErrorMessage"));
           } else {
             // TODO
           }

@@ -18,6 +18,10 @@ export const loginWrongPasswordError = {
   message: "Wrong password",
   code: "9004"
 };
+export const loginEmailNotVerifiedError = {
+  message: "Email not verified",
+  code: "9005"
+};
 export const recoverPasswordWrongEmailError = "Wrong email";
 export const emailTakenError = "Email taken";
 export const emailValidationError = {
