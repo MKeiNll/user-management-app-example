@@ -68,7 +68,8 @@
         "displayedRowsLabel2": " - ",
         "displayedRowsLabel3": " of ",
         "displayedRowsLabel4": ""
-      }
+      },
+      "unexpectedError": "An unexpected error has ocurred."
     }
   },
   "est": {
@@ -140,7 +141,8 @@
         "displayedRowsLabel2": " - ",
         "displayedRowsLabel3": " ",
         "displayedRowsLabel4": "-st"
-      }
+      },
+      "unexpectedError": "Tekkis ootamatu viga."
     }
   }
 }

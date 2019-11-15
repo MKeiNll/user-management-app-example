@@ -6,19 +6,31 @@ import { makeStyles } from "@material-ui/core/styles";
 import LogoutComponent from "./LogoutComponent";
 import { useTranslation } from "react-i18next";
 import LanguageComponent from "./LanguageComponent";
-import { Button, Snackbar, IconButton } from "@material-ui/core";
+import {
+  Button,
+  Snackbar,
+  IconButton,
+  SnackbarContent
+} from "@material-ui/core";
+
+const useStyles = makeStyles(() => ({
+  errorNotification: {
+    backgroundColor: "#D32F2F"
+  }
+}));
 
 type NotificationComponentProps = {
-  message: string;
   open: boolean;
   handleClose: () => void;
 };
 
-const NotificationComponent: React.FC<NotificationComponentProps> = ({
-  message,
+const ErrorNotificationComponent: React.FC<NotificationComponentProps> = ({
   open,
   handleClose
 }: NotificationComponentProps) => {
+  const { t } = useTranslation();
+  const classes = useStyles();
+
   return (
     <Snackbar
       anchorOrigin={{
@@ -28,9 +40,13 @@ const NotificationComponent: React.FC<NotificationComponentProps> = ({
       open={open}
       onClose={handleClose}
       autoHideDuration={6000}
-      message={<span id="message-id">{message}</span>}
-    />
+    >
+      <SnackbarContent
+        className={classes.errorNotification}
+        message={<span id="message-id">{t("unexpectedError")}</span>}
+      />
+    </Snackbar>
   );
 };
 
-export default NotificationComponent;
+export default ErrorNotificationComponent;

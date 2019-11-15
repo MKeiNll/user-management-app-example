@@ -4,6 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import { NavLink, Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { useTranslation } from "react-i18next";
+import ErrorNotificationComponent from "./ErrorNotificationComponent";
 
 const useStyles = makeStyles(() => ({
   logoutButton: {
@@ -27,6 +28,15 @@ const LogoutComponent: React.FC = () => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(
     sessionStorage.getItem("userLoggedIn")
   );
+  const [errorOpen, setErrorOpen] = useState(false);
+
+  const handleErrorOpen = () => {
+    setErrorOpen(true);
+  };
+
+  const handleErrorClose = () => {
+    setErrorOpen(false);
+  };
 
   useEffect(() => {
     if (isUserLoggedIn) {
@@ -43,14 +53,22 @@ const LogoutComponent: React.FC = () => {
     }).then(res => {
       if (res.status === 200) {
         setIsUserLoggedIn(null);
+      } else {
+        handleErrorOpen();
       }
     });
   };
 
   return isUserLoggedIn ? (
-    <div onClick={logoutUser} className={classes.logoutButton}>
-      {t("menu.logoutLabel")}
-    </div>
+    <>
+      <div onClick={logoutUser} className={classes.logoutButton}>
+        {t("menu.logoutLabel")}
+      </div>
+      <ErrorNotificationComponent
+        open={errorOpen}
+        handleClose={handleErrorClose}
+      />
+    </>
   ) : (
     <Redirect to="/login" />
   );
