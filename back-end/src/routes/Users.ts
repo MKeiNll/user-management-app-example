@@ -64,7 +64,7 @@ const isJwtOk = async (req: Request) => {
  *     "error": "message"
  *   }
  *         
- * on failure                 @return HTTP 500 & body of format:
+ * on server failure          @return HTTP 500 & body of format:
  *   {
  *     "error": "message"
  *   }
@@ -110,7 +110,7 @@ router.get("/all", async (req: Request, res: Response) => {
  *     "error": "message"
  *   }
  *         
- * on failure                 @return HTTP 500 & body of format:
+ * on server failure          @return HTTP 500 & body of format:
  *   {
  *     "error": "message"
  *   }
@@ -201,7 +201,7 @@ const createUser = async (req: Request, res: Response) => {
  *     "error": "message"
  *   }
  *         
- * on failure                     @return HTTP 500 & body of format:
+ * on server failure              @return HTTP 500 & body of format:
  *   {
  *     "error": "message"
  *   }
@@ -257,7 +257,7 @@ router.post("/add", async (req: Request, res: Response) => {
  *     "error": "message"
  *   }
  *         
- * on failure                     @return HTTP 500 & body of format:
+ * on server failure              @return HTTP 500 & body of format:
  *   {
  *     "error": "message"
  *   }
@@ -277,7 +277,7 @@ router.post("/register", async (req: Request, res: Response) => {
 
 /**
  *
- * DELETE /api/users/delete/:id : Deletes a user
+ * DELETE /api/users/delete/:id : Deletes a user.
  *                            
  * 
  * @routeParam  id            User id
@@ -291,7 +291,7 @@ router.post("/register", async (req: Request, res: Response) => {
  *     "error": "message"
  *   }
  *         
- * on failure                     @return HTTP 500 & body of format:
+ * on server failure              @return HTTP 500 & body of format:
  *   {
  *     "error": "message"
  *   }

@@ -17,7 +17,7 @@ export const loginEmailNotVerifiedError = {
 };
 export const recoverPasswordWrongEmailError = "Wrong email";
 export const emailTakenError = "Email taken";
-export const userNotFoundError = "Email taken";
+export const userNotFoundError = "User not found";
 export const emailValidationError = {
   code: "9001",
   message: "Email is not valid",
