@@ -10,7 +10,7 @@ import {
   pErr,
   pwdSaltRounds,
 } from "@shared";
-import { BAD_REQUEST, OK, UNAUTHORIZED } from "http-status-codes";
+import { INTERNAL_SERVER_ERROR, OK, UNAUTHORIZED } from "http-status-codes";
 import { SuperTest, Test } from "supertest";
 
 describe("AuthRouter", () => {
@@ -94,7 +94,7 @@ describe("AuthRouter", () => {
       });
     });
 
-    it(`should return a response with a status of ${BAD_REQUEST} and a json with an error
+    it(`should return a response with a status of ${INTERNAL_SERVER_ERROR} and a json with an error
             for all other bad responses.`, (done) => {
       // Setup Dummy Data
       const creds = {
@@ -107,7 +107,7 @@ describe("AuthRouter", () => {
       // Call API
       callApi(creds).end((err: Error, res: any) => {
         pErr(err);
-        expect(res.status).toBe(BAD_REQUEST);
+        expect(res.status).toBe(INTERNAL_SERVER_ERROR);
         expect(res.body.error).toBeTruthy();
         done();
       });
