@@ -26,7 +26,8 @@
           "emailLabel": "Email:",
           "password1Label": "Password:",
           "password2Label": "Repeat  password:",
-          "createButtonLabel": "Create user"
+          "createButtonLabel": "Create user",
+          "userCreatedMessage": "A verification link has been send to specified email."
         },
         "deleteUserModal": {
           "confirmationMessage": "Are you sure you want to delete this user?",
@@ -96,7 +97,8 @@
           "emailLabel": "E-post:",
           "password1Label": "Parool:",
           "password2Label": "Korda parooli:",
-          "createButtonLabel": "Loo kasutaja"
+          "createButtonLabel": "Loo kasutaja",
+          "userCreatedMessage": "Kinnitamise link on saadetud määratud e-posti aadressile."
         },
         "deleteUserModal": {
           "confirmationMessage": "Kas kindlasti soovite selle kasutaja kustutada?",
