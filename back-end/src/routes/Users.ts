@@ -172,7 +172,8 @@ const createUser = async (req: Request, res: Response) => {
 
 /**
  *
- * POST /api/users/add : Creates a new user.
+ * POST /api/users/add : Creates a new user. Also generates a unique hash
+ *                         which is need to verify user's email.
  * 
  * @cookie      JwtTokenKey   JWT with an email payload
  * @body        of format: { email: string, password: string }
