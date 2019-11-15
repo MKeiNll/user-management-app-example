@@ -36,6 +36,37 @@ const isJwtOk = async (req: Request) => {
   return false;
 };
 
+const createUser = async (req: Request, res: Response) => {
+  // Check req body
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(BAD_REQUEST).json({
+      error: paramMissingError
+    });
+  } else if (await userDao.getOne(email)) {
+    return res.status(CONFLICT).json({
+      error: emailTakenError
+    });
+  } else if (!validator.validate(String(email).toLowerCase())) {
+    return res.status(BAD_REQUEST).json({
+      error: emailValidationError
+    });
+  } else if (password.length < 8) {
+    return res.status(BAD_REQUEST).json({
+      error: passwordValidationError
+    });
+  }
+  // Save user
+  let user = {
+    email: email,
+    pwdHash: await bcrypt.hash(password, pwdSaltRounds),
+    logins: [],
+    active: false
+  };
+  await userDao.add(user);
+  return res.status(CREATED).end();
+};
+
 /******************************************************************************
  *                      Get All Users - "GET /api/users/all"
  ******************************************************************************/
@@ -92,35 +123,22 @@ router.post("/add", async (req: Request, res: Response) => {
         error: unauthorizedError
       });
     }
+    return createUser(req, res);
+  } catch (err) {
+    logger.error(err.message, err);
+    return res.status(BAD_REQUEST).json({
+      error: err.message
+    });
+  }
+});
 
-    // Check req body
-    const { email, password } = req.body;
-    if (!email || !password) {
-      return res.status(BAD_REQUEST).json({
-        error: paramMissingError
-      });
-    } else if (await userDao.getOne(email)) {
-      return res.status(CONFLICT).json({
-        error: emailTakenError
-      });
-    } else if (!validator.validate(String(email).toLowerCase())) {
-      return res.status(BAD_REQUEST).json({
-        error: emailValidationError
-      });
-    } else if (password.length < 8) {
-      return res.status(BAD_REQUEST).json({
-        error: passwordValidationError
-      });
-    }
-    // Save user
-    let user = {
-      email: email,
-      pwdHash: await bcrypt.hash(password, pwdSaltRounds),
-      logins: [],
-      active: false
-    };
-    await userDao.add(user);
-    return res.status(CREATED).end();
+/******************************************************************************
+ *                       Register - "POST /api/users/register"
+ ******************************************************************************/
+
+router.post("/register", async (req: Request, res: Response) => {
+  try {
+    return createUser(req, res);
   } catch (err) {
     logger.error(err.message, err);
     return res.status(BAD_REQUEST).json({

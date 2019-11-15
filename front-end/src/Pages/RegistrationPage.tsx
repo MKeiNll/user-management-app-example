@@ -54,7 +54,7 @@ const RegisterPage: React.FC = () => {
     if (password1Value === password2Value) {
       setEmailInputError("");
       setPasswordInputError("");
-      fetch("/api/users/add", {
+      fetch("/api/users/register", {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
