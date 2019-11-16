@@ -66,7 +66,7 @@ front-end: `cd front-end` > `npm i` > `npm start`
 
 + User database is simulated via JSON file. An actual database would be welcome.
 + Emails are being sent with titles & bodies in 2 languages. An actual email translations with language header being read from the request would be welcome.
-+ Errors are being sent with english-only messages & unique codes which are being mapped to a corresponding translations in front-end. An actual error translations with language header being read from the request would be welcome.
++ Errors are being sent with english-only messages & unique codes which are being mapped to corresponding translations in front-end. An actual error translations with language header being read from the request would be welcome.
 + Email templates are `.ts` files containing a default export of an HTML string. Actual `.html` templates would be welcome.
 + No front-end tests.
 + Back-end tests do not cover all scenarios & routes.\
