@@ -6,7 +6,7 @@ Uses NPM.
 
 ## Features
 
-+ Authentification
++ Authentication
   + A JSON Web Token which is set on a successful login and is required on every request to route `/users`.
   + All stored passwords are being encrypted with bcrypt.
 + Emails
