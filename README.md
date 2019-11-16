@@ -9,6 +9,7 @@ Uses NPM.
 + Authentication
   + A JSON Web Token which is set on a successful login and is required on every request to route `/users`.
   + All stored passwords are being encrypted with bcrypt.
+  + Each new user should validate its email via confirmation link.
 + Emails
   + Postmark API to send emails.
   + Email content is templated with mustache.js. Each template is a file.
@@ -52,14 +53,14 @@ Authenticated user can only access users, add user & user details views.
 
 ## Running the app
 
-**There is a default user with an email of '1' & password of '1'**
-**In order to run the application, either a valid Postmark API key & email from property have to be set, or sending emails should be disabled completely in the development.env file**
+**There is a default user with an email of '1' & password of '1'**\
+**In order to run the application, either a valid Postmark API key & email from property have to be set, or sending emails should be disabled completely in the development.env file**\
 
-back-end: `cd back-end` > `npm i` > `npm run-script build` > `npm run-script start-dev`
-front-end: `cd front-end` > `npm i` > `npm start`
+back-end: `cd back-end` > `npm i` > `npm run-script build` > `npm run-script start-dev`\
+front-end: `cd front-end` > `npm i` > `npm start`\
 
-`npm run-script lint` - run TSLint in front-end or back-end.
-`npm run-script test` - run back-end tests.
+`npm run-script lint` - run TSLint in front-end or back-end.\
+`npm run-script test` - run back-end tests.\
 
 ## Known issues
 
