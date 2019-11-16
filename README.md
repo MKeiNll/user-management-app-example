@@ -69,6 +69,6 @@ front-end: `cd front-end` > `npm i` > `npm start`
 + Errors are being sent with english-only messages & unique codes which are being mapped to corresponding translations in front-end. An actual error translations with language header being read from the request would be welcome.
 + Email templates are `.ts` files containing a default export of an HTML string. Actual `.html` templates would be welcome.
 + No front-end tests.
-+ Back-end tests do not cover all scenarios & routes.\
-+ Logged in user can delete himself (a bug or a feature?).
-+ Logger is terrible (e.g objects are being logged as `[object Object]`).
++ Back-end tests do not cover all scenarios & routes.
++ Logged in user can delete himself (is it a bug or a feature?).
++ Logger is bad (e.g objects are being logged as `[object Object]`).
