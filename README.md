@@ -54,13 +54,13 @@ Authenticated user can only access users, add user & user details views.
 ## Running the app
 
 **There is a default user with an email of '1' & password of '1'**\
-**In order to run the application, either a valid Postmark API key & email from property have to be set, or sending emails should be disabled completely in the development.env file**\
+**In order to run the application, either a valid Postmark API key & email from property have to be set, or sending emails should be disabled completely in the development.env file**
 
 back-end: `cd back-end` > `npm i` > `npm run-script build` > `npm run-script start-dev`\
-front-end: `cd front-end` > `npm i` > `npm start`\
+front-end: `cd front-end` > `npm i` > `npm start`
 
 `npm run-script lint` - run TSLint in front-end or back-end.\
-`npm run-script test` - run back-end tests.\
+`npm run-script test` - run back-end tests.
 
 ## Known issues
 
