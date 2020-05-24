@@ -1,4 +1,4 @@
-# user-management-app-example
+# User management app example
 
 A user management application.
 Consists of 2 parts - Express.js REST API & React SPA.
